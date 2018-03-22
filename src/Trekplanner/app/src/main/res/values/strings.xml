@@ -3,4 +3,25 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="item_status_1">OK</string>
+    <string name="item_status_2">Rikki</string>
+    <string name="item_status_3">Hukassa</string>
+
+    <string name="item_type_1">Varuste</string>
+    <string name="item_type_2">Kantoväline</string>
+    <string name="item_type_3">Ruoka</string>
+    <string name="item_type_4">Idea</string>
+    <string name="item_type_5">Muista</string>
+    <string name="item_type_6">Huomio</string>
+    <string name="item_type_7">Tehtävä</string>
+
+    <string name="trek_level_1">Helppo</string>
+    <string name="trek_level_2">Keskivaikea</string>
+    <string name="trek_level_3">Vaikea</string>
+
+    <string name="trek_item_status_1">Listalla</string>
+    <string name="trek_item_status_2">Mukana</string>
+    <string name="trek_item_status_3">Palautettu</string>
+
 </resources>
