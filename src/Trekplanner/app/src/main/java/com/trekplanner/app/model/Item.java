@@ -13,7 +13,7 @@ public class Item {
     private String name;
     private String notes;
     private String pic;
-    private boolean isDefault;
+    private int isDefault;
     private Double energy;
     private Double protein;
     private String deadline;
@@ -46,7 +46,7 @@ public class Item {
         this.pic = pic;
     }
 
-    public void setDefault(boolean aDefault) {
+    public void setDefault(int aDefault) {
         isDefault = aDefault;
     }
 
@@ -90,7 +90,7 @@ public class Item {
         return pic;
     }
 
-    public boolean isDefault() {
+    public int isDefault() {
         return isDefault;
     }
 
