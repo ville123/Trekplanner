@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/fab_margin"
+    android:layout_marginBottom="@dimen/fab_margin">
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editview_row_item_status_rbtgroup"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/editview_row_item_rbtn_status1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="@string/term_on_list"/>
+        <RadioButton
+            android:id="@+id/editview_row_item_rbtn_status2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="@string/term_packed"/>
+        <RadioButton
+            android:id="@+id/editview_row_item_rbtn_status3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="@string/term_returned"/>
+
+        <CheckBox
+            android:id="@+id/editview_row_item_was_used_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/term_was_used" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/term_notes"/>
+
+    <EditText
+        android:id="@+id/editview_row_item_notes_fld"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryTransparent"
+        android:inputType="textMultiLine"
+        android:overScrollMode="always"
+        android:gravity="top|left"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical"
+        android:lines="6"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:scrollHorizontally="false" />
+
+</LinearLayout>

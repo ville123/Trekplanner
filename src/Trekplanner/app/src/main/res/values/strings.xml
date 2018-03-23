@@ -4,6 +4,38 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="title_activity_login"></string>
+    <string name="action_settings">Asetukset</string>
+    <string name="term_item">Varuste</string>
+    <string name="term_items">Varusteet</string>
+    <string name="term_trek">Retki</string>
+    <string name="term_treks">Retket</string>
+    <string name="term_ok">OK</string>
+    <string name="term_lost">Hukassa</string>
+    <string name="term_broken">Rikki</string>
+    <string name="term_notes">Muistiinpanot</string>
+    <string name="term_description">Kuvaus</string>
+    <string name="term_kilogram">kg</string>
+    <string name="term_start_end">Alku-Loppupäivä</string>
+    <string name="term_on_list">Listalla</string>
+    <string name="term_packed">Pakattu</string>
+    <string name="term_returned">Palautettu</string>
+    <string name="term_data">Tiedot</string>
+    <string name="term_was_used">Käytetty</string>
+    <string name="term_pieces">kpl</string>
+
+    <string name="phrase_clear_db">Tyhjennä tietokanta</string>
+    <string name="phrase_load_defaults">Lataa oletukset</string>
+    <string name="phrase_help">Ohje...</string>
+    <string name="phrase_save_success">Tallennus onnistui</string>
+
+    <string name="enum_itemstatus1">1</string>
+    <string name="enum_itemstatus2">2</string>
+    <string name="enum_itemstatus3">3</string>
+    <string name="enum_itemtype1">1</string>
+    <string name="enum_itemtype2">2</string>
+    <string name="enum_itemtype3">3</string>
+
     <string name="item_status_1">OK</string>
     <string name="item_status_2">Rikki</string>
     <string name="item_status_3">Hukassa</string>

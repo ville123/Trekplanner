@@ -44,7 +44,7 @@ public class ItemActivity extends AppCompatActivity implements LoaderManager.Loa
         item.setName("Camera");
         item.setNotes("Canon E0S 70D");
         item.setPic("No picture");
-        item.setDefault(1);
+        item.setDefault(true);
         item.setEnergy(0.0);
         item.setProtein(0.0);
         item.setDeadline("23.3.2018");

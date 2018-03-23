@@ -6,7 +6,7 @@ package com.trekplanner.app.model;
 
 public class Trek {
 
-    private Integer _ID;
+    private Long id;
     private String start;
     private String end;
     private String startCoords;
@@ -17,12 +17,12 @@ public class Trek {
     private String level;
     private String lessonsLearned;
 
-    public Integer get_ID() {
-        return _ID;
+    public Long getId() {
+        return id;
     }
 
-    public void set_ID(Integer _ID) {
-        this._ID = _ID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getStart() {

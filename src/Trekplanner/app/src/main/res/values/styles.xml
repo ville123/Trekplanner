@@ -8,4 +8,23 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="view_header_style" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/header_textsize</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="floatingActionButton">
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="toolbar" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/header_textsize</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

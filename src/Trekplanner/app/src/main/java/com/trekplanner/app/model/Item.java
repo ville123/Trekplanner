@@ -6,20 +6,20 @@ package com.trekplanner.app.model;
 
 public class Item {
 
-    private Integer _ID;
+    private Integer id;
     private String type;
     private String status;
     private Double weight;
     private String name;
     private String notes;
     private String pic;
-    private int isDefault;
+    private boolean isDefault;
     private Double energy;
     private Double protein;
     private String deadline;
 
-    public void set_ID(Integer _ID) {
-        this._ID = _ID;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setType(String type) {
@@ -46,7 +46,7 @@ public class Item {
         this.pic = pic;
     }
 
-    public void setDefault(int aDefault) {
+    public void setDefault(boolean aDefault) {
         isDefault = aDefault;
     }
 
@@ -62,8 +62,8 @@ public class Item {
         this.deadline = deadline;
     }
 
-    public Integer get_ID() {
-        return _ID;
+    public Integer getId() {
+        return id;
     }
 
     public String getType() {
@@ -90,7 +90,7 @@ public class Item {
         return pic;
     }
 
-    public int isDefault() {
+    public boolean isDefault() {
         return isDefault;
     }
 
