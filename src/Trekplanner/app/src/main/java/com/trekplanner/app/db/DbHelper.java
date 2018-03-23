@@ -1,8 +1,18 @@
 package com.trekplanner.app.db;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.trekplanner.app.model.Item;
+import com.trekplanner.app.model.Trek;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by TBD on X.3.2018.
@@ -42,4 +52,30 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
+
+    public List<Item> getItems(Long trekId) {
+        return null;
+    }
+
+    public List<Trek> getTreks() {
+        return null;
+    }
+
+    public void addItem(Item item) {
+    }
+
+    public void addTrek(Trek trek) {
+    }
+
+    private void addTrekItem(Long trekId, Long itemId) {
+
+    }
+
+    public void saveTrek(Trek trek) {
+
+    }
+
+    public void saveItem(Item item) {
+    }
+
 }
