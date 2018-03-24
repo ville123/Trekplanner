@@ -32,11 +32,13 @@ public class TrekListFragment extends ListFragment {
     @Override
     protected void buildView(View view) {
         Log.d("TREK_TrekListFragment", "Building TrekList view");
-        TextView headerText = view.findViewById(R.id.view_header_text);
-        headerText.setText(R.string.term_treks);
+        ImageView headerImageView
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
+        TextView headerText
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
 
-        ImageView imageView = view.findViewById(R.id.view_header_image);
-        imageView.setImageResource(R.drawable.trek);
+        headerImageView.setImageResource(R.drawable.trek);
+        headerText.setText(R.string.term_treks);
     }
 
     @Override

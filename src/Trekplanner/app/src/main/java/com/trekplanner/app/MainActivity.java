@@ -1,17 +1,18 @@
 package com.trekplanner.app;
 
-import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.fragment.editable.ItemEditFragment;
 import com.trekplanner.app.fragment.editable.MainEditFragment;
@@ -30,11 +31,12 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     private Fragment itemListFragment;
     private Fragment trekListFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
         db = new DbHelper(this);
@@ -66,7 +68,22 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
         } else if (id == R.id.action_cleardatabase) {
             // TODO: clear database (drop)
             return true;
+        } else if (id == R.id.action_export) {
+            // TODO: export items and treks to a json/csv/xml file
+            return true;
+        } else if (id == R.id.action_import) {
+            // TODO: import items and treks from a json/csv/xml file
+            return true;
+        } else if (id == R.id.action_help) {
+            // TODO: show help -page
+            return true;
+        } else if (id == R.id.action_settings) {
+            // TODO: implement settings page
+            // settings saved to db?
+            return true;
         }
+
+        // TODO: implement search for the current context; item or trek
 
         return super.onOptionsItemSelected(item);
     }
@@ -104,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     }
 
     private void openItemList(){
+
+        // TODO: maybe use action bar for view header?
+        // getSupportActionBar().setTitle(R.string.term_items);
         openFragment(this.itemListFragment, false);
     }
 

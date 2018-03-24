@@ -35,22 +35,6 @@ public class TrekListAdapter extends ListviewAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-
-        final Trek trek = (Trek) getChild(groupPosition, childPosition);
-
-        Log.d("TREK_TrekListAdapter", "Getting list item #" + childPosition + " for group #" + groupPosition + " with trek desc " + trek.getDescription());
-
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.listview_row_trek_content_layout, null);
-        }
-
-        EditText notesFld = convertView
-                .findViewById(R.id.listview_trek_notes_fld);
-
-        notesFld.setText(String.valueOf(trek.getNotes()));
-
         return convertView;
     }
 

@@ -2,6 +2,8 @@ package com.trekplanner.app.fragment.listable;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.trekplanner.app.MainActivity;
 import com.trekplanner.app.R;

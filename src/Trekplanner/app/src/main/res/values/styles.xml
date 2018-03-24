@@ -11,7 +11,7 @@
     <style name="view_header_style" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/header_textsize</item>
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
     </style>
 
     <style name="floatingActionButton">

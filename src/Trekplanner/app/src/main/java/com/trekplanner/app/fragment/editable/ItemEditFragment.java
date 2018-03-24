@@ -33,11 +33,13 @@ public class ItemEditFragment extends EditFragment {
     @Override
     protected void buildView(View view) {
         Log.d("TREK_ItemEditFragment", "Building TrekEdit view");
-        TextView headerText = view.findViewById(R.id.view_header_text);
-        headerText.setText(R.string.term_item);
+        ImageView headerImageView
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
+        TextView headerText
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
 
-        ImageView imageView = view.findViewById(R.id.view_header_image);
-        imageView.setImageResource(R.drawable.item);
+        headerImageView.setImageResource(R.drawable.item);
+        headerText.setText(R.string.term_item);
 
     }
 

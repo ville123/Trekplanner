@@ -28,6 +28,9 @@
     <string name="phrase_load_defaults">Lataa oletukset</string>
     <string name="phrase_help">Ohje...</string>
     <string name="phrase_save_success">Tallennus onnistui</string>
+    <string name="phrase_export">Vie...</string>
+    <string name="phrase_import">Tuo...</string>
+    <string name="phrase_search">Hae</string>
 
     <string name="enum_itemstatus1">1</string>
     <string name="enum_itemstatus2">2</string>
@@ -55,5 +58,8 @@
     <string name="trek_item_status_1">Listalla</string>
     <string name="trek_item_status_2">Mukana</string>
     <string name="trek_item_status_3">Palautettu</string>
+
+    <string name="expand_marks">...</string>
+    <string name="phrase_settings">Asetukset</string>
 
 </resources>

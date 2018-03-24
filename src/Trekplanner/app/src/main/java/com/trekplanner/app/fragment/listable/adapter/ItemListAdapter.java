@@ -120,6 +120,10 @@ public class ItemListAdapter extends ListviewAdapter {
                 .findViewById(R.id.listview_row_header_text);
         textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
 
+        TextView expandMark
+                = convertView.findViewById(R.id.listview_row_header_expandtext);
+        expandMark.setText(R.string.expand_marks);
+
         ImageView imageView = convertView.findViewById(R.id.listview_row_header_image);
         String type = String.valueOf(item.getType());
 

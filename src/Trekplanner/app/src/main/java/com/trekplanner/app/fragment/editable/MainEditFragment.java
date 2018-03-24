@@ -35,12 +35,14 @@ public class MainEditFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.editview_tab_layout, container, false);
 
-        TextView headerText = view.findViewById(R.id.view_header_text);
-        ImageView imageView = view.findViewById(R.id.view_header_image);
+        ImageView headerImageView
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
+        TextView headerText
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
 
         // todo: if Item then item terms
         headerText.setText(R.string.term_trek);
-        imageView.setImageResource(R.drawable.trek);
+        headerImageView.setImageResource(R.drawable.trek);
 
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.term_data));
