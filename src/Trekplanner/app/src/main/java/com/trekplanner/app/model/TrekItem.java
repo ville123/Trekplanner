@@ -12,7 +12,7 @@ public class TrekItem  {
     private String notes;
     private Double totalWeight;
     private String status;
-    private int was_used;
+    private boolean was_used;
 
     public void setItem_ID(int item_ID){
         this.item_ID = item_ID;
@@ -38,7 +38,7 @@ public class TrekItem  {
         this.status = status;
     }
 
-    public void setWas_used(int was_used){
+    public void setWas_used(boolean was_used){
         this.was_used = was_used;
     }
 
@@ -66,7 +66,7 @@ public class TrekItem  {
         return status;
     }
 
-    public int getWas_used(){
+    public boolean getWas_used(){
         return was_used;
     }
 }

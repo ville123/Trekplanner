@@ -144,9 +144,20 @@ public class DbHelper extends SQLiteOpenHelper {
                 + COLUMN_TREK_LEVEL + " TEXT, "
                 + COLUMN_TREK_LESSONS + " TEXT );";
 
+        String SQL_CREATE_TREKITEM_TABLE = "CREATE TABLE " + TREKITEM_TABLE_NAME + " ("
+                + TREKITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_TREKITEM_ITEMS_ID + " INTEGER, "
+                + COLUMN_TREKITEM_TREK_ID + " INTEGER, "
+                + COLUMN_TREKITEM_COUNT + " INTEGER NOT NULL, "
+                + COLUMN_TREKITEM_NOTES + " TEXT, "
+                + COLUMN_TREKITEM_TOTALWEIGHT + " REAL, "
+                + COLUMN_TREKITEM_STATUS + " TEXT, "
+                + COLUMN_TREKITEM_WASUSED + " INTEGER );";
+
         //Excute database statement
         sqLiteDatabase.execSQL(SQL_CREATE_ITEM_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_TREK_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_TREKITEM_TABLE);
 
     }
 
