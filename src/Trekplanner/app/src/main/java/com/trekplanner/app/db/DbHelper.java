@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.trekplanner.app.R;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.model.TrekItem;
@@ -371,7 +370,7 @@ public class DbHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         Item item = new Item();
-        item.setId(cursor.getLong(cursor.getColumnIndex(_ID)));
+		item.setId(cursor.getLong(cursor.getColumnIndex(_ID)));
         item.setType(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_TYPE)));
         item.setStatus(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_STATUS)));
         item.setWeight(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_WEIGHT)));
@@ -399,7 +398,7 @@ public class DbHelper extends SQLiteOpenHelper {
         //Looping through all rows and adding to list
         while(cursor.moveToFirst()){
             Item item = new Item();
-            item.setId(cursor.getLong(cursor.getColumnIndex(_ID)));
+			item.setId(cursor.getLong(cursor.getColumnIndex(_ID)));
             item.setType(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_TYPE)));
             item.setStatus(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_STATUS)));
             item.setWeight(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_WEIGHT)));
