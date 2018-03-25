@@ -43,8 +43,20 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:id="@+id/editview_row_substract_count_button"
+            android:src="@android:drawable/btn_minus"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/editview_row_add_count_button"
-            android:src="@android:drawable/ic_menu_add"/>
+            android:src="@android:drawable/btn_plus"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/editview_row_delete_button"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"/>
 
     </LinearLayout>
 

@@ -30,14 +30,13 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     private DbHelper db;
     private Fragment itemListFragment;
     private Fragment trekListFragment;
+    private Menu menu;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         db = new DbHelper(this);
 
@@ -57,8 +56,22 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d("TREK_MainActivity", "Creating actionbar menu");
+        getMenuInflater().inflate(R.menu.action_bar_menu, menu);
+
+        // by default the search is hidden
+        menu.findItem(R.id.action_search).setVisible(false);
+
+        // save the menu object for later use in showing search action where needed
+        this.menu = menu;
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // action bar action selected
+
         Log.d("TREK_MainActivity", "Actionbar action selected");
         int id = item.getItemId();
 
@@ -86,13 +99,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
         // TODO: implement search for the current context; item or trek
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d("TREK_MainActivity", "Creating actionbar menu");
-        getMenuInflater().inflate(R.menu.action_bar_menu, menu);
-        return true;
     }
 
     // Floating button clicked on some listview
@@ -124,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
 
         // TODO: maybe use action bar for view header?
         // getSupportActionBar().setTitle(R.string.term_items);
+
+        this.menu.findItem(R.id.action_search).setVisible(true);
+
         openFragment(this.itemListFragment, false);
     }
 

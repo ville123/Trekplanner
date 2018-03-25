@@ -131,9 +131,9 @@ public class TrekItemListAdapter extends ListviewAdapter {
             imageView.setImageResource(R.drawable.backpack);
         }
 
-        ImageView button = convertView.findViewById(R.id.editview_row_add_count_button);
+        ImageView addBtn = convertView.findViewById(R.id.editview_row_add_count_button);
 
-        button.setOnClickListener(new ImageView.OnClickListener() {
+        addBtn.setOnClickListener(new ImageView.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -143,6 +143,40 @@ public class TrekItemListAdapter extends ListviewAdapter {
                         .setAction("Action", null).show();
 
                 //TODO: add and save trekitem count + 1
+                //actionListener.onForwardButtonClick(item);
+
+            }
+        });
+
+        ImageView subBtn = convertView.findViewById(R.id.editview_row_substract_count_button);
+
+        subBtn.setOnClickListener(new ImageView.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Log.d("TREK_TrekItemListAdaptr", "Clicked substract count for item " + item.getName());
+                Snackbar.make(view, "Clicked substract count for item " + item.getName(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+                //TODO: add and save trekitem count 1 1
+                //actionListener.onForwardButtonClick(item);
+
+            }
+        });
+
+        ImageView delBtn = convertView.findViewById(R.id.editview_row_delete_button);
+
+        subBtn.setOnClickListener(new ImageView.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Log.d("TREK_TrekItemListAdaptr", "Clicked delete for item " + item.getName());
+                Snackbar.make(view, "Clicked delete for item " + item.getName(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+                //TODO: delete item from trek
                 //actionListener.onForwardButtonClick(item);
 
             }
