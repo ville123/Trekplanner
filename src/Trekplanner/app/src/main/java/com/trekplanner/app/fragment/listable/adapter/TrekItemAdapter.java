@@ -10,19 +10,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.trekplanner.app.R;
-import com.trekplanner.app.model.Item;
+import com.trekplanner.app.model.TrekItem;
 
 import java.util.List;
 
-public class TrekItemListAdapter extends ListviewAdapter {
+/**
+ * Created by Sami
+ *
+ * Adapter for trekitems
+ */
+public class TrekItemAdapter extends ListAdapter {
 
-    private List<Item> listRows;
+    private List<TrekItem> listRows;
 
-    public TrekItemListAdapter(Context context) {
+    public TrekItemAdapter(Context context) {
         super(context);
     }
 
-    public void setListRows(List<Item> rows) {
+    public void setListRows(List<TrekItem> rows) {
         this.listRows = rows;
     }
 
@@ -35,9 +40,9 @@ public class TrekItemListAdapter extends ListviewAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final Item item = (Item) getChild(groupPosition, childPosition);
+        final TrekItem trekItem = (TrekItem) getChild(groupPosition, childPosition);
 
-        Log.d("TREK_TrekItemListAdaptr", "Getting list item #" + childPosition + " for group #" + groupPosition + " with itemname " + item.getName());
+        Log.d("TREK_TrekItemListAdaptr", "Getting list trekItem #" + childPosition + " for group #" + groupPosition + " with itemname " + trekItem.getItem().getName());
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
@@ -49,7 +54,7 @@ public class TrekItemListAdapter extends ListviewAdapter {
         RadioButton rbtn2 = convertView.findViewById(R.id.listview_item_rbtn_status2);
         RadioButton rbtn3 = convertView.findViewById(R.id.listview_item_rbtn_status3);
 
-        String status = String.valueOf(item.getStatus());
+        String status = String.valueOf(trekItem.getStatus());
 
         if (status.equals(convertView.getContext().getString(R.string.enum_itemstatus1))) {
             rbtn1.setChecked(true);
@@ -69,16 +74,16 @@ public class TrekItemListAdapter extends ListviewAdapter {
                 RadioButton radioButton = finalConvertView.findViewById(checkedId);
 
                 if (radioButton.getId() == R.id.listview_item_rbtn_status2) {
-                    item.setStatus(1);
+                    trekItem.setStatus(1);
                 } else if (radioButton.getId() == R.id.listview_item_rbtn_status2) {
-                    item.setStatus(2);
+                    trekItem.setStatus(2);
                 } else if (radioButton.getId() == R.id.listview_item_rbtn_status3) {
-                    item.setStatus(3);
+                    trekItem.setStatus(3);
                 }
 
                 // TODO: save status
-                Log.d("TREK/TrekItemListAdapter.getChildView.Radiobutton.onChangeListener", "Item status changed for item " + item.getName() + " to " + radioButton.getText());
-                Snackbar.make(finalConvertView, "Item status changed for item " + item.getName() + " to " + radioButton.getText(), Snackbar.LENGTH_LONG)
+                Log.d("TREK/TrekItemAdapter.getChildView.Radiobutton.onChangeListener", "Item status changed for trekItem " + trekItem.getName() + " to " + radioButton.getText());
+                Snackbar.make(finalConvertView, "Item status changed for trekItem " + trekItem.getName() + " to " + radioButton.getText(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -101,9 +106,9 @@ public class TrekItemListAdapter extends ListviewAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
 
-        final Item item = (Item) getGroup(groupPosition);
+        final TrekItem trekItem = (TrekItem) getGroup(groupPosition);
 
-        Log.d("TREK_TrekItemListAdaptr", "Getting group item #" + groupPosition + " with groupname " + item.getName());
+        Log.d("TREK_TrekItemListAdaptr", "Getting group trekitem #" + groupPosition);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context
@@ -113,15 +118,14 @@ public class TrekItemListAdapter extends ListviewAdapter {
 
         TextView headlineTextView = convertView
                 .findViewById(R.id.editview_row_header_headline);
-        headlineTextView.setText(item.getName());
+        headlineTextView.setText(trekItem.getItem().getName());
 
         TextView textView = convertView
                 .findViewById(R.id.editview_row_header_text);
-        //textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
-        textView.setText("2 " + convertView.getContext().getString(R.string.term_pieces));
+        textView.setText(trekItem.getCount() + convertView.getContext().getString(R.string.term_pieces));
 
         ImageView imageView = convertView.findViewById(R.id.editview_row_header_image);
-        String type = String.valueOf(item.getType());
+        String type = String.valueOf(trekItem.getItem().getType());
 
         if (type.equals(convertView.getContext().getString(R.string.enum_itemtype1))) {
             imageView.setImageResource(R.drawable.idea);
@@ -138,12 +142,12 @@ public class TrekItemListAdapter extends ListviewAdapter {
             @Override
             public void onClick(View view) {
 
-                Log.d("TREK_TrekItemListAdaptr", "Clicked add count for item " + item.getName());
-                Snackbar.make(view, "Clicked add count for item " + item.getName(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Log.d("TREK_TrekItemListAdaptr", "Clicked add count for item " + trekItem.getItem().getName());
 
-                //TODO: add and save trekitem count + 1
-                //actionListener.onForwardButtonClick(item);
+                trekItem.setCount(trekItem.getCount() + 1);
+
+                actionListener.onModifyCountButtonClicked(trekItem);
+                notifyDataSetChanged();
 
             }
         });
@@ -155,30 +159,27 @@ public class TrekItemListAdapter extends ListviewAdapter {
             @Override
             public void onClick(View view) {
 
-                Log.d("TREK_TrekItemListAdaptr", "Clicked substract count for item " + item.getName());
-                Snackbar.make(view, "Clicked substract count for item " + item.getName(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Log.d("TREK_TrekItemListAdaptr", "Clicked substract count for item " + trekItem.getItem().getName());
 
-                //TODO: add and save trekitem count 1 1
-                //actionListener.onForwardButtonClick(item);
+                if (trekItem.getCount() > 0) {
+                    trekItem.setCount(trekItem.getCount() - 1);
+                    actionListener.onModifyCountButtonClicked(trekItem);
+                    notifyDataSetChanged();
+                }
 
             }
         });
 
         ImageView delBtn = convertView.findViewById(R.id.editview_row_delete_button);
 
-        subBtn.setOnClickListener(new ImageView.OnClickListener() {
+        delBtn.setOnClickListener(new ImageView.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                Log.d("TREK_TrekItemListAdaptr", "Clicked delete for item " + item.getName());
-                Snackbar.make(view, "Clicked delete for item " + item.getName(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Log.d("TREK_TrekItemListAdaptr", "Clicked delete for item " + trekItem.getItem().getName());
 
-                //TODO: delete item from trek
-                //actionListener.onForwardButtonClick(item);
-
+                actionListener.onDeleteButtonClicked(trekItem.getId());
             }
         });
 

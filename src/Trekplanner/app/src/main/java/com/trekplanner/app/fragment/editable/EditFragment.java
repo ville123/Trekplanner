@@ -10,6 +10,12 @@ import android.view.ViewGroup;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 
+/**
+ * Created by Sami
+ *
+ * Base Class for all edit fragments.
+ * Adds floating action buttons for the view
+ */
 public abstract class EditFragment extends Fragment implements View.OnClickListener {
 
     DbHelper db;

@@ -8,15 +8,21 @@ import android.widget.TextView;
 import com.trekplanner.app.MainActivity;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
-import com.trekplanner.app.fragment.listable.adapter.ItemListAdapter;
+import com.trekplanner.app.fragment.listable.adapter.ItemAdapter;
 import com.trekplanner.app.utils.AppUtils;
 
+/**
+ * Created by Sami
+ *
+ * Fragment for Item list
+ */
 public class ItemListFragment extends ListFragment {
 
     private static ItemListFragment instance;
 
     public static ItemListFragment getInstance(DbHelper db) {
         Log.d("TREK_ItemListFrag", "Returning ItemListFragment -instance");
+        // using singelton -pattern for itemlist
         if (instance == null) {
             instance = new ItemListFragment();
             instance.db = db;
@@ -33,6 +39,7 @@ public class ItemListFragment extends ListFragment {
     protected void buildView(View view) {
         Log.d("TREK_ItemListFrag", "Building ItemList view");
 
+        // setting page header content
         ImageView headerImageView
                 = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
         TextView headerText
@@ -45,7 +52,9 @@ public class ItemListFragment extends ListFragment {
     @Override
     protected void prepareListViewData() {
         Log.d("TREK_ItemListFrag", "Preparing ItemListView data with item rowid " + this.rowId);
-        ItemListAdapter adapter = new ItemListAdapter(this.getActivity());
+        ItemAdapter adapter = new ItemAdapter(this.getActivity());
+
+        // itemlist contains items from db
         adapter.setListRows(db.getItems(null));
         listView.setAdapter(adapter);
     }

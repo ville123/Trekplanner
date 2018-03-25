@@ -2,22 +2,29 @@ package com.trekplanner.app.fragment.listable;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.trekplanner.app.MainActivity;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
-import com.trekplanner.app.fragment.listable.adapter.TrekItemListAdapter;
+import com.trekplanner.app.fragment.listable.adapter.TrekItemAdapter;
 import com.trekplanner.app.utils.AppUtils;
 
+/**
+ * Created by Sami
+ *
+ * Fragment for TrekItem list
+ */
 public class TrekItemListFragment extends ListFragment {
 
-    public static TrekItemListFragment getNewInstance(DbHelper db, Long id) {
+    public static TrekItemListFragment getNewInstance(DbHelper db, Long trekId) {
         Log.d("TREK_TrekItemListFrag", "Returning  new TrekItemListFragment -instance");
+
+        // cant use singelton -pattern for trekitems since context (trek) is changing
         TrekItemListFragment instance = new TrekItemListFragment();
         instance.db = db;
-        instance.rowId = id;
+
+        // id ties this instance to a certain trek
+        instance.rowId = trekId;
         return instance;
     }
 
@@ -28,14 +35,18 @@ public class TrekItemListFragment extends ListFragment {
 
     @Override
     protected void buildView(View view) {
+
+        // nothing to build since trekitem -list has no page header (it is handled by MainEditFragment (tab-layout)
         Log.d("TREK_TrekItemListFrag", "Building ItemList view");
     }
 
     @Override
     protected void prepareListViewData() {
         Log.d("TREK_TrekItemListFrag", "Preparing ItemListView data with item rowid " + this.rowId);
-        TrekItemListAdapter adapter = new TrekItemListAdapter(this.getActivity());
-        adapter.setListRows(db.getItems(this.rowId));
+        TrekItemAdapter adapter = new TrekItemAdapter(this.getActivity());
+
+        // treklist contains items for a trek from db
+        adapter.setListRows(db.getTrekItems(this.rowId));
         listView.setAdapter(adapter);
     }
 

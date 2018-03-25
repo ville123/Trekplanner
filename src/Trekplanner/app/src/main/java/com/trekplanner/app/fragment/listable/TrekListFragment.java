@@ -8,15 +8,22 @@ import android.widget.TextView;
 import com.trekplanner.app.MainActivity;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
-import com.trekplanner.app.fragment.listable.adapter.TrekListAdapter;
+import com.trekplanner.app.fragment.listable.adapter.TrekAdapter;
 import com.trekplanner.app.utils.AppUtils;
 
+/**
+ * Created by Sami
+ *
+ * Fragment for Trek list
+ */
 public class TrekListFragment extends ListFragment {
 
     private static TrekListFragment instance;
 
     public static TrekListFragment getInstance(DbHelper db) {
         Log.d("TREK_TrekListFragment", "Returning TrekListFragment -instance");
+
+        // using singelton -pattern for treklist
         if (instance == null) {
             instance = new TrekListFragment();
             instance.db = db;
@@ -32,6 +39,8 @@ public class TrekListFragment extends ListFragment {
     @Override
     protected void buildView(View view) {
         Log.d("TREK_TrekListFragment", "Building TrekList view");
+
+        // setting page header content
         ImageView headerImageView
                 = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
         TextView headerText
@@ -44,7 +53,9 @@ public class TrekListFragment extends ListFragment {
     @Override
     protected void prepareListViewData() {
         Log.d("TREK_TrekListFragment", "Preparing TrekListView data");
-        TrekListAdapter adapter = new TrekListAdapter(this.getActivity());
+        TrekAdapter adapter = new TrekAdapter(this.getActivity());
+
+        // treklist contains treks from db
         adapter.setListRows(db.getTreks());
         listView.setAdapter(adapter);
     }

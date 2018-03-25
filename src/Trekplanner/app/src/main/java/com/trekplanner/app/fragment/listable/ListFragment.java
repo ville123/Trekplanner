@@ -10,15 +10,26 @@ import android.widget.ExpandableListView;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
+import com.trekplanner.app.model.Item;
+import com.trekplanner.app.model.TrekItem;
 
+/**
+ * Created by Sami
+ *
+ * Base class for all list fragments
+ */
 public abstract class ListFragment extends Fragment implements View.OnClickListener {
 
     ExpandableListView listView;
-    Long rowId;
+    Long rowId; // ties this instance to a certain item or trek
     DbHelper db;
 
+    // interface for handling actions from adapter -level
     public interface ListViewActionListener {
         void onForwardButtonClick(Object o);
+        void onModifyCountButtonClicked(TrekItem trekItem);
+        void onDeleteButtonClicked(Long rowId);
+        void saveButtonClicked(Item item);
     }
 
     @Override
@@ -27,6 +38,7 @@ public abstract class ListFragment extends Fragment implements View.OnClickListe
 
         super.onCreateView(inflater, container, savedInstanceState);
 
+        // getlayout is called for subclass, thus returning specific layout for subclass
         View view = inflater.inflate(getLayout(), container, false);
 
         FloatingActionButton fab = view.findViewById(R.id.listview_floating_action_btn);
@@ -34,11 +46,13 @@ public abstract class ListFragment extends Fragment implements View.OnClickListe
 
         listView = view.findViewById(R.id.expandable_listview);
 
+        // hides the >-mark from the header
         listView.setGroupIndicator(null);
 
+        // prepareListViewData is called for subclass, thus adding subclass specific data to list
         prepareListViewData();
 
-        // sulkee muut rivit kun avaa uuden
+        // closes all other rows than the clicked one
         listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousItem = -1;
 
@@ -50,6 +64,7 @@ public abstract class ListFragment extends Fragment implements View.OnClickListe
             }
         });
 
+        // buildView is called for subclass, thus building subclass specific view
         buildView(view);
 
         return view;

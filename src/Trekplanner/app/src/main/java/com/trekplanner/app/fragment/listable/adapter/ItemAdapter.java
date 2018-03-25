@@ -16,11 +16,16 @@ import com.trekplanner.app.model.Item;
 
 import java.util.List;
 
-public class ItemListAdapter extends ListviewAdapter {
+/**
+ * Created by Sami
+ *
+ * Adapter for itemlist
+ */
+public class ItemAdapter extends ListAdapter {
 
     private List<Item> listRows;
 
-    public ItemListAdapter(Context context) {
+    public ItemAdapter(Context context) {
         super(context);
     }
 
@@ -78,10 +83,8 @@ public class ItemListAdapter extends ListviewAdapter {
                     item.setStatus("3");
                 }
 
-                // TODO: save status
+                actionListener.saveButtonClicked(item);
                 Log.d("TREK_ItemListAdaptr", "Item status changed for item " + item.getName() + " to " + radioButton.getText());
-                Snackbar.make(finalConvertView, "Item status changed for item " + item.getName() + " to " + radioButton.getText(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
 

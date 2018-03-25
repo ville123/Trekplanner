@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,11 +14,16 @@ import com.trekplanner.app.model.Trek;
 
 import java.util.List;
 
-public class TrekListAdapter extends ListviewAdapter {
+/**
+ * Created by Sami
+ *
+ * Adapter for treklist
+ */
+public class TrekAdapter extends ListAdapter {
 
     private List<Trek> listRows;
 
-    public TrekListAdapter(Context context) {
+    public TrekAdapter(Context context) {
         super(context);
     }
 

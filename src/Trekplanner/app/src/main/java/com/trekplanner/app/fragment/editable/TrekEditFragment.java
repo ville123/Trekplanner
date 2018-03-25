@@ -10,6 +10,11 @@ import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.model.Trek;
 
+/**
+ * Created by Sami
+ *
+ * Edit fragment for Treks
+ */
 public class TrekEditFragment extends EditFragment {
 
     private Trek trek;
@@ -28,9 +33,8 @@ public class TrekEditFragment extends EditFragment {
         CoordinatorLayout parentView = (CoordinatorLayout) view.getParent();
         EditText startField = parentView.findViewById(R.id.editview_trek_start_fld);
         this.trek.setStart(startField.getText().toString());
-        // TODO: add all fields
 
-        // TODO: save or update item
+        // TODO: add all fields
 
         db.saveTrek(this.trek);
 

@@ -6,7 +6,7 @@ package com.trekplanner.app.model;
 
 public class Item {
 
-    private Integer id;
+    private Long id;
     private String type;
     private String status;
     private Double weight;
@@ -18,7 +18,7 @@ public class Item {
     private Double protein;
     private String deadline;
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -62,7 +62,7 @@ public class Item {
         this.deadline = deadline;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

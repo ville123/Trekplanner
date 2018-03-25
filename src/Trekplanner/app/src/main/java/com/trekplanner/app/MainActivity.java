@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,8 +24,16 @@ import com.trekplanner.app.fragment.listable.TrekItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekListFragment;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
+import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;
 
+/**
+ * Created by Sami
+ *
+ * Main activity.
+ *
+ * Handles all the UI navigation actions
+ */
 public class MainActivity extends AppCompatActivity implements ListFragment.ListViewActionListener {
 
     private DbHelper db;
@@ -37,9 +46,15 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
+        // this instace of dbHelper is used everywhere
+        // no other instances should be created
         db = new DbHelper(this);
 
+        // item and trek -list context will not change, only the content
+        // thus singletons can be used
         itemListFragment = ItemListFragment.getInstance(db);
         trekListFragment = TrekListFragment.getInstance(db);
 
@@ -52,11 +67,14 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     protected void onStart() {
         super.onStart();
         Log.d("TREK_MainActivity", "opening item list");
+
+        // TODO: for now item list is opened as default before the left menu is implemented
         openItemList();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         Log.d("TREK_MainActivity", "Creating actionbar menu");
         getMenuInflater().inflate(R.menu.action_bar_menu, menu);
 
@@ -96,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
             return true;
         }
 
-        // TODO: implement search for the current context; item or trek
+        // TODO: implement search for items
 
         return super.onOptionsItemSelected(item);
     }
@@ -104,6 +122,12 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     // Floating button clicked on some listview
     public void onListViewActionButtonClick(String listId, View view) {
         Log.d("TREK_MainActivity", "List view floating button clicked");
+
+        // TODO: for now this action toggles between item and trek -lists
+        // until -left menu is implemented
+
+        // TODO: Item / trek editor should be opened here for creating new object
+
         if (listId.equals(AppUtils.ITEM_LIST_ACTION_ID)) {
             openTrekList();
         } else if (listId.equals(AppUtils.TREK_LIST_ACTION_ID)) {
@@ -126,12 +150,33 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
         }
     }
 
+    // add or substract count -button clicked on trekitem listview
+    @Override
+    public void onModifyCountButtonClicked(TrekItem trekItem) {
+        db.saveTrekItem(trekItem);
+    }
+
+    // delete -button clicked on trekitem listview
+    @Override
+    public void onDeleteButtonClicked(Long rowId) {
+        db.deleteTrekItem(rowId);
+        // TODO: show OK or error message for user
+    }
+
+    // save action fired from itemlistview
+    @Override
+    public void saveButtonClicked(Item item) {
+
+    }
+
     private void openItemList(){
 
         // TODO: maybe use action bar for view header?
         // getSupportActionBar().setTitle(R.string.term_items);
 
-        this.menu.findItem(R.id.action_search).setVisible(true);
+        // TODO: cant do this since openItemList() is called before menu is set
+        //MenuItem item = this.menu.findItem(R.id.action_search);
+        //item.setVisible(true);
 
         openFragment(this.itemListFragment, false);
     }
@@ -146,7 +191,11 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     }
 
     private void openTrekPage(Trek trek) {
-        //openFragment(TrekEditFragment.getInstance(db, trek), true);
+
+        // opening tab -layout by using MainEditFragment
+
+        // since edit fragment context changes (some item / trek),
+        // a new instances are always created
         openFragment(
                 MainEditFragment.getNewInstance(
                         TrekEditFragment.getNewInstance(db, trek),
@@ -163,7 +212,10 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.frag_container, fragment);
+
+        // if added to back stack, android back -button gets back to previous page
         if (addToBackStack)  ft.addToBackStack(fragment.getClass().getName());
+
         ft.commit();
 
     }

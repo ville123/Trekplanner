@@ -1,81 +1,90 @@
 package com.trekplanner.app.model;
 
 /**
- * Created by sami on 16.3.2018.
+ * Created by Shakur on 24.3.2018.
  */
 
-public class TrekItem {
+public class TrekItem  {
 
-    private Integer id;
-    private Integer itemId;
-    private Integer trekId;
-    private Integer count;
+    private Long id;
+    private Long item_ID;
+    private Long trek_ID;
+    private int count;
     private String notes;
     private Double totalWeight;
     private String status;
-    private boolean wasUsed;
+    private boolean was_used;
+    private Item item;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public void setItem_ID(Long item_ID){
+        this.item_ID = item_ID;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setTrek_ID(Long trek_ID){
+        this.trek_ID = trek_ID;
     }
 
-    public Integer getTrekId() {
-        return trekId;
-    }
-
-    public void setTrekId(Integer trekId) {
-        this.trekId = trekId;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
+    public void setCount(int count){
         this.count = count;
     }
 
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
+    public void setNotes(String notes){
         this.notes = notes;
     }
 
-    public Double getTotalWeight() {
-        return totalWeight;
-    }
-
-    public void setTotalWeight(Double totalWeight) {
+    public void setTotalWeight(double totalWeight){
         this.totalWeight = totalWeight;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
+    public void setStatus(String status){
         this.status = status;
     }
 
-    public boolean isWasUsed() {
-        return wasUsed;
+    public void setWas_used(boolean was_used){
+        this.was_used = was_used;
     }
 
-    public void setWasUsed(boolean wasUsed) {
-        this.wasUsed = wasUsed;
+    public Long getId() {
+        return id;
+    }
+
+    public Long getItem_ID(){
+        return item_ID;
+    }
+
+    public Long getTrek_ID(){
+        return trek_ID;
+    }
+
+    public int getCount(){
+        return count;
+    }
+
+    public String getNotes(){
+        return notes;
+    }
+
+    public Double getTotalWeight(){
+        return totalWeight;
+    }
+
+    public String getStatus(){
+        return status;
+    }
+
+    public boolean getWas_used(){
+        return was_used;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Item getItem() {
+        return item;
     }
 }

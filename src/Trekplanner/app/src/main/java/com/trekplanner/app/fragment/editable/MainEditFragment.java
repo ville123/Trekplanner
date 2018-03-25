@@ -16,6 +16,12 @@ import com.trekplanner.app.R;
 import com.trekplanner.app.fragment.listable.ListFragment;
 import com.trekplanner.app.fragment.listable.adapter.TabAdapter;
 
+/**
+ * Created by Sami
+ *
+ * Main fragment for item and trek edit fragments.
+ * Handles tab-layout stuff
+ */
 public class MainEditFragment extends Fragment {
 
     private EditFragment editFragment;
@@ -44,6 +50,7 @@ public class MainEditFragment extends Fragment {
         headerText.setText(R.string.term_trek);
         headerImageView.setImageResource(R.drawable.trek);
 
+        // create tab layout and adapter
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.term_data));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.term_items));
@@ -56,12 +63,14 @@ public class MainEditFragment extends Fragment {
         final TabAdapter adapter = new TabAdapter
                 (context.getSupportFragmentManager());
 
+        // adapter shows edit for trek and list for trekitems
         adapter.addTabContent(this.editFragment);
         adapter.addTabContent(this.listFragment);
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        // TODO: find out replacement for deprecation
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
