@@ -501,7 +501,7 @@ public class DbHelper extends SQLiteOpenHelper {
         if(titem.getId() != null){
             db.insert(TREKITEM_TABLE_NAME, null, values);
         }else{
-            db.update(TREKITEM_TABLE_NAME, values, _ID + " = ?", null);
+            db.update(TREKITEM_TABLE_NAME, values, TREKITEM_ID + " = ?", null);
         }
     }
 
