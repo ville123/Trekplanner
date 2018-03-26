@@ -314,7 +314,11 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TREK_LEVEL, trek.getLevel());
         values.put(COLUMN_TREK_LESSONS, trek.getLessonsLearned());
 
-        db.update(TREK_TABLE_NAME, values, TREK_ID + " = ?", null);
+        if(trek.getId() != null){
+            addTrek(trek);
+        }else{
+            db.update(TREK_TABLE_NAME, values, TREK_ID + " = ?", null);
+        }
     }
 
     public void saveItem(Item item) {
@@ -340,7 +344,11 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_ITEM_PROTEIN, item.getProtein());
         values.put(COLUMN_ITEM_DEADLINE, item.getDeadline());
 
-        db.update(TABLE_NAME, values, _ID + " = ?", null);
+        if(item.getId() != null){
+            addItem(item);
+        }else{
+            db.update(TABLE_NAME, values, _ID + " = ?", null);
+        }
     }
 
     /**
@@ -479,9 +487,28 @@ public class DbHelper extends SQLiteOpenHelper {
     }
     public void saveTrekItem(TrekItem titem) {
         // TODO
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getItem_ID());
+        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getTrek_ID());
+        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getCount());
+        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getNotes());
+        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getTotalWeight());
+        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getStatus());
+        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getWas_used());
+
+        if(titem.getId() != null){
+            db.insert(TREKITEM_TABLE_NAME, null, values);
+        }else{
+            db.update(TREKITEM_TABLE_NAME, values, _ID + " = ?", null);
+        }
     }
 
     public void deleteTrekItem(Long rowId) {
         //TODO
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TREKITEM_TABLE_NAME, TREKITEM_ID + " = ?",
+                new String[] { String.valueOf(rowId) });
     }
 }
