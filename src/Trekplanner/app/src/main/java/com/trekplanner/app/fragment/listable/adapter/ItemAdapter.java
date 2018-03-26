@@ -128,15 +128,26 @@ public class ItemAdapter extends ListAdapter {
         expandMark.setText(R.string.expand_marks);
 
         ImageView imageView = convertView.findViewById(R.id.listview_row_header_image);
-        String type = String.valueOf(item.getType());
 
-        if (type.equals(convertView.getContext().getString(R.string.enum_itemtype1))) {
-            imageView.setImageResource(R.drawable.idea);
-        } else if (type.equals(convertView.getContext().getString(R.string.enum_itemtype2))) {
-            imageView.setImageResource(R.drawable.food);
-        } else if (type.equals(convertView.getContext().getString(R.string.enum_itemtype3))) {
+        if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype1))) {
+            imageView.setImageResource(R.drawable.item);
+        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype2))) {
             imageView.setImageResource(R.drawable.backpack);
+        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype3))) {
+            imageView.setImageResource(R.drawable.food);
+        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype4))) {
+            imageView.setImageResource(R.drawable.idea);
+        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype5))) {
+            imageView.setImageResource(R.drawable.remember);
+        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype6))) {
+            imageView.setImageResource(R.drawable.remember);
+        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype7))) {
+            imageView.setImageResource(R.drawable.task);
         }
+        // TODO: create "keittiöväline" icon
+        //else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype8))) {
+        //     imageView.setImageResource(R.drawable.cutlery);
+        //}
 
         ImageView button = convertView.findViewById(R.id.listview_forward_button);
 

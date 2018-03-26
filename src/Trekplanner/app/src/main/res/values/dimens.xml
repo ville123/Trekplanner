@@ -3,5 +3,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="header_textsize">18dp</dimen>
     <dimen name="normal_textsize">12dp</dimen>
+    <dimen name="main_title_text_size">56dp</dimen>
     <dimen name="view_header_height">350dp</dimen>
 </resources>

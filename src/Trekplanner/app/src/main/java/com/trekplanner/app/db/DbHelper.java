@@ -486,12 +486,12 @@ public class DbHelper extends SQLiteOpenHelper {
         return titems;
     }
     public void saveTrekItem(TrekItem titem) {
-        // TODO
+
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getItem_ID());
-        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getTrek_ID());
+        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getItemId());
+        values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getTrekId());
         values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getCount());
         values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getNotes());
         values.put(COLUMN_TREKITEM_ITEMS_ID, titem.getTotalWeight());
@@ -506,7 +506,6 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void deleteTrekItem(Long rowId) {
-        //TODO
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TREKITEM_TABLE_NAME, TREKITEM_ID + " = ?",
                 new String[] { String.valueOf(rowId) });

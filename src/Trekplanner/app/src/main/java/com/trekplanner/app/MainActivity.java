@@ -1,5 +1,6 @@
 package com.trekplanner.app;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -160,13 +161,14 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     @Override
     public void onDeleteButtonClicked(Long rowId) {
         db.deleteTrekItem(rowId);
-        // TODO: show OK or error message for user
+        // TODO: show OK or error message for user (snackbar)
     }
 
     // save action fired from itemlistview
     @Override
     public void saveButtonClicked(Item item) {
-
+        db.saveItem(item);
+        // TODO: show OK or error message for user (snackbar)
     }
 
     private void openItemList(){
@@ -204,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     }
 
     private void openSplashScreenActivity() {
-        //TODO
+        startActivity(new Intent(this, SplashActivity.class));
     }
 
     private void openFragment(Fragment fragment, boolean addToBackStack) {

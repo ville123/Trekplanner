@@ -10,16 +10,10 @@
     <string name="term_items">Varusteet</string>
     <string name="term_trek">Retki</string>
     <string name="term_treks">Retket</string>
-    <string name="term_ok">OK</string>
-    <string name="term_lost">Hukassa</string>
-    <string name="term_broken">Rikki</string>
     <string name="term_notes">Muistiinpanot</string>
     <string name="term_description">Kuvaus</string>
     <string name="term_kilogram">kg</string>
     <string name="term_start_end">Alku-Loppupäivä</string>
-    <string name="term_on_list">Listalla</string>
-    <string name="term_packed">Pakattu</string>
-    <string name="term_returned">Palautettu</string>
     <string name="term_data">Tiedot</string>
     <string name="term_was_used">Käytetty</string>
     <string name="term_pieces">kpl</string>
@@ -72,5 +66,6 @@
 
     <string name="expand_marks">...</string>
     <string name="phrase_settings">Asetukset</string>
+    <string name="phrase_welcome">Tervetuloa!</string>
 
 </resources>

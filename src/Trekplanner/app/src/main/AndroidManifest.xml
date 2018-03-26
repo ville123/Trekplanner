@@ -23,7 +23,8 @@
             android:authorities="com.trekplanner.app"
             android:exported="false" />
 
-        <activity android:name=".ItemEditorActivity"></activity>
+        <activity android:name=".ItemEditorActivity" />
+        <activity android:name=".SplashActivity"></activity>
     </application>
 
 </manifest>

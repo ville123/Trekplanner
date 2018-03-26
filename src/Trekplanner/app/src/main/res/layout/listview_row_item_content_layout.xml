@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:layout_marginTop="@dimen/fab_margin"
-    android:layout_marginBottom="@dimen/fab_margin"
-    android:gravity="center">
-
+    android:paddingTop="@dimen/fab_margin"
+    android:paddingLeft="@dimen/fab_margin"
+    android:paddingRight="@dimen/fab_margin"
+    android:gravity="center"
+    style="@style/row_content_style">
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -19,22 +20,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/colorPrimaryDark"
-            android:text="@string/term_ok"/>
+            android:text="@string/item_status_1"/>
         <RadioButton
             android:id="@+id/listview_item_rbtn_status2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/colorPrimaryDark"
-            android:text="@string/term_lost"/>
+            android:text="@string/item_status_3"/>
         <RadioButton
             android:id="@+id/listview_item_rbtn_status3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/colorPrimaryDark"
-            android:text="@string/term_broken"/>
+            android:text="@string/item_status_3"/>
 
     </RadioGroup>
 

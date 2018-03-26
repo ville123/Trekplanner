@@ -41,22 +41,26 @@
             </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/editview_row_substract_count_button"
-            android:src="@android:drawable/btn_minus"/>
+            android:src="@drawable/substract"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/editview_row_add_count_button"
-            android:src="@android:drawable/btn_plus"/>
+            android:src="@drawable/add"/>
+
+        <android.support.v4.widget.Space
+            android:layout_width="40dp"
+            android:layout_height="wrap_content" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/editview_row_delete_button"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+            android:src="@drawable/delete"/>
 
     </LinearLayout>
 
@@ -64,6 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textSize="@dimen/header_textsize"
         android:text="@string/expand_marks"/>
 
 </LinearLayout>

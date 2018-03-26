@@ -7,8 +7,8 @@ package com.trekplanner.app.model;
 public class TrekItem  {
 
     private Long id;
-    private Long item_ID;
-    private Long trek_ID;
+    private Long itemId;
+    private Long trekId;
     private int count;
     private String notes;
     private Double totalWeight;
@@ -20,12 +20,12 @@ public class TrekItem  {
         this.id = id;
     }
 
-    public void setItem_ID(Long item_ID){
-        this.item_ID = item_ID;
+    public void setItemId(Long itemId){
+        this.itemId = itemId;
     }
 
-    public void setTrek_ID(Long trek_ID){
-        this.trek_ID = trek_ID;
+    public void setTrekId(Long trekId){
+        this.trekId = trekId;
     }
 
     public void setCount(int count){
@@ -52,12 +52,12 @@ public class TrekItem  {
         return id;
     }
 
-    public Long getItem_ID(){
-        return item_ID;
+    public Long getItemId(){
+        return itemId;
     }
 
-    public Long getTrek_ID(){
-        return trek_ID;
+    public Long getTrekId(){
+        return trekId;
     }
 
     public int getCount(){
