@@ -454,8 +454,8 @@ public class DbHelper extends SQLiteOpenHelper {
         titem.setNotes("Lorem ipsum ja niin edelleen");
         titem.setStatus("trek_item_status_1");
         titem.setTotalWeight(15d);
-        titem.setTrek_ID(1l);
-        titem.setItem_ID(1l);
+        titem.setTrekId(1l);
+        titem.setItemId(1l);
         titem.setWas_used(false);
 
         Item item = new Item();
