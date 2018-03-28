@@ -259,4 +259,17 @@
         app:srcCompat="@android:drawable/ic_menu_save"
         style="@style/floatingActionButton"/>
 
+    <!-- Kameran nappi kelluu perus FAB:n päällä täällä -->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/editview_floating_camera_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+
+        android:layout_marginBottom="32pt"
+        app:srcCompat="@drawable/camera"
+        app:layout_anchor="@id/editview_floating_action_btn"
+        app:layout_anchorGravity="top"
+        style="@style/floatingActionButton"/>
+
 </android.support.design.widget.CoordinatorLayout>
