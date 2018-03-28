@@ -11,6 +11,7 @@ import android.widget.ExpandableListView;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.model.Item;
+import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.model.TrekItem;
 
 /**
@@ -28,8 +29,9 @@ public abstract class ListFragment extends Fragment implements View.OnClickListe
     public interface ListViewActionListener {
         void onForwardButtonClick(Object o);
         void onModifyCountButtonClicked(TrekItem trekItem);
-        void onDeleteButtonClicked(Long rowId);
+        void onDeleteButtonClicked(TrekItem trekItem);
         void saveButtonClicked(Item item);
+        void saveButtonClicked(TrekItem trekItem);
     }
 
     @Override

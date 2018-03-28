@@ -6,7 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.trekplanner.app.R;
@@ -49,22 +54,22 @@ public class TrekItemAdapter extends ListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.editview_row_item_content_layout, null);
         }
-/**
-        RadioButton rbtn1 = convertView.findViewById(R.id.listview_item_rbtn_status2);
-        RadioButton rbtn2 = convertView.findViewById(R.id.listview_item_rbtn_status2);
-        RadioButton rbtn3 = convertView.findViewById(R.id.listview_item_rbtn_status3);
 
-        String status = String.valueOf(trekItem.getStatus());
+        // status field
 
-        if (status.equals(convertView.getContext().getString(R.string.enum_itemstatus1))) {
+        RadioButton rbtn1 = convertView.findViewById(R.id.editview_row_item_rbtn_status1);
+        RadioButton rbtn2 = convertView.findViewById(R.id.editview_row_item_rbtn_status2);
+        RadioButton rbtn3 = convertView.findViewById(R.id.editview_row_item_rbtn_status3);
+
+        if (trekItem.getStatus().equals(convertView.getContext().getString(R.string.enum_trekitemstatus1))) {
             rbtn1.setChecked(true);
-        } else if (status.equals(convertView.getContext().getString(R.string.enum_itemstatus2))) {
+        } else if (trekItem.getStatus().equals(convertView.getContext().getString(R.string.enum_trekitemstatus2))) {
             rbtn2.setChecked(true);
-        } else if (status.equals(convertView.getContext().getString(R.string.enum_itemstatus3))) {
+        } else if (trekItem.getStatus().equals(convertView.getContext().getString(R.string.enum_trekitemstatus3))) {
             rbtn3.setChecked(true);
         }
 
-        RadioGroup radioGroup = convertView.findViewById(R.id.listview_item_status_rbtgroup);
+        RadioGroup radioGroup = convertView.findViewById(R.id.editview_row_item_status_rbtgroup);
         final View finalConvertView = convertView;
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -73,21 +78,54 @@ public class TrekItemAdapter extends ListAdapter {
 
                 RadioButton radioButton = finalConvertView.findViewById(checkedId);
 
-                if (radioButton.getId() == R.id.listview_item_rbtn_status2) {
-                    trekItem.setStatus(1);
-                } else if (radioButton.getId() == R.id.listview_item_rbtn_status2) {
-                    trekItem.setStatus(2);
-                } else if (radioButton.getId() == R.id.listview_item_rbtn_status3) {
-                    trekItem.setStatus(3);
+                if (radioButton.getId() == R.id.editview_row_item_rbtn_status1) {
+                    trekItem.setStatus(finalConvertView.getContext().getString(R.string.enum_trekitemstatus1));
+                } else if (radioButton.getId() == R.id.editview_row_item_rbtn_status2) {
+                    trekItem.setStatus(finalConvertView.getContext().getString(R.string.enum_trekitemstatus2));
+                } else if (radioButton.getId() == R.id.editview_row_item_rbtn_status3) {
+                    trekItem.setStatus(finalConvertView.getContext().getString(R.string.enum_trekitemstatus3));
                 }
 
-                // TODO: save status
-                Log.d("TREK/TrekItemAdapter.getChildView.Radiobutton.onChangeListener", "Item status changed for trekItem " + trekItem.getName() + " to " + radioButton.getText());
-                Snackbar.make(finalConvertView, "Item status changed for trekItem " + trekItem.getName() + " to " + radioButton.getText(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Log.d("TREK_TrekItemAdapter", "Item status changed for trekItem " + trekItem.getItem().getName() + " to " + trekItem.getStatus());
+                actionListener.saveButtonClicked(trekItem);
             }
         });
- **/
+
+        // was-used field
+        CheckBox wasUsed = convertView.findViewById(R.id.editview_row_item_was_used_cb);
+
+        if (trekItem.getWasUsed()) {
+            wasUsed.setChecked(true);
+        } else {
+            wasUsed.setChecked(false);
+        }
+
+        wasUsed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                trekItem.setWasUsed(b);
+
+                Log.d("TREK_TrekItemAdapter", "Was used changed for trekItem " + trekItem.getItem().getName() + " to " + trekItem.getWasUsed());
+                actionListener.saveButtonClicked(trekItem);
+
+            }
+        });
+
+        final EditText notes = convertView.findViewById(R.id.editview_row_item_notes_fld);
+
+        notes.setText(trekItem.getNotes());
+
+        notes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                trekItem.setNotes(notes.getText().toString());
+
+                Log.d("TREK_TrekItemAdapter", "Notes changed for trekItem " + trekItem.getItem().getName() + " to " + trekItem.getNotes());
+                actionListener.saveButtonClicked(trekItem);
+            }
+        });
+
 
         return convertView;
     }
@@ -125,14 +163,23 @@ public class TrekItemAdapter extends ListAdapter {
         textView.setText(trekItem.getCount() + convertView.getContext().getString(R.string.term_pieces));
 
         ImageView imageView = convertView.findViewById(R.id.editview_row_header_image);
-        String type = String.valueOf(trekItem.getItem().getType());
 
-        if (type.equals(convertView.getContext().getString(R.string.enum_itemtype1))) {
-            imageView.setImageResource(R.drawable.idea);
-        } else if (type.equals(convertView.getContext().getString(R.string.enum_itemtype2))) {
-            imageView.setImageResource(R.drawable.food);
-        } else if (type.equals(convertView.getContext().getString(R.string.enum_itemtype3))) {
+        if (trekItem.getItem().getType().equals(convertView.getContext().getString(R.string.enum_itemtype1))) {
+            imageView.setImageResource(R.drawable.item);
+        } else if (trekItem.getItem().getType().equals(convertView.getContext().getString(R.string.enum_itemtype2))) {
             imageView.setImageResource(R.drawable.backpack);
+        } else if (trekItem.getItem().getType().equals(convertView.getContext().getString(R.string.enum_itemtype3))) {
+            imageView.setImageResource(R.drawable.food);
+        } else if (trekItem.getItem().getType().equals(convertView.getContext().getString(R.string.enum_itemtype4))) {
+            imageView.setImageResource(R.drawable.idea);
+        } else if (trekItem.getItem().getType().equals(convertView.getContext().getString(R.string.enum_itemtype5))) {
+            imageView.setImageResource(R.drawable.remember);
+        } else if (trekItem.getItem().getType().equals(convertView.getContext().getString(R.string.enum_itemtype6))) {
+            imageView.setImageResource(R.drawable.remember);
+        } else if (trekItem.getItem().getType().equals(convertView.getContext().getString(R.string.enum_itemtype7))) {
+            imageView.setImageResource(R.drawable.task);
+        } else if (trekItem.getItem().getType().equals(convertView.getContext().getString(R.string.enum_itemtype8))) {
+            imageView.setImageResource(R.drawable.cutlery);
         }
 
         ImageView addBtn = convertView.findViewById(R.id.editview_row_add_count_button);
@@ -179,7 +226,8 @@ public class TrekItemAdapter extends ListAdapter {
 
                 Log.d("TREK_TrekItemListAdaptr", "Clicked delete for item " + trekItem.getItem().getName());
 
-                actionListener.onDeleteButtonClicked(trekItem.getId());
+                actionListener.onDeleteButtonClicked(trekItem);
+                notifyDataSetChanged();
             }
         });
 

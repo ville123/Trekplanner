@@ -1,5 +1,8 @@
 package com.trekplanner.app.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by sami on 16.3.2018.
  */
@@ -16,6 +19,7 @@ public class Trek {
     private Double length;
     private String level;
     private String lessonsLearned;
+    private List<Item> items;
 
     public Long getId() {
         return id;
@@ -95,5 +99,14 @@ public class Trek {
 
     public void setLessonsLearned(String lessonsLearned) {
         this.lessonsLearned = lessonsLearned;
+    }
+
+    public void addItem(Item item) {
+        if (this.items == null) this.items = new ArrayList<>();
+        this.items.add(item);
+    }
+
+    public List<Item> getItems() {
+        return this.items;
     }
 }

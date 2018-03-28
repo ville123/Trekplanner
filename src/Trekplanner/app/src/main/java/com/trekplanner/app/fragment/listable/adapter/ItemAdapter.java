@@ -52,17 +52,15 @@ public class ItemAdapter extends ListAdapter {
             convertView = infalInflater.inflate(R.layout.listview_row_item_content_layout, null);
         }
 
-        RadioButton rbtn1 = convertView.findViewById(R.id.listview_item_rbtn_status2);
+        RadioButton rbtn1 = convertView.findViewById(R.id.listview_item_rbtn_status1);
         RadioButton rbtn2 = convertView.findViewById(R.id.listview_item_rbtn_status2);
         RadioButton rbtn3 = convertView.findViewById(R.id.listview_item_rbtn_status3);
 
-        String status = String.valueOf(item.getStatus());
-
-        if (status.equals(convertView.getContext().getString(R.string.enum_itemstatus1))) {
+        if (item.getStatus().equals(convertView.getContext().getString(R.string.enum_itemstatus1))) {
             rbtn1.setChecked(true);
-        } else if (status.equals(convertView.getContext().getString(R.string.enum_itemstatus2))) {
+        } else if (item.getStatus().equals(convertView.getContext().getString(R.string.enum_itemstatus2))) {
             rbtn2.setChecked(true);
-        } else if (status.equals(convertView.getContext().getString(R.string.enum_itemstatus3))) {
+        } else if (item.getStatus().equals(convertView.getContext().getString(R.string.enum_itemstatus3))) {
             rbtn3.setChecked(true);
         }
 
@@ -75,16 +73,16 @@ public class ItemAdapter extends ListAdapter {
 
                 RadioButton radioButton = finalConvertView.findViewById(checkedId);
 
-                if (radioButton.getId() == R.id.listview_item_rbtn_status2) {
-                    item.setStatus("1");
+                if (radioButton.getId() == R.id.listview_item_rbtn_status1) {
+                    item.setStatus(finalConvertView.getContext().getString(R.string.enum_itemstatus1));
                 } else if (radioButton.getId() == R.id.listview_item_rbtn_status2) {
-                    item.setStatus("2");
+                    item.setStatus(finalConvertView.getContext().getString(R.string.enum_itemstatus2));
                 } else if (radioButton.getId() == R.id.listview_item_rbtn_status3) {
-                    item.setStatus("3");
+                    item.setStatus(finalConvertView.getContext().getString(R.string.enum_itemstatus3));
                 }
 
                 actionListener.saveButtonClicked(item);
-                Log.d("TREK_ItemListAdaptr", "Item status changed for item " + item.getName() + " to " + radioButton.getText());
+                Log.d("TREK_ItemListAdaptr", "Item status changed for item " + item.getName() + " to " + item.getStatus());
             }
         });
 
@@ -143,11 +141,9 @@ public class ItemAdapter extends ListAdapter {
             imageView.setImageResource(R.drawable.remember);
         } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype7))) {
             imageView.setImageResource(R.drawable.task);
+        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype8))) {
+             imageView.setImageResource(R.drawable.cutlery);
         }
-        // TODO: create "keittiöväline" icon
-        //else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype8))) {
-        //     imageView.setImageResource(R.drawable.cutlery);
-        //}
 
         ImageView button = convertView.findViewById(R.id.listview_forward_button);
 

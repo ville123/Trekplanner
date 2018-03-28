@@ -4,39 +4,49 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginTop="@dimen/fab_margin"
-    android:layout_marginBottom="@dimen/fab_margin">
+    android:layout_marginBottom="@dimen/fab_margin"
+    style="@style/row_content_layout_style">
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editview_row_item_status_rbtgroup"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        style="@style/row_style">
 
         <RadioButton
             android:id="@+id/editview_row_item_rbtn_status1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/trek_item_status_1"/>
+            android:text="@string/trek_item_status_1"
+            style="@style/row_style" />
         <RadioButton
             android:id="@+id/editview_row_item_rbtn_status2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/trek_item_status_3"/>
+            android:text="@string/trek_item_status_2"
+            style="@style/row_style"/>
         <RadioButton
             android:id="@+id/editview_row_item_rbtn_status3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/trek_item_status_3"/>
+            android:text="@string/trek_item_status_3"
+            style="@style/row_style"/>
+
+        <android.support.v4.widget.Space
+            android:layout_width="40dp"
+            android:layout_height="wrap_content" />
 
         <CheckBox
             android:id="@+id/editview_row_item_was_used_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/term_was_used" />
+            android:text="@string/term_was_used"
+            style="@style/row_style" />
 
     </RadioGroup>
 
@@ -44,7 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/term_notes"/>
+        android:text="@string/term_notes"
+        style="@style/row_style"/>
 
     <EditText
         android:id="@+id/editview_row_item_notes_fld"
@@ -58,6 +69,7 @@
         android:scrollbars="vertical"
         android:lines="6"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:scrollHorizontally="false" />
+        android:scrollHorizontally="false"
+        style="@style/row_style" />
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.trekplanner.app.fragment.listable;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,11 +44,11 @@ public class TrekListFragment extends ListFragment {
         // setting page header content
         ImageView headerImageView
                 = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
-        TextView headerText
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
+        //TextView headerText
+        //        = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
 
         headerImageView.setImageResource(R.drawable.trek);
-        headerText.setText(R.string.term_treks);
+        //headerText.setText(R.string.term_treks);
     }
 
     @Override
@@ -57,7 +58,15 @@ public class TrekListFragment extends ListFragment {
 
         // treklist contains treks from db
         adapter.setListRows(db.getTreks());
-        listView.setAdapter(adapter);
+        this.listView.setAdapter(adapter);
+
+        // this disables the child opening for treks - no need currently
+        this.listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                return true;
+            }
+        });
     }
 
     // floating button clicked

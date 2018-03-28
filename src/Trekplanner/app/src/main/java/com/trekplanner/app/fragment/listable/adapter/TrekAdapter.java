@@ -55,6 +55,7 @@ public class TrekAdapter extends ListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
+
         final Trek trek = (Trek) getGroup(groupPosition);
 
         Log.d("TREK_ItemListAdapter", "Getting group item #" + groupPosition + " with groupname " + trek.getDescription());
@@ -63,6 +64,8 @@ public class TrekAdapter extends ListAdapter {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.listview_row_header_layout, null);
+
+            convertView.setEnabled(false);
         }
 
         TextView headlineTextView = convertView

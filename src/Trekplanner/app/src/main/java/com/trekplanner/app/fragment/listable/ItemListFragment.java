@@ -42,11 +42,12 @@ public class ItemListFragment extends ListFragment {
         // setting page header content
         ImageView headerImageView
                 = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
-        TextView headerText
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
+
+        //TextView headerText
+        //        = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
 
         headerImageView.setImageResource(R.drawable.item);
-        headerText.setText(R.string.term_items);
+        //headerText.setText(R.string.term_items);
     }
 
     @Override

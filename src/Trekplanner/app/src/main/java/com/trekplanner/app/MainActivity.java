@@ -1,6 +1,7 @@
 package com.trekplanner.app;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -68,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     protected void onStart() {
         super.onStart();
         Log.d("TREK_MainActivity", "opening item list");
-
         // TODO: for now item list is opened as default before the left menu is implemented
         openItemList();
     }
@@ -95,10 +95,11 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
         int id = item.getItemId();
 
         if (id == R.id.action_loaddefaults) {
-            // TODO: create new db and load defaults from for example json file
+            db.resetDefaults();
+            openItemList();
             return true;
         } else if (id == R.id.action_cleardatabase) {
-            // TODO: clear database (drop)
+            // TODO: needed? db.dropDb();
             return true;
         } else if (id == R.id.action_export) {
             // TODO: export items and treks to a json/csv/xml file
@@ -111,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
             return true;
         } else if (id == R.id.action_settings) {
             // TODO: implement settings page
-            // settings saved to db?
             return true;
         }
 
@@ -155,26 +155,37 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     @Override
     public void onModifyCountButtonClicked(TrekItem trekItem) {
         db.saveTrekItem(trekItem);
+        showOkMessage(R.string.phrase_save_success);
     }
 
     // delete -button clicked on trekitem listview
     @Override
-    public void onDeleteButtonClicked(Long rowId) {
-        db.deleteTrekItem(rowId);
-        // TODO: show OK or error message for user (snackbar)
+    public void onDeleteButtonClicked(TrekItem trekItem) {
+        db.deleteTrekItem(trekItem);
+        showOkMessage(R.string.phrase_delete_success);
     }
 
     // save action fired from itemlistview
     @Override
     public void saveButtonClicked(Item item) {
         db.saveItem(item);
-        // TODO: show OK or error message for user (snackbar)
+        showOkMessage(R.string.phrase_save_success);
+    }
+
+    @Override
+    public void saveButtonClicked(TrekItem trekItem) {
+        db.saveTrekItem(trekItem);
+        showOkMessage(R.string.phrase_save_success);
+    }
+
+    private void showOkMessage(int message) {
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 
     private void openItemList(){
 
-        // TODO: maybe use action bar for view header?
-        // getSupportActionBar().setTitle(R.string.term_items);
+        getSupportActionBar().setTitle(R.string.term_items);
 
         // TODO: cant do this since openItemList() is called before menu is set
         //MenuItem item = this.menu.findItem(R.id.action_search);
@@ -185,14 +196,20 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
 
     private void openTrekList() {
 
+        getSupportActionBar().setTitle(R.string.term_treks);
+
         openFragment(this.trekListFragment, false);
     }
 
     private void openItemPage(Item item) {
+
+        getSupportActionBar().setTitle(R.string.term_item);
         openFragment(ItemEditFragment.getNewInstance(db, item), true);
     }
 
     private void openTrekPage(Trek trek) {
+
+        getSupportActionBar().setTitle(R.string.term_trek);
 
         // opening tab -layout by using MainEditFragment
 

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_marginTop="@dimen/fab_margin"
     android:layout_marginBottom="@dimen/fab_margin"
-    style="@style/row_header_style">
+    style="@style/row_header_layout_style">
         
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,14 +29,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/header_textsize"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    style="@style/row_style"/>
 
                 <TextView
                     android:id="@+id/listview_row_header_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/normal_textsize"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    style="@style/row_style"/>
 
             </LinearLayout>
 
@@ -53,6 +55,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="@dimen/header_textsize"
-        android:id="@+id/listview_row_header_expandtext"/>
+        android:id="@+id/listview_row_header_expandtext"
+        style="@style/row_style"/>
 
 </LinearLayout>

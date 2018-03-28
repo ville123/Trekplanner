@@ -43,11 +43,11 @@ public class MainEditFragment extends Fragment {
 
         ImageView headerImageView
                 = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
-        TextView headerText
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
+        //TextView headerText
+        //        = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
 
         // todo: if Item then item terms
-        headerText.setText(R.string.term_trek);
+       // headerText.setText(R.string.term_trek);
         headerImageView.setImageResource(R.drawable.trek);
 
         // create tab layout and adapter

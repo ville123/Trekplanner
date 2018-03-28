@@ -67,5 +67,6 @@
     <string name="expand_marks">...</string>
     <string name="phrase_settings">Asetukset</string>
     <string name="phrase_welcome">Tervetuloa!</string>
+    <string name="phrase_delete_success">Poisto onnistui</string>
 
 </resources>

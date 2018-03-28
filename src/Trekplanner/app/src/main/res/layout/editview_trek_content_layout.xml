@@ -267,7 +267,7 @@
         android:layout_gravity="end|top"
 
         android:layout_marginBottom="32pt"
-        app:srcCompat="@drawable/camera"
+        app:srcCompat="@android:drawable/ic_menu_camera"
         app:layout_anchor="@id/editview_floating_action_btn"
         app:layout_anchorGravity="top"
         style="@style/floatingActionButton"/>

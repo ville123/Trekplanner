@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.trekplanner.app.SplashActivity"
     android:orientation="vertical"
-    android:gravity="center_vertical|center">
+    android:gravity="center_vertical|center"
+    style="@style/splash">
 
     <TextView
         style="@style/splash_text"

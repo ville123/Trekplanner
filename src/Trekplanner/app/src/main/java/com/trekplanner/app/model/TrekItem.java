@@ -8,13 +8,13 @@ public class TrekItem  {
 
     private Long id;
     private Long itemId;
+    private Item item;
     private Long trekId;
     private int count;
     private String notes;
     private Double totalWeight;
     private String status;
-    private boolean was_used;
-    private Item item;
+    private boolean wasUsed;
 
     public void setId(Long id) {
         this.id = id;
@@ -44,8 +44,8 @@ public class TrekItem  {
         this.status = status;
     }
 
-    public void setWas_used(boolean was_used){
-        this.was_used = was_used;
+    public void setWasUsed(boolean wasUsed){
+        this.wasUsed = wasUsed;
     }
 
     public Long getId() {
@@ -76,15 +76,15 @@ public class TrekItem  {
         return status;
     }
 
-    public boolean getWas_used(){
-        return was_used;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
+    public boolean getWasUsed(){
+        return wasUsed;
     }
 
     public Item getItem() {
         return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }
