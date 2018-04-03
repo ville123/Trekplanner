@@ -1,6 +1,7 @@
 package com.trekplanner.app.fragment.editable;
 
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,11 +49,20 @@ public class ItemEditFragment extends EditFragment {
         // setting page header content
         ImageView headerImageView
                 = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
-        TextView headerText
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
-
         headerImageView.setImageResource(R.drawable.item);
-        headerText.setText(R.string.term_item);
+
+        // hide actions from header
+        TextView action1View
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_action1);
+        action1View.setText("");
+
+        TextView action2View
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_action2);
+        action2View.setText("");
+
+        //Actionbar content
+        ((AppCompatActivity)this.getActivity()).getSupportActionBar()
+                .setTitle(getResources().getString(R.string.term_item));
 
     }
 
