@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--These are options displayed for type of the item -->
+    <string-array name="array_type_options">
+        <item>@string/item_type_1</item>
+        <item>@string/item_type_2</item>
+        <item>@string/item_type_3</item>
+        <item>@string/item_type_4</item>
+        <item>@string/item_type_5</item>
+        <item>@string/item_type_6</item>
+        <item>@string/item_type_7</item>
+        <item>@string/item_type_8</item>
+    </string-array>
+
+    <string-array name="array_status_options">
+        <item>@string/item_status_1</item>
+        <item>@string/item_status_2</item>
+        <item>@string/item_status_3</item>
+    </string-array>
+
+    <string-array name="array_default_options">
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+</resources>
