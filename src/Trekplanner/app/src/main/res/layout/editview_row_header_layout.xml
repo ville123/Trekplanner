@@ -3,20 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/fab_margin"
-    android:paddingLeft="@dimen/fab_margin"
-    android:paddingRight="@dimen/fab_margin"
     style="@style/row_header_layout_style">
         
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        style="@style/row_header_inner_layout_style">
         
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/editview_row_header_image"/>
+            android:id="@+id/editview_row_header_image"
+            style="@style/image_style"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -44,26 +41,23 @@
             </LinearLayout>
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:id="@+id/editview_row_substract_count_button"
-            android:src="@drawable/substract"/>
+            android:src="@drawable/substract"
+            style="@style/image_style"/>
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:id="@+id/editview_row_add_count_button"
-            android:src="@drawable/add"/>
+            android:src="@drawable/add"
+            style="@style/image_style"/>
 
         <android.support.v4.widget.Space
-            android:layout_width="40dp"
+            android:layout_width="@dimen/element_space"
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:id="@+id/editview_row_delete_button"
-            android:src="@drawable/delete"/>
+            android:src="@drawable/delete"
+            style="@style/image_style"/>
 
     </LinearLayout>
 
@@ -72,6 +66,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="@dimen/header_textsize"
-        android:text="@string/expand_marks"/>
+        android:text="@string/expand_marks"
+        style="@style/row_style"/>
 
 </LinearLayout>

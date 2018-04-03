@@ -1,5 +1,6 @@
 package com.trekplanner.app.fragment.listable;
 
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -10,6 +11,9 @@ import com.trekplanner.app.MainActivity;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.fragment.listable.adapter.TrekAdapter;
+import com.trekplanner.app.model.Item;
+import com.trekplanner.app.model.Trek;
+import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;
 
 /**
@@ -17,7 +21,7 @@ import com.trekplanner.app.utils.AppUtils;
  *
  * Fragment for Trek list
  */
-public class TrekListFragment extends ListFragment {
+public class TrekListFragment extends ListFragment implements ListFragment.ListViewActionListener {
 
     private static TrekListFragment instance;
 
@@ -44,17 +48,31 @@ public class TrekListFragment extends ListFragment {
         // setting page header content
         ImageView headerImageView
                 = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
-        //TextView headerText
-        //        = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
+        headerImageView.setImageResource(R.drawable.treks);
 
-        headerImageView.setImageResource(R.drawable.trek);
-        //headerText.setText(R.string.term_treks);
+        // hide actions from header
+        TextView action1View
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_action1);
+        action1View.setText("");
+
+        TextView action2View
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_action2);
+        action2View.setText("");
+
+        // empty header background
+        View headerLayout
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.main_header_layout);
+        headerLayout.setBackgroundResource(0);
+
+        ((AppCompatActivity)this.getActivity()).getSupportActionBar()
+                .setTitle(getResources().getString(R.string.term_treks));
+
     }
 
     @Override
     protected void prepareListViewData() {
         Log.d("TREK_TrekListFragment", "Preparing TrekListView data");
-        TrekAdapter adapter = new TrekAdapter(this.getActivity());
+        TrekAdapter adapter = new TrekAdapter(this.getActivity(), this);
 
         // treklist contains treks from db
         adapter.setListRows(db.getTreks());
@@ -69,9 +87,32 @@ public class TrekListFragment extends ListFragment {
         });
     }
 
-    // floating button clicked
+    // floating button clicked, this case its to add new Trek
     @Override
     public void onClick(View view) {
         ((MainActivity) this.getActivity()).onListViewActionButtonClick(AppUtils.TREK_LIST_ACTION_ID, view);
+    }
+
+    @Override
+    public void onForwardButtonClick(Object o) {
+        // all UI navigation is handled by MainActivity
+        ((MainActivity) this.getActivity()).onForwardButtonClick((Trek) o);
+    }
+
+    @Override
+    public void onModifyCountButtonClicked(TrekItem trekItem) {
+        // no such funtion in trek list
+    }
+
+    @Override
+    public void onDeleteButtonClicked(Object o) {
+        // TODO: are we going to give user the possibility to delete treks?
+    }
+
+    // save action fired from treklistview
+    @Override
+    public void saveButtonClicked(Object o) {
+        db.saveTrek((Trek) o);
+        AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
     }
 }

@@ -1,7 +1,10 @@
 package com.trekplanner.app.fragment.editable;
 
+import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +12,7 @@ import android.widget.EditText;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.model.Trek;
+import com.trekplanner.app.utils.AppUtils;
 
 /**
  * Created by Sami
@@ -57,10 +61,19 @@ public class TrekEditFragment extends EditFragment {
 
         EditText notesField = view.findViewById(R.id.editview_trek_notes_fld);
         notesField.setText(trek.getNotes());
+
+        ((AppCompatActivity)this.getActivity()).getSupportActionBar()
+                .setTitle(getResources().getString(R.string.term_trek) + " - " + trek.getDescription());
     }
 
     @Override
     protected int getLayout() {
         return R.layout.editview_trek_content_layout;
+    }
+
+    public void setHeaderPic(Resources resources, View headerLayout) {
+        if (trek.getPic() != null && !trek.getPic().isEmpty()) {
+            headerLayout.setBackground(new BitmapDrawable(resources, AppUtils.decodeToBitmap(trek.getPic())));
+        }
     }
 }

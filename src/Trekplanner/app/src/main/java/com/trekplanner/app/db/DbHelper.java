@@ -10,6 +10,7 @@ import android.util.Log;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.model.TrekItem;
+import com.trekplanner.app.utils.AppUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,6 +97,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_TREK_LESSONS = "lessonsLearnt";
 
+    public static final String COLUMN_TREK_PIC = "pic";
+
     /**
      * TREKITEM TABLE
      */
@@ -129,7 +132,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //SQL statements that creates items table
         String SQL_CREATE_ITEM_TABLE = "CREATE TABLE IF NOT EXISTS " + ITEM_TABLE_NAME + " ("
-                + COLUMN_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_ITEM_ID + " TEXT PRIMARY KEY, "
                 + COLUMN_ITEM_TYPE + " TEXT NOT NULL, "
                 + COLUMN_ITEM_STATUS + " TEXT NOT NULL, "
                 + COLUMN_ITEM_WEIGHT + " REAL, "
@@ -142,7 +145,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 + COLUMN_ITEM_DEADLINE + " TEXT );";
 
         String SQL_CREATE_TREK_TABLE = "CREATE TABLE IF NOT EXISTS " + TREK_TABLE_NAME + " ("
-                + COLUMN_TREK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_TREK_ID + " TEXT PRIMARY KEY, "
                 + COLUMN_TREK_START + " TEXT, "
                 + COLUMN_TREK_END + " TEXT, "
                 + COLUMN_TREK_SCOORDS + " TEXT, "
@@ -151,12 +154,13 @@ public class DbHelper extends SQLiteOpenHelper {
                 + COLUMN_TREK_NOTES + " BLOB, "
                 + COLUMN_TREK_LENGTH + " REAL, "
                 + COLUMN_TREK_LEVEL + " TEXT NOT NULL, "
+                + COLUMN_TREK_PIC + " BLOB, "
                 + COLUMN_TREK_LESSONS + " TEXT );";
 
         String SQL_CREATE_TREKITEM_TABLE = "CREATE TABLE  IF NOT EXISTS " + TREKITEM_TABLE_NAME + " ("
-                + COLUMN_TREKITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COLUMN_TREKITEM_ITEM_ID + " INTEGER, "
-                + COLUMN_TREKITEM_TREK_ID + " INTEGER, "
+                + COLUMN_TREKITEM_ID + " TEXT PRIMARY KEY, "
+                + COLUMN_TREKITEM_ITEM_ID + " TEXT, "
+                + COLUMN_TREKITEM_TREK_ID + " TEXT NOT NULL, "
                 + COLUMN_TREKITEM_COUNT + " INTEGER NOT NULL, "
                 + COLUMN_TREKITEM_NOTES + " BLOB, "
                 + COLUMN_TREKITEM_TOTALWEIGHT + " REAL, "
@@ -232,6 +236,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 trek.setStartCoords(treks.getJSONObject(i).getString("startCoords"));
                 trek.setLevel(treks.getJSONObject(i).getString("level"));
                 trek.setNotes(treks.getJSONObject(i).getString("notes"));
+                trek.setPic(treks.getJSONObject(i).getString("pic"));
 
                 // select default items
                 for (Item item : defaultItems) {
@@ -251,13 +256,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public Item selectRandomItem() {
+    public Trek selectRandomTrek() {
 
-        Log.d("TREK_DatabaseHelper", "Selecting Random item from db");
+        Log.d("TREK_DatabaseHelper", "Selecting Random trek from db");
 
-        List<Item> items = getItems(null);
+        List<Trek> treks = getTreks();
 
-        return items.get(ThreadLocalRandom.current().nextInt(0,  items.size() + 1));
+        return treks.get(ThreadLocalRandom.current().nextInt(0,  treks.size() + 1));
     }
 
     public void dropDb() {
@@ -267,11 +272,18 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TREKITEM_TABLE_NAME);
     }
 
-    public Long saveTrek(Trek trek) {
+    public String saveTrek(Trek trek) {
 
         SQLiteDatabase db = getWritableDatabase();
+        boolean update = false;
+        if (trek.getId() == null || trek.getId().isEmpty()) {
+            trek.setId(AppUtils.generateUUID());
+        } else {
+            update = true;
+        }
 
         ContentValues values = new ContentValues();
+        values.put(COLUMN_TREK_ID, trek.getId());
         values.put(COLUMN_TREK_START, trek.getStart());
         values.put(COLUMN_TREK_END, trek.getEnd());
         values.put(COLUMN_TREK_SCOORDS, trek.getStartCoords());
@@ -281,26 +293,35 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TREK_LENGTH, trek.getLength());
         values.put(COLUMN_TREK_LEVEL, trek.getLevel());
         values.put(COLUMN_TREK_LESSONS, trek.getLessonsLearned());
+        values.put(COLUMN_TREK_PIC, trek.getPic());
 
-        if(trek.getId() == null){
-            trek.setId(db.insert(TREK_TABLE_NAME,null, values));
+        if(update){
+            db.update(TREK_TABLE_NAME, values, COLUMN_TREK_ID + " = '" + trek.getId() + "'", null);
         } else {
-            db.update(TREK_TABLE_NAME, values, COLUMN_TREK_ID + " = " + trek.getId(), null);
+            db.insert(TREK_TABLE_NAME,null, values);
         }
 
-        if (trek.getId() != -1) {
-            for (Item item : trek.getItems()) {
-                saveTrekItem(trek.getId(), item.getId());
-            }
+        for (Item item : trek.getItems()) {
+            saveTrekItem(trek.getId(), item.getId());
         }
+
         return trek.getId();
     }
 
-    public Long saveItem(Item item) {
+    public String saveItem(Item item) {
 
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
+
+        boolean update = false;
+        if (item.getId() == null || item.getId().isEmpty()) {
+            item.setId(AppUtils.generateUUID());
+        } else {
+            update = true;
+        }
+
+        values.put(COLUMN_ITEM_ID, item.getId());
         values.put(COLUMN_ITEM_TYPE, item.getType());
         values.put(COLUMN_ITEM_STATUS, item.getStatus());
         values.put(COLUMN_ITEM_WEIGHT, item.getWeight());
@@ -312,20 +333,29 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_ITEM_PROTEIN, item.getProtein());
         values.put(COLUMN_ITEM_DEADLINE, item.getDeadline());
 
-        if(item.getId() == null){
-            item.setId(db.insert(ITEM_TABLE_NAME, null, values));
+        if(update){
+            db.update(ITEM_TABLE_NAME, values, COLUMN_ITEM_ID + " = '" + item.getId() + "'", null);
         } else {
-            db.update(ITEM_TABLE_NAME, values, COLUMN_ITEM_ID + "=" + item.getId(), null);
+            db.insert(ITEM_TABLE_NAME, null, values);
         }
 
         return item.getId();
     }
 
-    public Long saveTrekItem(TrekItem titem) {
+    public String saveTrekItem(TrekItem titem) {
 
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
+
+        boolean update = false;
+        if (titem.getId() == null || titem.getId().isEmpty()) {
+            titem.setId(AppUtils.generateUUID());
+        } else {
+            update = true;
+        }
+
+        values.put(COLUMN_TREKITEM_ID, titem.getId());
         values.put(COLUMN_TREKITEM_ITEM_ID, titem.getItemId());
         values.put(COLUMN_TREKITEM_TREK_ID, titem.getTrekId());
         values.put(COLUMN_TREKITEM_COUNT, titem.getCount());
@@ -334,45 +364,56 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TREKITEM_STATUS, titem.getStatus());
         values.put(COLUMN_TREKITEM_WASUSED, titem.getWasUsed());
 
-        if(titem.getId() == null){
-            titem.setId(db.insert(TREKITEM_TABLE_NAME, null, values));
+        if(update){
+            db.update(TREKITEM_TABLE_NAME, values, COLUMN_TREKITEM_ID + " = '" + titem.getId() + "'", null);
         }else{
-            db.update(TREKITEM_TABLE_NAME, values, COLUMN_TREKITEM_ID + " = " + titem.getId(), null);
+            db.insert(TREKITEM_TABLE_NAME, null, values);
         }
         return titem.getId();
     }
 
-    public void deleteItem(Long itemId) {
+    public void deleteItem(String itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ITEM_TABLE_NAME, COLUMN_ITEM_ID + " = ?",
-                new String[] { String.valueOf(itemId) });
+                new String[] { itemId });
     }
 
-    public void deleteTrek(Long trekId) {
+    public void deleteTrek(String trekId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TREK_TABLE_NAME, COLUMN_TREK_ID + " = ?",
-                new String[] { String.valueOf(trekId) });
+                new String[] { trekId });
     }
 
     public void deleteTrekItem(TrekItem trekItem) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TREKITEM_TABLE_NAME, COLUMN_TREKITEM_ID + " = " + trekItem.getId(),
+        db.delete(TREKITEM_TABLE_NAME, COLUMN_TREKITEM_ID + "='" + trekItem.getId() + "'",
                 null);
     }
 
-    public List<Item> getItems(Long trekId) {
+    public List<Item> getItems(String trekId, Integer sortOrder) {
+
+        StringBuffer sortClause = new StringBuffer();
+        sortClause.append(" ORDER BY ");
+
+        if (sortOrder == AppUtils.SORT_ORDER_BY_TYPE) {
+            sortClause.append(COLUMN_ITEM_TYPE);
+        } else {
+            sortClause.append(COLUMN_ITEM_NAME);
+        }
+
+        sortClause.append(" ASC");
 
         List<Item> items = new ArrayList<Item>();
         String selectQuery = null;
 
-        if (trekId != null) {
+        if (trekId != null && !trekId.isEmpty()) {
             // do join
             selectQuery = "SELECT * FROM " + ITEM_TABLE_NAME +
                     " INNER JOIN " + TREKITEM_TABLE_NAME +
                     " ON " + ITEM_TABLE_NAME + "." + COLUMN_ITEM_ID + " = " + TREKITEM_TABLE_NAME + "." + COLUMN_TREKITEM_ITEM_ID +
-                    " AND " + TREKITEM_TABLE_NAME + "." + COLUMN_TREKITEM_TREK_ID + "=" + trekId;
+                    " AND " + TREKITEM_TABLE_NAME + "." + COLUMN_TREKITEM_TREK_ID + "='" + trekId + "'" + sortClause;
         } else {
-            selectQuery = "SELECT * FROM " + ITEM_TABLE_NAME;
+            selectQuery = "SELECT * FROM " + ITEM_TABLE_NAME + sortClause;
         }
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -383,7 +424,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         while(cursor.isAfterLast() == false){
             Item item = new Item();
-			item.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ITEM_ID)));
+			item.setId(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_ID)));
             item.setType(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_TYPE)));
             item.setStatus(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_STATUS)));
             item.setWeight(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_WEIGHT)));
@@ -416,7 +457,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         while(cursor.isAfterLast() == false) {
             Trek trek = new Trek();
-            trek.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_TREK_ID)));
+            trek.setId(cursor.getString(cursor.getColumnIndex(COLUMN_TREK_ID)));
             trek.setStart(cursor.getString(cursor.getColumnIndex(COLUMN_TREK_START)));
             trek.setEnd(cursor.getString(cursor.getColumnIndex(COLUMN_TREK_END)));
             trek.setStartCoords(cursor.getString(cursor.getColumnIndex(COLUMN_TREK_SCOORDS)));
@@ -426,6 +467,7 @@ public class DbHelper extends SQLiteOpenHelper {
             trek.setLength(cursor.getDouble(cursor.getColumnIndex(COLUMN_TREK_LENGTH)));
             trek.setLevel(cursor.getString(cursor.getColumnIndex(COLUMN_TREK_LEVEL)));
             trek.setLessonsLearned(cursor.getString(cursor.getColumnIndex(COLUMN_TREK_LESSONS)));
+            trek.setPic(cursor.getString(cursor.getColumnIndex(COLUMN_TREK_PIC)));
 
             treks.add(trek);
             cursor.moveToNext();
@@ -435,10 +477,10 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    public List<TrekItem> getTrekItems(Long trekId) {
+    public List<TrekItem> getTrekItems(String trekId) {
 
         List<TrekItem> trekItems = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TREKITEM_TABLE_NAME + " WHERE " + COLUMN_TREKITEM_TREK_ID + "=" + trekId;
+        String selectQuery = "SELECT * FROM " + TREKITEM_TABLE_NAME + " WHERE " + COLUMN_TREKITEM_TREK_ID + "='" + trekId + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -447,9 +489,9 @@ public class DbHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while(cursor.isAfterLast() == false) {
             TrekItem trekItem = new TrekItem();
-            trekItem.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_TREKITEM_ID)));
-            trekItem.setItemId(cursor.getLong(cursor.getColumnIndex(COLUMN_TREKITEM_ITEM_ID)));
-            trekItem.setTrekId(cursor.getLong(cursor.getColumnIndex(COLUMN_TREKITEM_TREK_ID)));
+            trekItem.setId(cursor.getString(cursor.getColumnIndex(COLUMN_TREKITEM_ID)));
+            trekItem.setItemId(cursor.getString(cursor.getColumnIndex(COLUMN_TREKITEM_ITEM_ID)));
+            trekItem.setTrekId(cursor.getString(cursor.getColumnIndex(COLUMN_TREKITEM_TREK_ID)));
             trekItem.setCount(cursor.getInt(cursor.getColumnIndex(COLUMN_TREKITEM_COUNT)));
             trekItem.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_TREKITEM_NOTES)));
             trekItem.setStatus(cursor.getString(cursor.getColumnIndex(COLUMN_TREKITEM_STATUS)));
@@ -468,9 +510,9 @@ public class DbHelper extends SQLiteOpenHelper {
         return trekItems;
     }
 
-    private Item getItem(Long itemId) {
+    private Item getItem(String itemId) {
 
-        String selectQuery = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE " + COLUMN_ITEM_ID + "=" + itemId;
+        String selectQuery = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE " + COLUMN_ITEM_ID + "='" + itemId + "'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -478,7 +520,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Item item = new Item();
         cursor.moveToFirst();
         while(cursor.isAfterLast() == false){
-            item.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ITEM_ID)));
+            item.setId(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_ID)));
             item.setDeadline(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_DEADLINE)));
 
             int isDef = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_DEFAULT));
@@ -499,11 +541,13 @@ public class DbHelper extends SQLiteOpenHelper {
         return item;
     }
 
-    private void saveTrekItem(Long trekId, Long itemId) {
+    private void saveTrekItem(String trekId, String itemId) {
         ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COLUMN_TREKITEM_ID, AppUtils.generateUUID());
         contentValues.put(COLUMN_TREKITEM_TREK_ID, trekId);
         contentValues.put(COLUMN_TREKITEM_ITEM_ID, itemId);
-        contentValues.put(COLUMN_TREKITEM_COUNT, 0);
+        contentValues.put(COLUMN_TREKITEM_COUNT, 1);
         contentValues.put(COLUMN_TREKITEM_STATUS, "trek_item_status_1");
         contentValues.put(COLUMN_TREKITEM_WASUSED, false);
 

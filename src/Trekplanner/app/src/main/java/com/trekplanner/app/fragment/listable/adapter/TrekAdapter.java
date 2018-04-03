@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.trekplanner.app.R;
+import com.trekplanner.app.fragment.listable.ListFragment;
 import com.trekplanner.app.model.Trek;
+import com.trekplanner.app.utils.AppUtils;
 
 import java.util.List;
 
@@ -23,8 +25,8 @@ public class TrekAdapter extends ListAdapter {
 
     private List<Trek> listRows;
 
-    public TrekAdapter(Context context) {
-        super(context);
+    public TrekAdapter(Context context, ListFragment.ListViewActionListener listener) {
+        super(context, listener);
     }
 
     public void setListRows(List<Trek> rows) {
@@ -74,7 +76,10 @@ public class TrekAdapter extends ListAdapter {
 
         TextView textView = convertView
                 .findViewById(R.id.listview_row_header_text);
-        textView.setText(trek.getStart() + " - " + trek.getEnd());
+        textView.setText(
+                AppUtils.formatDateTime(trek.getStart(), AppUtils.DATETIME_FORMAT_ONLY_DATE)
+                        + " - "
+                        + AppUtils.formatDateTime(trek.getEnd(), AppUtils.DATETIME_FORMAT_ONLY_DATE));
 
         ImageView button = convertView.findViewById(R.id.listview_forward_button);
 
@@ -87,7 +92,7 @@ public class TrekAdapter extends ListAdapter {
                 Snackbar.make(view, "Clicked forward for trek " + trek.getDescription(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                actionListener.onForwardButtonClick(trek);
+                viewActionListener.onForwardButtonClick(trek);
 
             }
         });

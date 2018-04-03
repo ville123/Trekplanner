@@ -6,25 +6,25 @@ package com.trekplanner.app.model;
 
 public class TrekItem  {
 
-    private Long id;
-    private Long itemId;
+    private String id;
+    private String itemId;
     private Item item;
-    private Long trekId;
+    private String trekId;
     private int count;
     private String notes;
     private Double totalWeight;
     private String status;
     private boolean wasUsed;
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public void setItemId(Long itemId){
+    public void setItemId(String itemId){
         this.itemId = itemId;
     }
 
-    public void setTrekId(Long trekId){
+    public void setTrekId(String trekId){
         this.trekId = trekId;
     }
 
@@ -48,15 +48,15 @@ public class TrekItem  {
         this.wasUsed = wasUsed;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public Long getItemId(){
+    public String getItemId(){
         return itemId;
     }
 
-    public Long getTrekId(){
+    public String getTrekId(){
         return trekId;
     }
 

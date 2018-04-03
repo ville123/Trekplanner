@@ -1,7 +1,6 @@
 package com.trekplanner.app.fragment.listable.adapter;
 
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.trekplanner.app.R;
+import com.trekplanner.app.fragment.listable.ListFragment;
 import com.trekplanner.app.model.TrekItem;
 
 import java.util.List;
@@ -28,8 +28,9 @@ public class TrekItemAdapter extends ListAdapter {
 
     private List<TrekItem> listRows;
 
-    public TrekItemAdapter(Context context) {
-        super(context);
+    public TrekItemAdapter(Context context, ListFragment.ListViewActionListener listener) {
+
+        super(context, listener);
     }
 
     public void setListRows(List<TrekItem> rows) {
@@ -87,7 +88,7 @@ public class TrekItemAdapter extends ListAdapter {
                 }
 
                 Log.d("TREK_TrekItemAdapter", "Item status changed for trekItem " + trekItem.getItem().getName() + " to " + trekItem.getStatus());
-                actionListener.saveButtonClicked(trekItem);
+                viewActionListener.saveButtonClicked(trekItem);
             }
         });
 
@@ -107,7 +108,7 @@ public class TrekItemAdapter extends ListAdapter {
                 trekItem.setWasUsed(b);
 
                 Log.d("TREK_TrekItemAdapter", "Was used changed for trekItem " + trekItem.getItem().getName() + " to " + trekItem.getWasUsed());
-                actionListener.saveButtonClicked(trekItem);
+                viewActionListener.saveButtonClicked(trekItem);
 
             }
         });
@@ -122,12 +123,17 @@ public class TrekItemAdapter extends ListAdapter {
                 trekItem.setNotes(notes.getText().toString());
 
                 Log.d("TREK_TrekItemAdapter", "Notes changed for trekItem " + trekItem.getItem().getName() + " to " + trekItem.getNotes());
-                actionListener.saveButtonClicked(trekItem);
+                viewActionListener.saveButtonClicked(trekItem);
             }
         });
 
 
         return convertView;
+    }
+
+    public void removeFromListAndNotify(TrekItem trekItem) {
+        this.listRows.remove(trekItem);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -192,8 +198,7 @@ public class TrekItemAdapter extends ListAdapter {
                 Log.d("TREK_TrekItemListAdaptr", "Clicked add count for item " + trekItem.getItem().getName());
 
                 trekItem.setCount(trekItem.getCount() + 1);
-
-                actionListener.onModifyCountButtonClicked(trekItem);
+                viewActionListener.onModifyCountButtonClicked(trekItem);
                 notifyDataSetChanged();
 
             }
@@ -208,9 +213,9 @@ public class TrekItemAdapter extends ListAdapter {
 
                 Log.d("TREK_TrekItemListAdaptr", "Clicked substract count for item " + trekItem.getItem().getName());
 
-                if (trekItem.getCount() > 0) {
+                if (trekItem.getCount() > 1) {
                     trekItem.setCount(trekItem.getCount() - 1);
-                    actionListener.onModifyCountButtonClicked(trekItem);
+                    viewActionListener.onModifyCountButtonClicked(trekItem);
                     notifyDataSetChanged();
                 }
 
@@ -226,8 +231,7 @@ public class TrekItemAdapter extends ListAdapter {
 
                 Log.d("TREK_TrekItemListAdaptr", "Clicked delete for item " + trekItem.getItem().getName());
 
-                actionListener.onDeleteButtonClicked(trekItem);
-                notifyDataSetChanged();
+                viewActionListener.onDeleteButtonClicked(trekItem);
             }
         });
 

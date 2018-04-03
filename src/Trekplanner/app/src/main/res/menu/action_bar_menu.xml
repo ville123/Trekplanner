@@ -32,11 +32,6 @@
         android:title="@string/phrase_load_defaults"/>
 
     <item
-        android:id="@+id/action_cleardatabase"
-        android:orderInCategory="103"
-        android:title="@string/phrase_clear_db"/>
-
-    <item
         android:id="@+id/action_help"
         android:orderInCategory="104"
         android:title="@string/phrase_help"/>

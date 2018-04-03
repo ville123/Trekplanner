@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.model.Item;
-import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.model.TrekItem;
 
 /**
@@ -22,16 +22,15 @@ import com.trekplanner.app.model.TrekItem;
 public abstract class ListFragment extends Fragment implements View.OnClickListener {
 
     ExpandableListView listView;
-    Long rowId; // ties this instance to a certain item or trek
+    String rowId; // ties this instance to a certain item or trek
     DbHelper db;
 
     // interface for handling actions from adapter -level
     public interface ListViewActionListener {
         void onForwardButtonClick(Object o);
         void onModifyCountButtonClicked(TrekItem trekItem);
-        void onDeleteButtonClicked(TrekItem trekItem);
-        void saveButtonClicked(Item item);
-        void saveButtonClicked(TrekItem trekItem);
+        void onDeleteButtonClicked(Object o);
+        void saveButtonClicked(Object o);
     }
 
     @Override
@@ -61,7 +60,7 @@ public abstract class ListFragment extends Fragment implements View.OnClickListe
             @Override
             public void onGroupExpand(int groupPosition) {
                 if(groupPosition != previousItem )
-                    listView.collapseGroup(previousItem );
+                    listView.collapseGroup(previousItem);
                 previousItem = groupPosition;
             }
         });

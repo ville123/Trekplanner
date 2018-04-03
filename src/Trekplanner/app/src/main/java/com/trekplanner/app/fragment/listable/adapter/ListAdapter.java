@@ -14,19 +14,14 @@ import com.trekplanner.app.fragment.listable.ListFragment;
  */
 public abstract class ListAdapter extends BaseExpandableListAdapter {
 
-    protected ListFragment.ListViewActionListener actionListener;
+    protected ListFragment.ListViewActionListener viewActionListener;
     protected Context context;
 
-    public ListAdapter(Context context) {
+    public ListAdapter(Context context, ListFragment.ListViewActionListener listener) {
         Log.d("TREK_ListviewAdapter", "Adding action as action listener");
-
-        // adding listener for all adapter level actions
         this.context = context;
-        if (context instanceof ListFragment.ListViewActionListener) {
-            this.actionListener = (ListFragment.ListViewActionListener)context;
-        } else {
-            throw new IllegalArgumentException("ListViewAdapter can not set action listener");
-        }
+        // adding listener for all adapter level actions
+        this.viewActionListener = listener;
     }
 
     @Override

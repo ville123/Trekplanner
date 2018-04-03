@@ -1,14 +1,18 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme_Fall" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="view_header_style" parent="TextAppearance.AppCompat">
+    <style name="header_layout_style">
+        <item name="android:layout_marginTop">@dimen/margin</item>
+    </style>
+
+    <style name="header_text_style">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/header_textsize</item>
     </style>
@@ -17,8 +21,7 @@
         <item name="android:background">@color/colorAccent</item>
     </style>
 
-    <style name="toolbar" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/colorAccent</item>
+    <style name="toolbar">
         <item name="android:textSize">@dimen/header_textsize</item>
     </style>
 
@@ -36,15 +39,23 @@
         <item name="android:background">@drawable/fall1</item>
     </style>
 
+    <style name="splash_icon">
+        <item name="android:layout_width">152dp</item>
+        <item name="android:layout_height">152dp</item>
+        <item name="android:background">@drawable/icon2</item>
+    </style>
+
     <style name="splash_text">
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimaryDarkTransparent</item>
         <item name="android:textSize">@dimen/main_title_text_size</item>
-        <item name="android:fontFamily">android:fontFamily="sans-serif-light"</item>
     </style>
 
     <style name="row_content_layout_style">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:paddingLeft">@dimen/margin</item>
+        <item name="android:paddingRight">@dimen/margin</item>
     </style>
 
     <style name="row_header_layout_style">
@@ -52,9 +63,20 @@
         <item name="android:background">@color/colorPrimaryDarkTransparent</item>
     </style>
 
+    <style name="row_header_inner_layout_style">
+        <item name="android:layout_marginLeft">@dimen/margin</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:layout_marginRight">@dimen/margin</item>
+    </style>
+
     <style name="row_style">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:buttonTint">#FFFFFF</item>
+    </style>
+
+    <style name="image_style">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
     </style>
 
 </resources>

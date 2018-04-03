@@ -41,14 +41,20 @@ public class MainEditFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.editview_tab_layout, container, false);
 
+        // setting page header content
         ImageView headerImageView
                 = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
-        //TextView headerText
-        //        = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_text);
 
-        // todo: if Item then item terms
-       // headerText.setText(R.string.term_trek);
         headerImageView.setImageResource(R.drawable.trek);
+
+        // get the treks pic for header background
+        // TODO: prevent this shit by createting abstract EditFragment -class. See "ListFragment" for example.
+        if (this.editFragment instanceof TrekEditFragment) {
+            //((TrekEditFragment) this.editFragment)
+            //        .setHeaderPic(
+            //                this.getActivity().getResources(),
+            //                this.getActivity().findViewById(android.R.id.content).findViewById(R.id.main_header_layout));
+        }
 
         // create tab layout and adapter
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);

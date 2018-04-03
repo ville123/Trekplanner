@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="@dimen/fab_margin"
-    android:layout_marginBottom="@dimen/fab_margin"
     style="@style/row_content_layout_style">
 
     <RadioGroup

@@ -70,4 +70,7 @@
 
     <string name="expand_marks">...</string>
 
+    <string name="nav_menu_item_1">Varusteet</string>
+    <string name="nav_menu_item_2">Retket</string>
+
 </resources>

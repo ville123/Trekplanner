@@ -12,7 +12,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.trekplanner.app.R;
+import com.trekplanner.app.fragment.listable.ListFragment;
 import com.trekplanner.app.model.Item;
+import com.trekplanner.app.utils.AppUtils;
 
 import java.util.List;
 
@@ -25,8 +27,9 @@ public class ItemAdapter extends ListAdapter {
 
     private List<Item> listRows;
 
-    public ItemAdapter(Context context) {
-        super(context);
+    public ItemAdapter(Context context, ListFragment.ListViewActionListener listener) {
+
+        super(context, listener);
     }
 
     public void setListRows(List<Item> rows) {
@@ -51,6 +54,16 @@ public class ItemAdapter extends ListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.listview_row_item_content_layout, null);
         }
+
+        // TODO: dont open child for abstract items
+        /**if (item.getType().equals(this.get.getContext().getString(R.string.enum_itemtype4)) ||
+                item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype5)) ||
+                item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype6)) ||
+                item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype7))
+                )
+        {
+            return ?;
+        }**/
 
         RadioButton rbtn1 = convertView.findViewById(R.id.listview_item_rbtn_status1);
         RadioButton rbtn2 = convertView.findViewById(R.id.listview_item_rbtn_status2);
@@ -81,7 +94,7 @@ public class ItemAdapter extends ListAdapter {
                     item.setStatus(finalConvertView.getContext().getString(R.string.enum_itemstatus3));
                 }
 
-                actionListener.saveButtonClicked(item);
+                viewActionListener.saveButtonClicked(item);
                 Log.d("TREK_ItemListAdaptr", "Item status changed for item " + item.getName() + " to " + item.getStatus());
             }
         });
@@ -119,7 +132,6 @@ public class ItemAdapter extends ListAdapter {
 
         TextView textView = convertView
                 .findViewById(R.id.listview_row_header_text);
-        textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
 
         TextView expandMark
                 = convertView.findViewById(R.id.listview_row_header_expandtext);
@@ -128,20 +140,28 @@ public class ItemAdapter extends ListAdapter {
         ImageView imageView = convertView.findViewById(R.id.listview_row_header_image);
 
         if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype1))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
             imageView.setImageResource(R.drawable.item);
         } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype2))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
             imageView.setImageResource(R.drawable.backpack);
         } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype3))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
             imageView.setImageResource(R.drawable.food);
         } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype4))) {
+            textView.setText("");
             imageView.setImageResource(R.drawable.idea);
         } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype5))) {
+            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
             imageView.setImageResource(R.drawable.remember);
         } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype6))) {
+            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
             imageView.setImageResource(R.drawable.remember);
         } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype7))) {
+            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
             imageView.setImageResource(R.drawable.task);
         } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype8))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
              imageView.setImageResource(R.drawable.cutlery);
         }
 
@@ -156,14 +176,10 @@ public class ItemAdapter extends ListAdapter {
                 Snackbar.make(view, "Clicked forward for item " + item.getName(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                actionListener.onForwardButtonClick(item);
+                viewActionListener.onForwardButtonClick(item);
 
             }
         });
-
-//        byte[] decodedString = Base64.decode(item.getPic(), Base64.DEFAULT);
-//        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//        imageView.setImageBitmap(bitmap);
 
         return convertView;
     }

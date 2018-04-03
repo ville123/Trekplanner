@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Trek {
 
-    private Long id;
+    private String id;
     private String start;
     private String end;
     private String startCoords;
@@ -19,13 +19,14 @@ public class Trek {
     private Double length;
     private String level;
     private String lessonsLearned;
+    private String pic;
     private List<Item> items;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -108,5 +109,13 @@ public class Trek {
 
     public List<Item> getItems() {
         return this.items;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 }

@@ -1,5 +1,7 @@
 package com.trekplanner.app.fragment.listable;
 
+import android.content.DialogInterface;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 
@@ -7,6 +9,9 @@ import com.trekplanner.app.MainActivity;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.fragment.listable.adapter.TrekItemAdapter;
+import com.trekplanner.app.model.Item;
+import com.trekplanner.app.model.Trek;
+import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;
 
 /**
@@ -14,9 +19,11 @@ import com.trekplanner.app.utils.AppUtils;
  *
  * Fragment for TrekItem list
  */
-public class TrekItemListFragment extends ListFragment {
+public class TrekItemListFragment extends ListFragment implements ListFragment.ListViewActionListener {
 
-    public static TrekItemListFragment getNewInstance(DbHelper db, Long trekId) {
+    private TrekItemAdapter adapter;
+
+    public static TrekItemListFragment getNewInstance(DbHelper db, String trekId) {
         Log.d("TREK_TrekItemListFrag", "Returning  new TrekItemListFragment -instance");
 
         // cant use singelton -pattern for trekitems since context (trek) is changing
@@ -37,22 +44,64 @@ public class TrekItemListFragment extends ListFragment {
     protected void buildView(View view) {
 
         // nothing to build since trekitem -list has no page header (it is handled by MainEditFragment (tab-layout)
-        Log.d("TREK_TrekItemListFrag", "Building ItemList view");
+
     }
 
     @Override
     protected void prepareListViewData() {
         Log.d("TREK_TrekItemListFrag", "Preparing ItemListView data with item rowid " + this.rowId);
-        TrekItemAdapter adapter = new TrekItemAdapter(this.getActivity());
+        this.adapter = new TrekItemAdapter(this.getActivity(), this);
 
-        // treklist contains items for a trek from db
-        adapter.setListRows(db.getTrekItems(this.rowId));
+        // treklist contains items for a trek from db (rowId = Trek.Id)
+        this.adapter.setListRows(db.getTrekItems(this.rowId));
         listView.setAdapter(adapter);
     }
 
     // floating button clicked
     @Override
     public void onClick(View view) {
-        ((MainActivity) this.getActivity()).onListViewActionButtonClick(AppUtils.TREKITEM_LIST_ACTION_ID, view);
+        // TODO: open item selection list
+        Snackbar.make(view, "Tästä pitäisi avautua varusteiden valintalista retkelle", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    @Override
+    public void onForwardButtonClick(Object o) {
+        // no such button in trekItem -list
+    }
+
+    // add or substract count -button clicked on trekitem listview
+    @Override
+    public void onModifyCountButtonClicked(TrekItem trekItem) {
+        db.saveTrekItem(trekItem);
+        AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
+    }
+
+    // delete -button clicked on trekitem listview
+    @Override
+    public void onDeleteButtonClicked(final Object o) {
+
+        DialogInterface.OnClickListener yesListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                TrekItem trekItem = (TrekItem) o;
+                db.deleteTrekItem(trekItem);
+                adapter.removeFromListAndNotify(trekItem);
+                AppUtils.showOkMessage(getView(), R.string.phrase_delete_success);
+
+            }
+        };
+
+        //noListener = null, so it only closes the dialog
+
+        AppUtils.showConfirmDialog(getActivity(), R.string.phrase_confirm_delete, yesListener, null);
+
+    }
+
+    @Override
+    public void saveButtonClicked(Object o) {
+        db.saveTrekItem((TrekItem) o);
+        AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
     }
 }
