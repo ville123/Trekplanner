@@ -73,8 +73,8 @@ public class ItemEditFragment extends EditFragment {
         Double protein = Double.parseDouble(proteinString);
         String deadlineString = mDeadline.getText().toString().trim();
 
-        this.item.setType(mType);
-        this.item.setStatus(mStatus);
+        this.item.setType(typeString);
+        this.item.setStatus(statusString);
         this.item.setDefault(isDefaulbool);
         this.item.setWeight(weight);
         this.item.setName(name);
