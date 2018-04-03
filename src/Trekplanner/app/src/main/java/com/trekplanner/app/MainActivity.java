@@ -1,20 +1,18 @@
 package com.trekplanner.app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.fragment.editable.ItemEditFragment;
@@ -36,13 +34,12 @@ import com.trekplanner.app.utils.AppUtils;
  *
  * Handles all the UI navigation actions
  */
-public class MainActivity extends AppCompatActivity implements ListFragment.ListViewActionListener {
+public class MainActivity extends AppCompatActivity {
 
     private DbHelper db;
     private Fragment itemListFragment;
     private Fragment trekListFragment;
     private Menu menu;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +95,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
             db.resetDefaults();
             openItemList();
             return true;
-        } else if (id == R.id.action_cleardatabase) {
-            // TODO: needed? db.dropDb();
-            return true;
         } else if (id == R.id.action_export) {
             // TODO: export items and treks to a json/csv/xml file
             return true;
@@ -121,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     }
 
     // Floating button clicked on some listview
-    public void onListViewActionButtonClick(String listId, View view) {
+    public void onListViewActionButtonClick(Integer actionId, View view) {
         Log.d("TREK_MainActivity", "List view floating button clicked");
 
         // TODO: for now this action toggles between item and trek -lists
@@ -129,58 +123,23 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
 
         // TODO: Item / trek editor should be opened here for creating new object
 
-        if (listId.equals(AppUtils.ITEM_LIST_ACTION_ID)) {
+        if (actionId == AppUtils.ITEM_LIST_ACTION_ID) {
             openTrekList();
-        } else if (listId.equals(AppUtils.TREK_LIST_ACTION_ID)) {
+        } else if (actionId == AppUtils.TREK_LIST_ACTION_ID) {
             openItemList();
-        } else if (listId.equals(AppUtils.TREKITEM_LIST_ACTION_ID)) {
-            // TODO: open item selection list
-            Snackbar.make(view, "Tästä pitäisi avautua varusteiden valintalista retkelle", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
         }
     }
 
-    // forward button clicked on Item or Trek list view
-    @Override
-    public void onForwardButtonClick(Object o) {
-        Log.d("TREK_MainActivity", "listview row forward button clicked");
-        if (o instanceof Item) {
-            openItemPage((Item)o);
-        } else if (o instanceof Trek) {
-            openTrekPage((Trek)o);
-        }
+    // forward button clicked on Item list view
+    public void onForwardButtonClick(Item item) {
+        Log.d("TREK_MainActivity", "Item listview row forward button clicked");
+        openItemPage(item);
     }
 
-    // add or substract count -button clicked on trekitem listview
-    @Override
-    public void onModifyCountButtonClicked(TrekItem trekItem) {
-        db.saveTrekItem(trekItem);
-        showOkMessage(R.string.phrase_save_success);
-    }
-
-    // delete -button clicked on trekitem listview
-    @Override
-    public void onDeleteButtonClicked(TrekItem trekItem) {
-        db.deleteTrekItem(trekItem);
-        showOkMessage(R.string.phrase_delete_success);
-    }
-
-    // save action fired from itemlistview
-    @Override
-    public void saveButtonClicked(Item item) {
-        db.saveItem(item);
-        showOkMessage(R.string.phrase_save_success);
-    }
-
-    @Override
-    public void saveButtonClicked(TrekItem trekItem) {
-        db.saveTrekItem(trekItem);
-        showOkMessage(R.string.phrase_save_success);
-    }
-
-    private void showOkMessage(int message) {
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+    // forward button clicked on Trek list view
+    public void onForwardButtonClick(Trek trek) {
+        Log.d("TREK_MainActivity", "Trek listview row forward button clicked");
+        openTrekPage(trek);
     }
 
     private void openItemList(){
@@ -202,14 +161,10 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
     }
 
     private void openItemPage(Item item) {
-
-        getSupportActionBar().setTitle(R.string.term_item);
         openFragment(ItemEditFragment.getNewInstance(db, item), true);
     }
 
     private void openTrekPage(Trek trek) {
-
-        getSupportActionBar().setTitle(R.string.term_trek);
 
         // opening tab -layout by using MainEditFragment
 
@@ -238,4 +193,5 @@ public class MainActivity extends AppCompatActivity implements ListFragment.List
         ft.commit();
 
     }
+
 }

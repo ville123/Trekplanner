@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">Trekplanner</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="title_activity_login"></string>
     <string name="action_settings">Asetukset</string>
     <string name="term_item">Varuste</string>
@@ -25,6 +22,13 @@
     <string name="phrase_export">Vie...</string>
     <string name="phrase_import">Tuo...</string>
     <string name="phrase_search">Hae</string>
+    <string name="phrase_settings">Asetukset</string>
+    <string name="phrase_welcome">Tervetuloa!</string>
+    <string name="phrase_delete_success">Poisto onnistui</string>
+    <string name="phrase_confirm_delete">Oletko varma että haluat poistaa kohteen</string>
+    <string name="phrase_delete_notification">Kohteen poisto</string>
+    <string name="phrase_sort_by_itemtype">(a..z) Tyyppi</string>
+    <string name="phrase_sort_by_name">(a..z) Nimi</string>
 
     <string name="enum_itemstatus1">item_status_1</string>
     <string name="enum_itemstatus2">item_status_2</string>
@@ -65,8 +69,5 @@
     <string name="trek_item_status_3">Palautettu</string>
 
     <string name="expand_marks">...</string>
-    <string name="phrase_settings">Asetukset</string>
-    <string name="phrase_welcome">Tervetuloa!</string>
-    <string name="phrase_delete_success">Poisto onnistui</string>
 
 </resources>
