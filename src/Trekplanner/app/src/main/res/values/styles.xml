@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme_Fall" parent="Theme.AppCompat">
+    <style name="AppTheme_Fall" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -46,8 +46,14 @@
     </style>
 
     <style name="splash_text">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:background">@color/colorPrimaryDarkTransparent</item>
+        <item name="android:textColor">@color/colorLight</item>
+        <item name="android:background"></item>
+        <item name="android:textSize">@dimen/main_title_text_size</item>
+    </style>
+
+    <style name="splash_subtext">
+        <item name="android:textColor">@color/colorLight</item>
+        <item name="android:background"></item>
         <item name="android:textSize">@dimen/main_title_text_size</item>
     </style>
 

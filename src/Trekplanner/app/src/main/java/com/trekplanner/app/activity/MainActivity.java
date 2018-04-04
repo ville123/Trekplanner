@@ -1,35 +1,30 @@
-package com.trekplanner.app;
+package com.trekplanner.app.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.fragment.editable.ItemEditFragment;
 import com.trekplanner.app.fragment.editable.MainEditFragment;
 import com.trekplanner.app.fragment.editable.TrekEditFragment;
 import com.trekplanner.app.fragment.listable.ItemListFragment;
-import com.trekplanner.app.fragment.listable.ListFragment;
 import com.trekplanner.app.fragment.listable.TrekItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekListFragment;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
-import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;
 
 /**
@@ -46,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment trekListFragment;
     private Menu menu;
     private DrawerLayout mDrawerLayout;
+    private PreferenceActivity preferencesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("TREK_MainActivity", "opening splash screen");
         openSplashScreenActivity();
+
+        // preferences fragment
+        this.preferencesFragment = new PreferenceActivity();
 
         // Nav menu
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -126,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_loaddefaults) {
             db.resetDefaults();
-            openItemList();
             return true;
         } else if (id == R.id.action_export) {
             // TODO: export items and treks to a json/csv/xml file
@@ -138,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             // TODO: show help -page
             return true;
         } else if (id == R.id.action_settings) {
-            // TODO: implement settings page
+            openPreferences();
             return true;
         } else if (id == android.R.id.home){
             // Open navigation menu
@@ -199,6 +197,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void openItemPage(Item item) {
         openFragment(ItemEditFragment.getNewInstance(db, item), true);
+    }
+
+    private void openPreferences() {
+        Intent intent = new Intent(this, PreferenceActivity.class);
+        startActivity(intent);
     }
 
     private void openTrekPage(Trek trek) {

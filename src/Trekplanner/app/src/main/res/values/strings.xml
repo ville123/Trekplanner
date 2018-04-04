@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trekplanner</string>
+    <string name="app_name">TrekPlanner</string>
 
     <string name="title_activity_login"></string>
     <string name="action_settings">Asetukset</string>
@@ -10,10 +10,32 @@
     <string name="term_notes">Muistiinpanot</string>
     <string name="term_description">Kuvaus</string>
     <string name="term_kilogram">kg</string>
+    <string name="term_gram">g</string>
+    <string name="term_kilometer">km</string>
+    <string name="term_meter">m</string>
     <string name="term_start_end">Alku-Loppupäivä</string>
     <string name="term_data">Tiedot</string>
     <string name="term_was_used">Käytetty</string>
     <string name="term_pieces">kpl</string>
+    <string name="term_spring">Kevät</string>
+    <string name="term_summer">Kesä</string>
+    <string name="term_autum">Syksy</string>
+    <string name="term_winter">Talvi</string>
+    <string name="term_automated_theme">Automaattinen vuodenaika</string>
+
+    <!--settings -->
+    <string name="term_settings">Asetukset</string>
+    <string name="term_nickname">Lempinimi</string>
+    <string name="term_theme">Teema</string>
+    <string name="term_weight_unit">Painon yksikkö</string>
+    <string name="term_length_unit">Pituuden yksikkö</string>
+    <string name="summary_length_unit">Ilmoita pituudet annetussa yksikössä. Valittu yksikkö on:</string>
+    <string name="summary_nickname">Lempinimeä käytetään tunnistamaan käyttäjä ja retkikunnan jäsen. Nykyinen lempinimesi on:</string>
+    <string name="summary_theme">Valitse applikaation väriteema. Valittu teema:</string>
+    <string name="summary_weight_unit">Ilmoita painot annetussa yksikössä. Valittu yksikkö on:</string>
+    <string name="dialog_title_theme">Väriteema</string>
+    <string name="dialog_title_weight_unit">Painon yksikkö</string>
+    <string name="dialog_title_length_unit">Pituuden yksikkö</string>
 
     <string name="phrase_clear_db">Tyhjennä tietokanta</string>
     <string name="phrase_load_defaults">Lataa oletukset</string>
@@ -47,6 +69,12 @@
     <string name="enum_trekitemstatus2">trek_item_status_2</string>
     <string name="enum_trekitemstatus3">trek_item_status_3</string>
 
+    <string name="enum_theme_spring">theme_spring</string>
+    <string name="enum_theme_summer">theme_summer</string>
+    <string name="enum_theme_autum">theme_autum</string>
+    <string name="enum_theme_winter">theme_winter</string>
+    <string name="enum_theme_automated">theme_automated_seasons</string>
+
     <string name="item_status_1">OK</string>
     <string name="item_status_2">Rikki</string>
     <string name="item_status_3">Hukassa</string>
@@ -69,8 +97,5 @@
     <string name="trek_item_status_3">Palautettu</string>
 
     <string name="expand_marks">...</string>
-
-    <string name="nav_menu_item_1">Varusteet</string>
-    <string name="nav_menu_item_2">Retket</string>
 
 </resources>
