@@ -8,9 +8,13 @@
     <string name="term_trek">Retki</string>
     <string name="term_treks">Retket</string>
     <string name="term_notes">Muistiinpanot</string>
+    <string name="term_lesson">Retkellä opittua</string>
     <string name="term_description">Kuvaus</string>
+    <string name="term_level">Vaikeustaso</string>
+    <string name="term_length">Pituus</string>
     <string name="term_kilogram">kg</string>
     <string name="term_start_end">Alku-Loppupäivä</string>
+    <string name="term_start_end_coord">Alku- ja loppukoordinaatit</string>
     <string name="term_data">Tiedot</string>
     <string name="term_was_used">Käytetty</string>
     <string name="term_pieces">kpl</string>
