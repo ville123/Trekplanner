@@ -18,6 +18,13 @@
     <string name="term_data">Tiedot</string>
     <string name="term_was_used">Käytetty</string>
     <string name="term_pieces">kpl</string>
+    <string name="term_protein">Protein</string>
+    <string name="term_energy">Energy</string>
+    <string name="term_date">Date</string>
+    <string name="term_default">Default</string>
+    <string name="term_delete">delete</string>
+    <string name="term_save">save</string>
+    <string name="term_pic">Pic</string>
 
     <string name="phrase_clear_db">Tyhjennä tietokanta</string>
     <string name="phrase_load_defaults">Lataa oletukset</string>
