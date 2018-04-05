@@ -1,5 +1,6 @@
 package com.trekplanner.app.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -23,6 +24,7 @@ import com.trekplanner.app.fragment.editable.TrekEditFragment;
 import com.trekplanner.app.fragment.listable.ItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekListFragment;
+import com.trekplanner.app.handler.ExportActionHandler;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
@@ -105,8 +107,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.d("TREK_MainActivity", "opening item list");
-        // TODO: for now item list is opened as default before the left menu is implemented
-        openItemList();
     }
 
     @Override
@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
 
         // save the menu object for later use in showing search action where needed
         this.menu = menu;
+
+        openItemList();
 
         return true;
     }
@@ -135,6 +137,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_export) {
             // TODO: export items and treks to a json/csv/xml file
+            AppUtils.showSelectionDialog(this,
+                    R.string.phrase_select_filesystem,
+                    null,
+                    R.array.filesystems,
+                    new ExportActionHandler(this));
             return true;
         } else if (id == R.id.action_import) {
             // TODO: import items and treks from a json/csv/xml file
@@ -192,9 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(R.string.term_items);
 
-        // TODO: cant do this since openItemList() is called before menu is set
-        //MenuItem item = this.menu.findItem(R.id.action_search);
-        //item.setVisible(true);
+        menu.findItem(R.id.action_search).setVisible(true);
 
         openFragment(this.itemListFragment, false);
     }
@@ -202,11 +207,13 @@ public class MainActivity extends AppCompatActivity {
     private void openTrekList() {
 
         getSupportActionBar().setTitle(R.string.term_treks);
+        menu.findItem(R.id.action_search).setVisible(false);
 
         openFragment(this.trekListFragment, false);
     }
 
     private void openItemPage(Item item) {
+        menu.findItem(R.id.action_search).setVisible(false);
         openFragment(ItemEditFragment.getNewInstance(db, item), true);
     }
 
@@ -216,6 +223,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openTrekPage(Trek trek) {
+
+        menu.findItem(R.id.action_search).setVisible(false);
 
         // opening tab -layout by using MainEditFragment
 

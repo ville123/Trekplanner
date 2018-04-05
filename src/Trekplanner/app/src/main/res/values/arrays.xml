@@ -30,4 +30,9 @@
         <item>@string/term_kilometer</item>
         <item>@string/term_meter</item>
     </string-array>
+    <string-array name="filesystems">
+        <item>@string/fs_harddrive</item>
+        <item>@string/fs_gdrive</item>
+        <item>@string/fs_onedrive</item>
+    </string-array>
 </resources>

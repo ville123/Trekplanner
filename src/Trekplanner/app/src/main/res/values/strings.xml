@@ -48,9 +48,10 @@
     <string name="phrase_welcome">Tervetuloa!</string>
     <string name="phrase_delete_success">Poisto onnistui</string>
     <string name="phrase_confirm_delete">Oletko varma että haluat poistaa kohteen</string>
-    <string name="phrase_delete_notification">Kohteen poisto</string>
+    <string name="phrase_notification">Varovaisuutta!</string>
     <string name="phrase_sort_by_itemtype">(a..z) Tyyppi</string>
     <string name="phrase_sort_by_name">(a..z) Nimi</string>
+    <string name="phrase_select">Valitse</string>
 
     <string name="enum_itemstatus1">item_status_1</string>
     <string name="enum_itemstatus2">item_status_2</string>
@@ -97,5 +98,10 @@
     <string name="trek_item_status_3">Palautettu</string>
 
     <string name="expand_marks">...</string>
+
+    <string name="fs_harddrive">Puhelin</string>
+    <string name="fs_onedrive">OneDrive</string>
+    <string name="fs_gdrive">GDrive</string>
+    <string name="phrase_select_filesystem">Valitse kohde</string>
 
 </resources>
