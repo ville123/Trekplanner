@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private PreferenceActivity preferencesFragment;
 
     /**
-     * item is only for test
+     * item is only for testi
      */
     Item item;
 
