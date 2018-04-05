@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private PreferenceActivity preferencesFragment;
 
+    /**
+     * item is only for test
+     */
+    Item item;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         // this instace of dbHelper is used everywhere
         // no other instances should be created
         db = new DbHelper(this);
+
+        item = new Item();
 
         // item and trek -list context will not change, only the content
         // thus singletons can be used
@@ -159,7 +166,11 @@ public class MainActivity extends AppCompatActivity {
         // TODO: Item / trek editor should be opened here for creating new object
 
         if (actionId == AppUtils.ITEM_LIST_ACTION_ID) {
-            openTrekList();
+            /**
+             * Only for testing, this opens item edit page.
+             */
+            //openTrekList();
+            openItemPage(item);
         } else if (actionId == AppUtils.TREK_LIST_ACTION_ID) {
             openItemList();
         }

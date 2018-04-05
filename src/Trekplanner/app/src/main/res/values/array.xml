@@ -18,8 +18,4 @@
         <item>@string/item_status_3</item>
     </string-array>
 
-    <string-array name="array_default_options">
-        <item>true</item>
-        <item>false</item>
-    </string-array>
 </resources>
