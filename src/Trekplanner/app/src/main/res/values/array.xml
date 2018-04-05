@@ -10,6 +10,7 @@
         <item>@string/item_type_6</item>
         <item>@string/item_type_7</item>
         <item>@string/item_type_8</item>
+
     </string-array>
 
     <string-array name="array_status_options">
