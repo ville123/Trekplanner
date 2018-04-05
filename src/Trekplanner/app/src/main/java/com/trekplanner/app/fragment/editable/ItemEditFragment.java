@@ -7,14 +7,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.model.Item;
+
+import java.util.Locale;
 
 /**
  * Created by Sami
@@ -27,7 +31,6 @@ public class ItemEditFragment extends EditFragment {
 
     private Spinner mTypeSpinner;
     private Spinner mStatusSpinner;
-    private Spinner mIsDefaultSpinner;
 
     private EditText mWeight;
     private EditText mName;
@@ -36,6 +39,8 @@ public class ItemEditFragment extends EditFragment {
     private EditText mEnergy;
     private EditText mProtein;
     private EditText mDeadline;
+
+    private CheckBox isDefCheckBox;
 
     private String mType;
 
@@ -61,7 +66,7 @@ public class ItemEditFragment extends EditFragment {
 
         String typeString = mType;
         String statusString = mStatus;
-        Boolean isDefaulbool = mDefault;
+        boolean isDefaulbool = mDefault;
 
         String weightString = mWeight.getText().toString().trim();
         Double weight = Double.parseDouble(weightString);
@@ -119,9 +124,6 @@ public class ItemEditFragment extends EditFragment {
         mStatusSpinner = (Spinner) view.findViewById(R.id.spinner_status);
         mStatus = item.getStatus();
 
-        mIsDefaultSpinner = (Spinner) view.findViewById(R.id.spinner_def);
-        mDefault = item.isDefault();
-
         mWeight = (EditText) view.findViewById(R.id.edit_text_weight);
         mName = (EditText) view.findViewById(R.id.edit_text_name);
         mNotes = (EditText) view.findViewById(R.id.text_edit_notes_edit);
@@ -130,17 +132,72 @@ public class ItemEditFragment extends EditFragment {
         mProtein = (EditText) view.findViewById(R.id.edit_text_protein);
         mDeadline = (EditText) view.findViewById(R.id.edit_text_deadline);
 
-        mWeight.setText(item.getWeight().toString().trim());
-        mName.setText(item.getName());
-        mNotes.setText(item.getNotes());
-        mPics.setText(item.getPic());
-        mEnergy.setText(item.getEnergy().toString().trim());
-        mProtein.setText(item.getProtein().toString().trim());
-        mDeadline.setText(item.getDeadline());
+        isDefCheckBox = (CheckBox) view.findViewById(R.id.is_default_checkbox);
+
+        mDefault = item.isDefault();
+
+        if(mDefault){
+            isDefCheckBox.setChecked(mDefault);
+        }else{
+            isDefCheckBox.setChecked(mDefault);
+        }
+
+        if(TextUtils.isEmpty(mWeight.getText().toString()) && mWeight == null){
+            /**
+             * This prints 'null' instead of 0.0
+             * TODO: Need to find out why?
+             */
+            mWeight.setText(String.format(Locale.UK, "%.4f", 0.0));
+        }else{
+            mWeight.setText(String.format(Locale.UK,"%.4f", item.getWeight()));
+        }
+
+        if(TextUtils.isEmpty(mName.getText().toString()) && mName == null){
+            mName.setText("");
+        }else{
+            mName.setText(item.getName());
+        }
+
+        if(TextUtils.isEmpty(mNotes.getText().toString()) && mNotes == null){
+            mNotes.setText("");
+        }else{
+            mNotes.setText(item.getNotes());
+        }
+
+        if(TextUtils.isEmpty(mPics.getText().toString()) && mPics == null){
+            mPics.setText("");
+        }else{
+            mPics.setText(item.getPic());
+        }
+
+        if(TextUtils.isEmpty(mEnergy.getText().toString()) && mEnergy == null ){
+            /**
+             * This prints Energy is 'null' instead of 0.0
+             * TODO: Need to find out why?
+             */
+            mEnergy.setText(String.format(Locale.UK, "%.4f", 0.0));
+        }else{
+            mEnergy.setText(String.format(Locale.UK,"%.4f", item.getEnergy()));
+        }
+
+        if(TextUtils.isEmpty(mProtein.getText().toString()) && mProtein == null ){
+            /**
+             * This prints 'null' instead of 0.0
+             * TODO: Need to find out why?
+             */
+            mProtein.setText(String.format(Locale.UK,"%.4f", 0.0));
+        }else{
+            mProtein.setText(String.format(Locale.UK,"%.4f", item.getProtein()));
+        }
+
+        if(TextUtils.isEmpty(mDeadline.getText().toString()) && mDeadline == null){
+            mDeadline.setText("");
+        }else{
+            mDeadline.setText(item.getDeadline());
+        }
 
         spinnerType();
         spinnerStatus();
-        spinnerDefault();
 
     }
 
@@ -149,41 +206,29 @@ public class ItemEditFragment extends EditFragment {
         return R.layout.editview_item_content_layout;
     }
 
+    /**
+     * Spinner is not getting item type from the default loaded items, After editing spinner
+     * changes normally
+     * TODO: Couldn't find a solution
+     * Spinner for choosing item type
+     */
     private void spinnerType(){
-        ArrayAdapter typeSpinnerAdapter = ArrayAdapter.createFromResource(this.getActivity(),
+        final ArrayAdapter typeSpinnerAdapter = ArrayAdapter.createFromResource(this.getActivity(),
                 R.array.array_type_options, android.R.layout.simple_dropdown_item_1line);
 
         typeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
-        if(mTypeSpinner == null){
-            return;
-        }else{
-            mTypeSpinner.setAdapter(typeSpinnerAdapter);
+        mTypeSpinner.setAdapter(typeSpinnerAdapter);
+
+        if(mType != null){
+            int spinnerPosition = typeSpinnerAdapter.getPosition(mType);
+            mTypeSpinner.setSelection(spinnerPosition, true);
         }
 
         mTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String selection = (String) adapterView.getItemAtPosition(position);
-                if(!TextUtils.isEmpty(selection)){
-                    if(selection.equals(getString(R.string.item_type_1))){
-                        mType = getString(R.string.item_type_1);
-                    }else if(selection.equals(getString(R.string.item_type_2))){
-                        mType = getString(R.string.item_type_2);
-                    }else if(selection.equals(getString(R.string.item_type_3))){
-                        mType = getString(R.string.item_type_3);
-                    }else if(selection.equals(getString(R.string.item_type_4))){
-                        mType = getString(R.string.item_type_4);
-                    }else if(selection.equals(getString(R.string.item_type_5))){
-                        mType = getString(R.string.item_type_5);
-                    }else if(selection.equals(getString(R.string.item_type_6))){
-                        mType = getString(R.string.item_type_6);
-                    }else if(selection.equals(getString(R.string.item_type_7))){
-                        mType = getString(R.string.item_type_7);
-                    }else{
-                        mType = getString(R.string.item_type_8);
-                    }
-                }
+                mType = mTypeSpinner.getSelectedItem().toString();
             }
 
             @Override
@@ -191,7 +236,6 @@ public class ItemEditFragment extends EditFragment {
                 mType = item.getType();
             }
         });
-
 
     }
 
@@ -204,19 +248,18 @@ public class ItemEditFragment extends EditFragment {
 
         mStatusSpinner.setAdapter(typeStatusAdapter);
 
+        if(mStatus != null){
+            mStatusSpinner.post(new Runnable() {
+                public void run() {
+                    mStatusSpinner.setSelection(getIndex(mStatusSpinner, mStatus));
+                }
+            });
+        }
+
         mStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String selection = (String) adapterView.getItemAtPosition(position);
-                if(!TextUtils.isEmpty(selection)){
-                    if(selection.equals(getString(R.string.item_status_1))){
-                        mStatus = getString(R.string.item_status_1);
-                    }else if(selection.equals(getString(R.string.item_status_2))){
-                        mStatus = getString(R.string.item_status_2);
-                    }else{
-                        mStatus = getString(R.string.item_status_3);
-                    }
-                }
+                mStatus = mStatusSpinner.getSelectedItem().toString();
             }
 
             @Override
@@ -226,32 +269,18 @@ public class ItemEditFragment extends EditFragment {
         });
     }
 
-    private void spinnerDefault(){
-
-        ArrayAdapter isDefaultAdapter = ArrayAdapter.createFromResource(this.getActivity(),
-                R.array.array_default_options, android.R.layout.simple_dropdown_item_1line);
-
-        isDefaultAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
-        mIsDefaultSpinner.setAdapter(isDefaultAdapter);
-
-        mIsDefaultSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String selection = (String) adapterView.getItemAtPosition(position);
-                if(!TextUtils.isEmpty(selection)){
-                    if(selection.equals(1)){
-                        mDefault = true;
-                    }else{
-                        mDefault = false;
-                    }
-                }
+    /**
+     *Getting spinner position
+     * @param spinner
+     * @param myString
+     * @return
+     */
+    private int getIndex(Spinner spinner, String myString){
+        for (int i = 0; i < spinner.getCount(); i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                return i;
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                mDefault = item.isDefault();
-            }
-        });
+        }
+        return 0;
     }
 }

@@ -15,15 +15,16 @@
         android:layout_weight="0.8"
         android:paddingRight="@dimen/margin">
 
+        <!-- Removed gravity_layout for testing because -->
+        <!-- the ScrollView could not scroll up and down -->
+        <!--android:layout_gravity="bottom|end"-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/margin"
             app:srcCompat="@android:drawable/ic_menu_save"
             style="@style/floatingActionButton"
             android:orientation="vertical">
-
 
             <!-- Type category -->
             <LinearLayout
@@ -46,7 +47,6 @@
                         android:fontFamily="sans-serif-large"
                         android:paddingTop="8dp"
                         android:textSize="24sp"
-                        android:textColor="#000000"
                         android:text="Type"/>
 
                 </LinearLayout>
@@ -89,7 +89,6 @@
                         android:fontFamily="sans-serif-large"
                         android:paddingTop="8dp"
                         android:textSize="24sp"
-                        android:textColor="#000000"
                         android:text="Status"/>
 
                 </LinearLayout>
@@ -132,24 +131,25 @@
                         android:fontFamily="sans-serif-large"
                         android:paddingTop="8dp"
                         android:textSize="24sp"
-                        android:textColor="#000000"
-                        android:text="Default"/>
+                        android:text="Default"
+                        android:layout_marginBottom="8dp"/>
 
                 </LinearLayout>
 
                 <!-- input field -->
                 <LinearLayout
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <!-- type drop-down spinner -->
-                    <Spinner
-                        android:id="@+id/spinner_def"
-                        android:layout_height="48dp"
-                        android:layout_width="wrap_content"
-                        android:spinnerMode="dropdown"/>
+                    android:orientation="vertical">
+
+                    <!-- input field -->
+                    <CheckBox
+                        android:id="@+id/is_default_checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:buttonTint="#FFFFFF"/>
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -175,7 +175,6 @@
                         android:fontFamily="sans-serif-large"
                         android:paddingTop="8dp"
                         android:textSize="24sp"
-                        android:textColor="#000000"
                         android:text="Weight"/>
 
                 </LinearLayout>
@@ -193,9 +192,8 @@
                         android:id="@+id/edit_text_weight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="weight"
-                        android:textSize="24sp"
-                        android:textColor="#000000"/>
+                        android:hint="0.0"
+                        android:textSize="24sp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -222,7 +220,6 @@
                         android:fontFamily="sans-serif-large"
                         android:paddingTop="8dp"
                         android:textSize="24sp"
-                        android:textColor="#000000"
                         android:text="Name"/>
 
                 </LinearLayout>
@@ -242,8 +239,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="name"
-                        android:textSize="24sp"
-                        android:textColor="#000000"/>
+                        android:textSize="24sp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -269,7 +265,6 @@
                         android:fontFamily="sans-serif-large"
                         android:paddingTop="8dp"
                         android:textSize="24sp"
-                        android:textColor="#000000"
                         android:text="Notes"/>
 
                 </LinearLayout>
@@ -321,7 +316,6 @@
                         android:fontFamily="sans-serif-large"
                         android:paddingTop="8dp"
                         android:textSize="24sp"
-                        android:textColor="#000000"
                         android:text="Picture"/>
 
                 </LinearLayout>
@@ -373,7 +367,6 @@
                         android:fontFamily="sans-serif-large"
                         android:paddingTop="8dp"
                         android:textSize="24sp"
-                        android:textColor="#000000"
                         android:text="Energy"/>
 
                 </LinearLayout>
@@ -392,9 +385,8 @@
                         android:id="@+id/edit_text_energy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="energy"
-                        android:textSize="24sp"
-                        android:textColor="#000000"/>
+                        android:hint="0.0"
+                        android:textSize="24sp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -420,7 +412,6 @@
                         android:fontFamily="sans-serif-large"
                         android:paddingTop="8dp"
                         android:textSize="24sp"
-                        android:textColor="#000000"
                         android:text="Protein"/>
 
                 </LinearLayout>
@@ -439,9 +430,8 @@
                         android:id="@+id/edit_text_protein"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="protein"
-                        android:textSize="24sp"
-                        android:textColor="#000000"/>
+                        android:hint="0.0"
+                        android:textSize="24sp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -468,7 +458,6 @@
                         android:fontFamily="sans-serif-large"
                         android:paddingTop="8dp"
                         android:textSize="24sp"
-                        android:textColor="#000000"
                         android:text="Deadline"/>
 
                 </LinearLayout>
@@ -488,8 +477,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="deadline"
-                        android:textSize="24sp"
-                        android:textColor="#000000"/>
+                        android:textSize="24sp"/>
                 </LinearLayout>
 
             </LinearLayout>
