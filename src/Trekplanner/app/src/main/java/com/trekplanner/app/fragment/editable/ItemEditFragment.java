@@ -144,7 +144,7 @@ public class ItemEditFragment extends EditFragment {
 
         if(TextUtils.isEmpty(mWeight.getText().toString()) && mWeight == null){
             /**
-             * This prints 'null' instead of 0.0
+             * This prints 'null' instead of 0.00
              * TODO: Need to find out why?
              */
             mWeight.setText(String.format(Locale.UK, "%.4f", 0.0));

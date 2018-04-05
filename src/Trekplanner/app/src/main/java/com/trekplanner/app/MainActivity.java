@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
 
     /**
-     * item is only for test
+     * item is only for testi
      */
     Item item;
 

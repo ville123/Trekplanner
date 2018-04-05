@@ -51,6 +51,7 @@
 
                 </LinearLayout>
 
+
                 <!-- input field -->
                 <LinearLayout
                     android:layout_height="wrap_content"
