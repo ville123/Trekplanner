@@ -115,10 +115,17 @@ public class ItemEditFragment extends EditFragment {
         this.item.setProtein(protein);
         this.item.setDeadline(deadlineString);
 
-        db.saveItem(this.item);
+        if(weight == 0 && name.matches("")){
+            mName.setError("Name cannot be empty");
+            Snackbar.make(view, "Please, provide a name and weight", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+        else{
+            db.saveItem(this.item);
 
-        Snackbar.make(view, R.string.phrase_save_success, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+            Snackbar.make(view, R.string.phrase_save_success, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
 
     @Override

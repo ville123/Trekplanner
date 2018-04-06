@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TrekPlanner</string>
 
+    <string name="search_item">Search item</string>
+
     <string name="title_activity_login"></string>
     <string name="action_settings">Asetukset</string>
     <string name="term_item">Varuste</string>

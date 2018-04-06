@@ -1,5 +1,7 @@
 package com.trekplanner.app.activity;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -122,6 +125,27 @@ public class MainActivity extends AppCompatActivity {
         this.menu = menu;
 
         openItemList();
+
+        //TODO: Search not working at all
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                doMySearch(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                doMySearch(s);
+                return false;
+            }
+        });
 
         return true;
     }
@@ -254,4 +278,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void doMySearch(String query){
+        db.getItemListByKeyword(query);
+    }
 }
