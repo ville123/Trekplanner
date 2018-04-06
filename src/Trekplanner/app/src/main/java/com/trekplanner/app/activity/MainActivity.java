@@ -199,7 +199,8 @@ public class MainActivity extends AppCompatActivity {
         if (actionId == AppUtils.ITEM_LIST_ACTION_ID) {
             openItemPage(null);
         } else if (actionId == AppUtils.TREK_LIST_ACTION_ID) {
-            openItemList();
+            //openItemList();
+            openTrekPage(null);
         }
     }
 
@@ -250,7 +251,8 @@ public class MainActivity extends AppCompatActivity {
 
         // since edit fragment context changes (some item / trek),
         // a new instances are always created
-        openFragment(
+
+                openFragment(
                 MainEditFragment.getNewInstance(
                         TrekEditFragment.getNewInstance(db, trek),
                         TrekItemListFragment.getNewInstance(db, trek.getId())),

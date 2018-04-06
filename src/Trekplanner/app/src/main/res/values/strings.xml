@@ -36,10 +36,7 @@
     <string name="term_energy">Energiasisältö</string>
     <string name="term_protein">Proteiinia</string>
     <string name="term_default">Oletusvaruste</string>
-    <string name="term_lesson">Retkellä opittua</string>
-    <string name="term_level">Vaikeustaso</string>
-    <string name="term_length">Pituus</string>
-    <string name="term_start_end_coord">Alku- ja loppukoordinaatit</string>
+
 
     <!--settings -->
     <string name="term_settings">Asetukset</string>
