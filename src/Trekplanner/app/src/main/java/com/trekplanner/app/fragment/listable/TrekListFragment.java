@@ -7,11 +7,10 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.trekplanner.app.MainActivity;
+import com.trekplanner.app.activity.MainActivity;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.fragment.listable.adapter.TrekAdapter;
-import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;

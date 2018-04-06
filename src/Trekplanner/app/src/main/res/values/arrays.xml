@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="theme_list_entries">
+        <item>@string/term_spring</item>
+        <item>@string/term_summer</item>
+        <item>@string/term_autum</item>
+        <item>@string/term_winter</item>
+        <item>@string/term_automated_theme</item>
+    </string-array>
+    <string-array name="theme_list_values">
+        <item>@string/enum_theme_spring</item>
+        <item>@string/enum_theme_summer</item>
+        <item>@string/enum_theme_autum</item>
+        <item>@string/enum_theme_winter</item>
+        <item>@string/enum_theme_automated</item>
+    </string-array>
+    <string-array name="weight_unit_list_entries">
+        <item>@string/term_kilogram</item>
+        <item>@string/term_gram</item>
+    </string-array>
+    <string-array name="weight_unit_list_values">
+        <item>@string/term_kilogram</item>
+        <item>@string/term_gram</item>
+    </string-array>
+    <string-array name="length_unit_list_entries">
+        <item>@string/term_kilometer</item>
+        <item>@string/term_meter</item>
+    </string-array>
+    <string-array name="length_unit_list_values">
+        <item>@string/term_kilometer</item>
+        <item>@string/term_meter</item>
+    </string-array>
+    <string-array name="filesystems">
+        <item>@string/fs_harddrive</item>
+        <item>@string/fs_gdrive</item>
+        <item>@string/fs_onedrive</item>
+    </string-array>
+</resources>

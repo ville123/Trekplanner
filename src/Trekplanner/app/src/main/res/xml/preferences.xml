@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/term_settings">
+
+        <EditTextPreference
+            android:key="preference_nickname"
+            android:title="@string/term_nickname"
+            android:summary="@string/summary_nickname"
+            />
+
+        <ListPreference
+            android:key="preference_theme"
+            android:title="@string/term_theme"
+            android:summary="@string/summary_theme"
+            android:entries="@array/theme_list_entries"
+            android:entryValues="@array/theme_list_values"
+            android:dialogTitle="@string/dialog_title_theme"
+            />
+
+        <ListPreference
+            android:key="preference_weight_unit"
+            android:title="@string/term_weight_unit"
+            android:summary="@string/summary_weight_unit"
+            android:entries="@array/weight_unit_list_entries"
+            android:entryValues="@array/weight_unit_list_values"
+            android:dialogTitle="@string/dialog_title_weight_unit"
+            />
+
+        <ListPreference
+            android:key="preference_length_unit"
+            android:title="@string/term_length_unit"
+            android:summary="@string/summary_length_unit"
+            android:entries="@array/length_unit_list_entries"
+            android:entryValues="@array/length_unit_list_values"
+            android:dialogTitle="@string/dialog_title_length_unit"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

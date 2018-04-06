@@ -5,12 +5,9 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 
-import com.trekplanner.app.MainActivity;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.fragment.listable.adapter.TrekItemAdapter;
-import com.trekplanner.app.model.Item;
-import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;
 

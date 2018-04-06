@@ -15,7 +15,6 @@ import com.trekplanner.app.R;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.UUID;
 
@@ -65,14 +64,30 @@ public class AppUtils {
         }
     }
 
-    public static void showConfirmDialog(Activity activity, int messageResouce, DialogInterface.OnClickListener yesListener, DialogInterface.OnClickListener noListener) {
+    public static void showConfirmDialog(Activity activity,
+                                         int messageResouce,
+                                         DialogInterface.OnClickListener yesListener,
+                                         DialogInterface.OnClickListener noListener) {
 
         new AlertDialog.Builder(activity)
-                .setTitle(activity.getResources().getString(R.string.phrase_delete_notification))
+                .setTitle(activity.getResources().getString(R.string.phrase_notification))
                 .setMessage(activity.getResources().getString(messageResouce))
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.yes, yesListener)
                 .setNegativeButton(android.R.string.no, noListener)
+                .show();
+    }
+
+    public static void showSelectionDialog(Activity activity, int messageResouce,
+                                           DialogInterface.OnClickListener cancelListener,
+                                           int itemArray,
+                                           DialogInterface.OnClickListener selectionListener) {
+
+        new AlertDialog.Builder(activity)
+                .setTitle(activity.getResources().getString(R.string.phrase_select))
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setNegativeButton(android.R.string.no, cancelListener)
+                .setItems(itemArray, selectionListener)
                 .show();
     }
 

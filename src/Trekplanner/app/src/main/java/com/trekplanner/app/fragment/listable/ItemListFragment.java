@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.trekplanner.app.MainActivity;
+import com.trekplanner.app.activity.MainActivity;
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.fragment.listable.adapter.ItemAdapter;

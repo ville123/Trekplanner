@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trekplanner</string>
+    <string name="app_name">TrekPlanner</string>
 
     <string name="title_activity_login"></string>
     <string name="action_settings">Asetukset</string>
@@ -8,23 +8,34 @@
     <string name="term_trek">Retki</string>
     <string name="term_treks">Retket</string>
     <string name="term_notes">Muistiinpanot</string>
-    <string name="term_lesson">Retkellä opittua</string>
     <string name="term_description">Kuvaus</string>
-    <string name="term_level">Vaikeustaso</string>
-    <string name="term_length">Pituus</string>
     <string name="term_kilogram">kg</string>
+    <string name="term_gram">g</string>
+    <string name="term_kilometer">km</string>
+    <string name="term_meter">m</string>
     <string name="term_start_end">Alku-Loppupäivä</string>
-    <string name="term_start_end_coord">Alku- ja loppukoordinaatit</string>
     <string name="term_data">Tiedot</string>
     <string name="term_was_used">Käytetty</string>
     <string name="term_pieces">kpl</string>
-    <string name="term_protein">Protein</string>
-    <string name="term_energy">Energy</string>
-    <string name="term_date">Date</string>
-    <string name="term_default">Default</string>
-    <string name="term_delete">delete</string>
-    <string name="term_save">save</string>
-    <string name="term_pic">Pic</string>
+    <string name="term_spring">Kevät</string>
+    <string name="term_summer">Kesä</string>
+    <string name="term_autum">Syksy</string>
+    <string name="term_winter">Talvi</string>
+    <string name="term_automated_theme">Automaattinen vuodenaika</string>
+
+    <!--settings -->
+    <string name="term_settings">Asetukset</string>
+    <string name="term_nickname">Lempinimi</string>
+    <string name="term_theme">Teema</string>
+    <string name="term_weight_unit">Painon yksikkö</string>
+    <string name="term_length_unit">Pituuden yksikkö</string>
+    <string name="summary_length_unit">Ilmoita pituudet annetussa yksikössä. Valittu yksikkö on:</string>
+    <string name="summary_nickname">Lempinimeä käytetään tunnistamaan käyttäjä ja retkikunnan jäsen. Nykyinen lempinimesi on:</string>
+    <string name="summary_theme">Valitse applikaation väriteema. Valittu teema:</string>
+    <string name="summary_weight_unit">Ilmoita painot annetussa yksikössä. Valittu yksikkö on:</string>
+    <string name="dialog_title_theme">Väriteema</string>
+    <string name="dialog_title_weight_unit">Painon yksikkö</string>
+    <string name="dialog_title_length_unit">Pituuden yksikkö</string>
 
     <string name="phrase_clear_db">Tyhjennä tietokanta</string>
     <string name="phrase_load_defaults">Lataa oletukset</string>
@@ -37,9 +48,10 @@
     <string name="phrase_welcome">Tervetuloa!</string>
     <string name="phrase_delete_success">Poisto onnistui</string>
     <string name="phrase_confirm_delete">Oletko varma että haluat poistaa kohteen</string>
-    <string name="phrase_delete_notification">Kohteen poisto</string>
+    <string name="phrase_notification">Varovaisuutta!</string>
     <string name="phrase_sort_by_itemtype">(a..z) Tyyppi</string>
     <string name="phrase_sort_by_name">(a..z) Nimi</string>
+    <string name="phrase_select">Valitse</string>
 
     <string name="enum_itemstatus1">item_status_1</string>
     <string name="enum_itemstatus2">item_status_2</string>
@@ -57,6 +69,12 @@
     <string name="enum_trekitemstatus1">trek_item_status_1</string>
     <string name="enum_trekitemstatus2">trek_item_status_2</string>
     <string name="enum_trekitemstatus3">trek_item_status_3</string>
+
+    <string name="enum_theme_spring">theme_spring</string>
+    <string name="enum_theme_summer">theme_summer</string>
+    <string name="enum_theme_autum">theme_autum</string>
+    <string name="enum_theme_winter">theme_winter</string>
+    <string name="enum_theme_automated">theme_automated_seasons</string>
 
     <string name="item_status_1">OK</string>
     <string name="item_status_2">Rikki</string>
@@ -81,7 +99,9 @@
 
     <string name="expand_marks">...</string>
 
-    <string name="nav_menu_item_1">Varusteet</string>
-    <string name="nav_menu_item_2">Retket</string>
+    <string name="fs_harddrive">Puhelin</string>
+    <string name="fs_onedrive">OneDrive</string>
+    <string name="fs_gdrive">GDrive</string>
+    <string name="phrase_select_filesystem">Valitse kohde</string>
 
 </resources>
