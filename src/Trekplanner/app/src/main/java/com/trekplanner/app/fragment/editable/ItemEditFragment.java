@@ -67,17 +67,43 @@ public class ItemEditFragment extends EditFragment {
         String typeString = mType;
         String statusString = mStatus;
         boolean isDefaulbool = mDefault;
+		
+		Double weight;
+        Double energy;
+        Double protein;
 
         String weightString = mWeight.getText().toString().trim();
-        Double weight = Double.parseDouble(weightString);
+        //Double weight = Double.parseDouble(weightString);
         String name = mName.getText().toString().trim();
         String notes = mNotes.getText().toString().trim();
         String pics = mPics.getText().toString().trim();
         String energyString = mEnergy.getText().toString().trim();
-        Double energy = Double.parseDouble(energyString);
+        //Double energy = Double.parseDouble(energyString);
         String proteinString = mProtein.getText().toString().trim();
-        Double protein = Double.parseDouble(proteinString);
+        //Double protein = Double.parseDouble(proteinString);
         String deadlineString = mDeadline.getText().toString().trim();
+		
+		/**
+             * Prevents saving errors
+             * 
+             */
+		if(!TextUtils.isEmpty(weightString)){
+            weight = 0.0;
+        }else{
+            weight = Double.parseDouble(weightString);
+        }
+
+        if(!TextUtils.isEmpty(energyString)){
+            energy = 0.0;
+        }else{
+            energy = Double.parseDouble(energyString);
+        }
+
+        if(!TextUtils.isEmpty(proteinString)){
+            protein = 0.0;
+        }else {
+            protein = Double.parseDouble(proteinString);
+        }
 
         this.item.setType(typeString);
         this.item.setStatus(statusString);
