@@ -8,12 +8,23 @@
     <string name="term_trek">Retki</string>
     <string name="term_treks">Retket</string>
     <string name="term_notes">Muistiinpanot</string>
+    <string name="term_lesson">Retkellä opittua</string>
     <string name="term_description">Kuvaus</string>
+    <string name="term_level">Vaikeustaso</string>
+    <string name="term_length">Pituus</string>
     <string name="term_kilogram">kg</string>
     <string name="term_start_end">Alku-Loppupäivä</string>
+    <string name="term_start_end_coord">Alku- ja loppukoordinaatit</string>
     <string name="term_data">Tiedot</string>
     <string name="term_was_used">Käytetty</string>
     <string name="term_pieces">kpl</string>
+    <string name="term_protein">Protein</string>
+    <string name="term_energy">Energy</string>
+    <string name="term_date">Date</string>
+    <string name="term_default">Default</string>
+    <string name="term_delete">delete</string>
+    <string name="term_save">save</string>
+    <string name="term_pic">Pic</string>
 
     <string name="phrase_clear_db">Tyhjennä tietokanta</string>
     <string name="phrase_load_defaults">Lataa oletukset</string>

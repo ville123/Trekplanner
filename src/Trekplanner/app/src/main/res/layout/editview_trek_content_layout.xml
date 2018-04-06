@@ -34,6 +34,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@string/term_level"/>
+
+            <EditText
+                android:id="@+id/editview_trek_level_fld"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"  />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/term_length"/>
+
+            <EditText
+                android:id="@+id/editview_trek_length_fld"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"  />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/term_start_end"/>
 
             <LinearLayout
@@ -52,6 +76,34 @@
 
                 <EditText
                     android:id="@+id/editview_trek_end_fld"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"  />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/term_start_end_coord"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editview_trek_start_coord_fld"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"  />
+
+                <TextView android:text=" / "
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
+
+                <EditText
+                    android:id="@+id/editview_trek_end_coord_fld"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"  />
@@ -82,168 +134,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/term_description"/>
+                android:text="@string/term_lesson"/>
 
             <EditText
-                android:id="@+id/listview_trek_description_fld1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"  />
-
-            <TextView
+                android:id="@+id/editview_trek_lesson_fld"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_start_end"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/listview_trek_start_fld1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"  />
-
-                <TextView android:text=" - "
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content" />
-
-                <EditText
-                    android:id="@+id/listview_trek_end_fld1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"  />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_notes"/>
-
-            <EditText
-                android:id="@+id/listview_trek_notes_fld1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:minLines="1"
-                android:maxLines="10"
-                android:inputType="textCapSentences|textMultiLine"
-                android:scrollHorizontally="false"  />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_description"/>
-
-            <EditText
-                android:id="@+id/listview_trek_description_fld2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"  />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_start_end"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/listview_trek_start_fld2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"  />
-
-                <TextView android:text=" - "
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content" />
-
-                <EditText
-                    android:id="@+id/listview_trek_end_fld2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"  />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_notes"/>
-
-            <EditText
-                android:id="@+id/listview_trek_notes_fld2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:minLines="1"
-                android:maxLines="10"
-                android:inputType="textCapSentences|textMultiLine"
-                android:scrollHorizontally="false"  />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_description"/>
-
-            <EditText
-                android:id="@+id/listview_trek_description_fld2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"  />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_start_end"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/listview_trek_start_fld2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"  />
-
-                <TextView android:text=" - "
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content" />
-
-                <EditText
-                    android:id="@+id/listview_trek_end_fld2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"  />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_notes"/>
-
-            <EditText
-                android:id="@+id/listview_trek_notes_fld2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:minLines="1"
-                android:maxLines="10"
-                android:inputType="textCapSentences|textMultiLine"
+                android:background="@color/colorPrimaryTransparent"
+                android:inputType="textMultiLine"
+                android:overScrollMode="always"
+                android:gravity="top|left"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:lines="6"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:scrollHorizontally="false"  />
 
         </LinearLayout>
