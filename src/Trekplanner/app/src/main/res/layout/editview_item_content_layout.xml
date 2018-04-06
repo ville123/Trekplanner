@@ -1,521 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
-        android:scrollbars="vertical"
-        android:layout_weight="0.8"
-        android:paddingRight="@dimen/margin">
-
-        <!-- Removed gravity_layout for testing because -->
-        <!-- the ScrollView could not scroll up and down -->
-        <!--android:layout_gravity="bottom|end"-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            app:srcCompat="@android:drawable/ic_menu_save"
-            style="@style/floatingActionButton"
-            android:orientation="vertical">
-
-            <!-- Type category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-large"
-                        android:paddingTop="8dp"
-                        android:textSize="24sp"
-                        android:text="Type"/>
-
-                </LinearLayout>
-
-
-                <!-- input field -->
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <!-- type drop-down spinner -->
-                    <Spinner
-                        android:id="@+id/spinner_type"
-                        android:layout_height="48dp"
-                        android:layout_width="wrap_content"
-                        android:spinnerMode="dropdown"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Status category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-large"
-                        android:paddingTop="8dp"
-                        android:textSize="24sp"
-                        android:text="Status"/>
-
-                </LinearLayout>
-
-                <!-- input field -->
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <!-- type drop-down spinner -->
-                    <Spinner
-                        android:id="@+id/spinner_status"
-                        android:layout_height="48dp"
-                        android:layout_width="wrap_content"
-                        android:spinnerMode="dropdown"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Is default category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-large"
-                        android:paddingTop="8dp"
-                        android:textSize="24sp"
-                        android:text="Default"
-                        android:layout_marginBottom="8dp"/>
-
-                </LinearLayout>
-
-                <!-- input field -->
-                <LinearLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <!-- input field -->
-                    <CheckBox
-                        android:id="@+id/is_default_checkbox"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:buttonTint="#FFFFFF"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Weight category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-large"
-                        android:paddingTop="8dp"
-                        android:textSize="24sp"
-                        android:text="Weight"/>
-
-                </LinearLayout>
-
-                <!-- input field -->
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <!-- input field -->
-                    <EditText
-                        android:id="@+id/edit_text_weight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.0"
-                        android:textSize="24sp"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <!-- Name category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-large"
-                        android:paddingTop="8dp"
-                        android:textSize="24sp"
-                        android:text="Name"/>
-
-                </LinearLayout>
-
-                <!-- input field -->
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <!-- input field -->
-
-                    <EditText
-                        android:id="@+id/edit_text_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="name"
-                        android:textSize="24sp"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Notes category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-large"
-                        android:paddingTop="8dp"
-                        android:textSize="24sp"
-                        android:text="Notes"/>
-
-                </LinearLayout>
-
-                <!-- input field -->
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <!-- input field -->
-                    <EditText
-                        android:id="@+id/text_edit_notes_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorPrimaryTransparent"
-                        android:inputType="textMultiLine"
-                        android:overScrollMode="always"
-                        android:gravity="top|left"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbars="vertical"
-                        android:lines="6"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:scrollHorizontally="false" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Picture category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-large"
-                        android:paddingTop="8dp"
-                        android:textSize="24sp"
-                        android:text="Picture"/>
-
-                </LinearLayout>
-
-                <!-- input field -->
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <!-- input field -->
-                    <EditText
-                        android:id="@+id/edit_text_pic_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorPrimaryTransparent"
-                        android:inputType="textMultiLine"
-                        android:overScrollMode="always"
-                        android:gravity="top|left"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbars="vertical"
-                        android:lines="6"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:scrollHorizontally="false" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Energy category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-large"
-                        android:paddingTop="8dp"
-                        android:textSize="24sp"
-                        android:text="Energy"/>
-
-                </LinearLayout>
-
-                <!-- input field -->
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <!-- input field -->
-
-                    <EditText
-                        android:id="@+id/edit_text_energy"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.0"
-                        android:textSize="24sp"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Protein category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-large"
-                        android:paddingTop="8dp"
-                        android:textSize="24sp"
-                        android:text="Protein"/>
-
-                </LinearLayout>
-
-                <!-- input field -->
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <!-- input field -->
-
-                    <EditText
-                        android:id="@+id/edit_text_protein"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.0"
-                        android:textSize="24sp"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <!-- Deadline category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2">
-
-                    <!-- Label -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-large"
-                        android:paddingTop="8dp"
-                        android:textSize="24sp"
-                        android:text="Deadline"/>
-
-                </LinearLayout>
-
-                <!-- input field -->
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <!-- input field -->
-
-                    <EditText
-                        android:id="@+id/edit_text_deadline"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="deadline"
-                        android:textSize="24sp"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-    </ScrollView>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2">
+        style="@style/edit_layout_style">
 
-        <android.support.design.widget.CoordinatorLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin">
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <!-- type -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/term_itemtype"
+                    style="@style/label_row_style"/>
+
+                <!-- input field -->
+                <!-- type drop-down spinner -->
+                <Spinner
+                    android:id="@+id/spinner_type"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:spinnerMode="dropdown"
+                    style="@style/field_row_style"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <!-- is default? -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/term_default"
+                    style="@style/label_row_style"/>
+
+                <!-- input field -->
+                <CheckBox
+                    android:id="@+id/is_default_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/field_row_style"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- name -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/term_name"
+            style="@style/label_row_style"/>
+
+        <!-- input field -->
+        <EditText
+            android:id="@+id/edit_text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"
+            style="@style/field_row_style"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:id="@+id/editview_weight_data_layout">
+
+            <!-- weight -->
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                android:text="@string/term_weight"
+                style="@style/label_row_style"/>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/editview_floating_action_btn"
+            <!-- input field -->
+            <EditText
+                android:id="@+id/edit_text_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:hint="@string/phrase_doublevalue_hint"
+                style="@style/field_row_style"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:id="@+id/editview_food_data_layout">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <!-- energy -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/term_energy"
+                    style="@style/label_row_style"/>
+
+                <!-- input field -->
+                <EditText
+                    android:id="@+id/edit_text_energy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/phrase_doublevalue_hint"
+                    style="@style/field_row_style"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <!-- protein -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/term_protein"
+                    style="@style/label_row_style"/>
+
+                <!-- input field -->
+                <EditText
+                    android:id="@+id/edit_text_protein"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/phrase_doublevalue_hint"
+                    style="@style/field_row_style"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:id="@+id/editview_reminder_data_layout">
+
+            <!-- deadline -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/term_deadline"
+                style="@style/label_row_style"/>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/margin"
-                app:srcCompat="@android:drawable/ic_menu_save"
-                style="@style/floatingActionButton"/>
+                android:orientation="horizontal">
 
-        </android.support.design.widget.CoordinatorLayout>
+                <!-- input field -->
+                <EditText
+                    android:id="@+id/edit_text_deadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/phrase_datetimevalue_hint"
+                    android:inputType="datetime"
+                    style="@style/field_row_style"/>
+
+                <ImageButton
+                    android:id="@+id/editview_select_date_button"
+                    style="@style/image_style"
+                    android:layout_width="24dp"
+                    android:layout_height="28dp"
+                    android:src="@android:drawable/ic_menu_today"
+                    android:text="@string/phrase_select_date" />
+
+                <ImageButton
+                    android:id="@+id/editview_select_time_button"
+                    style="@style/image_style"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:src="@android:drawable/ic_menu_info_details"
+                    android:text="@string/phrase_select_time" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- notes -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/term_notes"
+            style="@style/label_row_style"/>
+
+        <!-- input field -->
+        <EditText
+            android:id="@+id/text_edit_notes_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryTransparent"
+            android:inputType="textMultiLine|textCapSentences"
+            android:overScrollMode="always"
+            android:gravity="top|left"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:lines="6"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:scrollHorizontally="false"
+            style="@style/field_row_style"/>
 
     </LinearLayout>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/editview_floating_action_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margin"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        style="@style/floatingActionButton"/>
+
+</android.support.design.widget.CoordinatorLayout>

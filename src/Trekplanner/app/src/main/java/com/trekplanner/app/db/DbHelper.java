@@ -317,6 +317,7 @@ public class DbHelper extends SQLiteOpenHelper {
         boolean update = false;
         if (item.getId() == null || item.getId().isEmpty()) {
             item.setId(AppUtils.generateUUID());
+            item.setStatus("trek_item_status_1");
         } else {
             update = true;
         }

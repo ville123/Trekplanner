@@ -1,6 +1,7 @@
 package com.trekplanner.app.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,12 +10,14 @@ import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.trekplanner.app.R;
 
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
 
@@ -94,5 +97,24 @@ public class AppUtils {
     public static void showOkMessage(View view, int message) {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+    }
+
+    public static void closeInputwidget(Activity activity, View view) {
+        View focusView = activity.getCurrentFocus();
+        if (focusView != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    public static int getSelectionIndex(Collection<String> values, String value) {
+        int i = 0;
+        for (String val : values) {
+            if (val.equals(value)) {
+                return i;
+            }
+            i++;
+        }
+        return -1; // not found
     }
 }

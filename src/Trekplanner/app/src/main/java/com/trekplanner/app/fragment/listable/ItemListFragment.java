@@ -53,7 +53,7 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
 
         // empty header background
         View headerLayout
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.main_header_layout);
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
         headerLayout.setBackgroundResource(0);
 
         //Actionbar content

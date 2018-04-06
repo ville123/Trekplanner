@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.fragment.listable.ListFragment;
@@ -50,10 +49,10 @@ public class MainEditFragment extends Fragment {
         // get the treks pic for header background
         // TODO: prevent this shit by createting abstract EditFragment -class. See "ListFragment" for example.
         if (this.editFragment instanceof TrekEditFragment) {
-            //((TrekEditFragment) this.editFragment)
-            //        .setHeaderPic(
-            //                this.getActivity().getResources(),
-            //                this.getActivity().findViewById(android.R.id.content).findViewById(R.id.main_header_layout));
+            ((TrekEditFragment) this.editFragment)
+                    .setHeaderPic(
+                            this.getActivity().getResources(),
+                            this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout));
         }
 
         // create tab layout and adapter

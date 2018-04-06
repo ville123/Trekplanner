@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editview_row_item_status_rbtgroup"
         android:orientation="horizontal"
-        style="@style/row_style">
+        style="@style/label_row_style">
 
         <RadioButton
             android:id="@+id/editview_row_item_rbtn_status1"
@@ -18,21 +18,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/trek_item_status_1"
-            style="@style/row_style" />
+            style="@style/field_row_style" />
         <RadioButton
             android:id="@+id/editview_row_item_rbtn_status2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/trek_item_status_2"
-            style="@style/row_style"/>
+            style="@style/field_row_style"/>
         <RadioButton
             android:id="@+id/editview_row_item_rbtn_status3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/trek_item_status_3"
-            style="@style/row_style"/>
+            style="@style/field_row_style"/>
 
         <android.support.v4.widget.Space
             android:layout_width="40dp"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/term_was_used"
-            style="@style/row_style" />
+            style="@style/field_row_style" />
 
     </RadioGroup>
 
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/term_notes"
-        style="@style/row_style"/>
+        style="@style/label_row_style"/>
 
     <EditText
         android:id="@+id/editview_row_item_notes_fld"
@@ -68,6 +68,6 @@
         android:lines="6"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:scrollHorizontally="false"
-        style="@style/row_style" />
+        style="@style/field_row_style" />
 
 </LinearLayout>

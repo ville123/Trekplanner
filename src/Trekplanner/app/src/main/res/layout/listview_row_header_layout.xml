@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/header_textsize"
                     android:gravity="center"
-                    style="@style/row_style"/>
+                    style="@style/label_row_style"/>
 
                 <TextView
                     android:id="@+id/listview_row_header_text"
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/normal_textsize"
                     android:gravity="center"
-                    style="@style/row_style"/>
+                    style="@style/label_row_style"/>
 
             </LinearLayout>
 
@@ -55,6 +55,6 @@
         android:gravity="center"
         android:textSize="@dimen/header_textsize"
         android:id="@+id/listview_row_header_expandtext"
-        style="@style/row_style"/>
+        style="@style/label_row_style"/>
 
 </LinearLayout>

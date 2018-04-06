@@ -173,11 +173,7 @@ public class MainActivity extends AppCompatActivity {
         // TODO: Item / trek editor should be opened here for creating new object
 
         if (actionId == AppUtils.ITEM_LIST_ACTION_ID) {
-            /**
-             * Only for testing, this opens item edit page.
-             */
-            //openTrekList();
-            openItemPage(item);
+            openItemPage(null);
         } else if (actionId == AppUtils.TREK_LIST_ACTION_ID) {
             openItemList();
         }

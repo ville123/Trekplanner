@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/listview_item_status_rbtgroup"
         android:orientation="horizontal"
-        style="@style/row_style">
+        style="@style/label_row_style">
 
         <RadioButton
             android:id="@+id/listview_item_rbtn_status1"
@@ -22,20 +22,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/item_status_1"
-            style="@style/row_style"/>
+            style="@style/field_row_style"/>
         <RadioButton
             android:id="@+id/listview_item_rbtn_status2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/item_status_2"
-            style="@style/row_style"/>
+            style="@style/field_row_style"/>
         <RadioButton
             android:id="@+id/listview_item_rbtn_status3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/row_style"
+            style="@style/field_row_style"
             android:text="@string/item_status_3"/>
 
     </RadioGroup>

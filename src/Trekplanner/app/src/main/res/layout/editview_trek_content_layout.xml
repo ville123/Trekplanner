@@ -7,7 +7,7 @@
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ScrollView01"
+        android:id="@+id/trek_editor_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
@@ -169,7 +169,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|top"
-
         android:layout_marginBottom="32pt"
         app:srcCompat="@android:drawable/ic_menu_camera"
         app:layout_anchor="@id/editview_floating_action_btn"

@@ -22,6 +22,18 @@
     <string name="term_autum">Syksy</string>
     <string name="term_winter">Talvi</string>
     <string name="term_automated_theme">Automaattinen vuodenaika</string>
+    <string name="term_lesson">Opittua</string>
+    <string name="term_start_end_coord">Koordinaatit</string>
+    <string name="term_length">Pituus</string>
+    <string name="term_level">Taso</string>
+    <string name="term_itemtype">Tyyppi</string>
+    <string name="term_deadline">Muistutuspäivä</string>
+    <string name="term_weight">Paino</string>
+    <string name="term_name">Nimi</string>
+    <string name="term_picture">Kuva</string>
+    <string name="term_energy">Energiasisältö</string>
+    <string name="term_protein">Proteiinia</string>
+    <string name="term_default">Oletusvaruste</string>
 
     <!--settings -->
     <string name="term_settings">Asetukset</string>
@@ -52,6 +64,11 @@
     <string name="phrase_sort_by_itemtype">(a..z) Tyyppi</string>
     <string name="phrase_sort_by_name">(a..z) Nimi</string>
     <string name="phrase_select">Valitse</string>
+    <string name="phrase_doublevalue_hint">0.000</string>
+    <string name="phrase_datetimevalue_hint">esim. 2018-06-04 13:08</string>
+    <string name="phrase_select_date">Valitse päivä</string>
+    <string name="phrase_select_time">Valitse aika</string>
+    <string name="phrase_select_filesystem">Valitse kohde</string>
 
     <string name="enum_itemstatus1">item_status_1</string>
     <string name="enum_itemstatus2">item_status_2</string>
@@ -102,6 +119,6 @@
     <string name="fs_harddrive">Puhelin</string>
     <string name="fs_onedrive">OneDrive</string>
     <string name="fs_gdrive">GDrive</string>
-    <string name="phrase_select_filesystem">Valitse kohde</string>
+    <string name="phrase_name_required">Nimi pakollinen</string>
 
 </resources>
