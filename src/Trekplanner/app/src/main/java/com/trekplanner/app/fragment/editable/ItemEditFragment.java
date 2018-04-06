@@ -68,9 +68,9 @@ public class ItemEditFragment extends EditFragment {
         String statusString = mStatus;
         boolean isDefaulbool = mDefault;
 		
-		Double weight;
-        Double energy;
-        Double protein;
+		double weight;
+        double energy;
+        double protein;
 
         String weightString = mWeight.getText().toString().trim();
         //Double weight = Double.parseDouble(weightString);
@@ -84,25 +84,24 @@ public class ItemEditFragment extends EditFragment {
         String deadlineString = mDeadline.getText().toString().trim();
 		
 		/**
-             * Prevents saving errors
-             * 
-             */
-		if(!TextUtils.isEmpty(weightString)){
-            weight = 0.0;
-        }else{
-            weight = Double.parseDouble(weightString);
+         * Prevents crushing add item
+         */
+        try {
+            weight= Double.valueOf(mWeight.getText().toString());
+        } catch (NumberFormatException e) {
+            weight = 0;
         }
 
-        if(!TextUtils.isEmpty(energyString)){
-            energy = 0.0;
-        }else{
-            energy = Double.parseDouble(energyString);
+        try {
+            energy= Double.valueOf(mEnergy.getText().toString());
+        } catch (NumberFormatException e) {
+            energy = 0;
         }
 
-        if(!TextUtils.isEmpty(proteinString)){
-            protein = 0.0;
-        }else {
-            protein = Double.parseDouble(proteinString);
+        try {
+            protein= Double.valueOf(mProtein.getText().toString());
+        } catch (NumberFormatException e) {
+            protein = 0;
         }
 
         this.item.setType(typeString);
