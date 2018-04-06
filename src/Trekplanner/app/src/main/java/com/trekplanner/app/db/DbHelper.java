@@ -554,4 +554,37 @@ public class DbHelper extends SQLiteOpenHelper {
 
         this.getWritableDatabase().insert(TREKITEM_TABLE_NAME, null, contentValues);
     }
+
+    public void getItemListByKeyword(String search) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        List<Item> items = new ArrayList<Item>();
+        String selectQuery = null;
+
+        if (search != null && !search.isEmpty()) {
+            selectQuery = "SELECT rowid as" +
+                    COLUMN_ITEM_TYPE + " , " +
+                    COLUMN_ITEM_STATUS + " , " +
+                    COLUMN_ITEM_WEIGHT + " , " +
+                    COLUMN_ITEM_NAME + " , " +
+                    COLUMN_ITEM_NOTES + " , " +
+                    COLUMN_ITEM_PIC + " , " +
+                    COLUMN_ITEM_DEFAULT + " , " +
+                    COLUMN_ITEM_ENERGY + " , " +
+                    COLUMN_ITEM_PROTEIN + " , " +
+                    COLUMN_ITEM_DEADLINE +
+                    " FROM " + ITEM_TABLE_NAME +
+                    " WHERE " +  COLUMN_ITEM_NAME + "  LIKE  '%" +search + "%' ";
+        } else {
+            selectQuery = "SELECT " + COLUMN_ITEM_NAME + " , "
+                    + COLUMN_ITEM_WEIGHT +
+                    " FROM " + ITEM_TABLE_NAME +
+                    " WHERE " +  COLUMN_ITEM_NAME + "  LIKE  '%" +search + "%' ";
+        }
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToNext();
+    }
 }

@@ -80,12 +80,6 @@ public class ItemEditFragment extends EditFragment {
         EditText mDeadline = parentView.findViewById(R.id.edit_text_deadline);
         CheckBox isDefCheckBox = parentView.findViewById(R.id.is_default_checkbox);
 
-        // validate input
-        if (TextUtils.isEmpty(mName.getText())) {
-            mName.setError(getResources().getString(R.string.phrase_name_required));
-            return;
-        }
-
         this.item.setType((String)typeOptionMap.keySet().toArray()[typeSpinner.getSelectedItemPosition()]);
         this.item.setDefault(isDefCheckBox.isSelected());
 
@@ -109,10 +103,14 @@ public class ItemEditFragment extends EditFragment {
             this.item.setDeadline(mDeadline.getText().toString());
         }
 
-        db.saveItem(this.item);
+        if(TextUtils.isEmpty(mName.getText())) {
+            mName.setError(getResources().getString(R.string.phrase_name_required));
+        } else {
+            db.saveItem(this.item);
 
-        Snackbar.make(view, R.string.phrase_save_success, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+            Snackbar.make(view, R.string.phrase_save_success, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
 
     @Override

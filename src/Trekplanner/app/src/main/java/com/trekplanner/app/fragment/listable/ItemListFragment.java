@@ -144,6 +144,5 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
     public void saveButtonClicked(Object o) {
         db.saveItem((Item) o);
         AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
-
     }
 }
