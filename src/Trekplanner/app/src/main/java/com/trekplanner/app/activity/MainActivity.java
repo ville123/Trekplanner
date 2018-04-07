@@ -1,14 +1,21 @@
 package com.trekplanner.app.activity;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -35,6 +42,8 @@ import com.trekplanner.app.utils.AppUtils;
 
 import java.util.Map;
 
+import static com.trekplanner.app.utils.AppUtils.REQUEST_IMAGE_CAPTURE;
+
 /**
  * Created by Sami
  *
@@ -49,12 +58,6 @@ public class MainActivity extends AppCompatActivity {
     private Fragment trekListFragment;
     private Menu menu;
     private DrawerLayout mDrawerLayout;
-    private PreferenceActivity preferencesFragment;
-
-    /**
-     * item is only for testi
-     */
-    Item item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
         // no other instances should be created
         db = new DbHelper(this);
 
-        item = new Item();
-
         // item and trek -list context will not change, only the content
         // thus singletons can be used
         itemListFragment = ItemListFragment.getInstance(db);
@@ -79,40 +80,58 @@ public class MainActivity extends AppCompatActivity {
         Log.d("TREK_MainActivity", "opening splash screen");
         openSplashScreenActivity();
 
-        // preferences fragment
-        this.preferencesFragment = new PreferenceActivity();
-
         // Nav menu
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(0).setChecked(true);
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        mDrawerLayout.closeDrawers();
+            new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    // set item as selected to persist highlight
+                    menuItem.setChecked(true);
+                    // close drawer when item is tapped
+                    mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-                        if (menuItem.getItemId() == R.id.nav_first_fragment) {
-                            Log.d("TREK_MainActivity", "First nav item selected");
-                            openItemList();
-                        } else if (menuItem.getItemId() == R.id.nav_second_fragment) {
-                            Log.d("TREK_MainActivity", "Second nav item selected");
-                            openTrekList();
-                        }
-                        return true;
+                    // Add code here to update the UI based on the item selected
+                    // For example, swap UI fragments here
+                    if (menuItem.getItemId() == R.id.nav_first_fragment) {
+                        Log.d("TREK_MainActivity", "First nav item selected");
+                        openItemList();
+                    } else if (menuItem.getItemId() == R.id.nav_second_fragment) {
+                        Log.d("TREK_MainActivity", "Second nav item selected");
+                        openTrekList();
                     }
-                });
+                    return true;
+                }
+            });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        if (checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    AppUtils.REQUEST_IMAGE_CAPTURE);
+        }
+
         Log.d("TREK_MainActivity", "opening item list");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == AppUtils.REQUEST_IMAGE_CAPTURE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // grant ok
+            }
+            else {
+                // TODO: disable all camera features
+            }
+        }
     }
 
     @Override
@@ -279,4 +298,5 @@ public class MainActivity extends AppCompatActivity {
     private void doMySearch(String query){
         db.getItemListByKeyword(query);
     }
+
 }

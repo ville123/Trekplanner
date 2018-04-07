@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -65,6 +66,10 @@ public class TrekListFragment extends ListFragment implements ListFragment.ListV
 
         ((AppCompatActivity)this.getActivity()).getSupportActionBar()
                 .setTitle(getResources().getString(R.string.term_treks));
+
+        // hide camerabutton
+        ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        camBtn.setVisibility(View.INVISIBLE);
 
     }
 

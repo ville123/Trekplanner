@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.trekplanner.app.R;
@@ -46,6 +47,10 @@ public class MainEditFragment extends Fragment {
 
         headerImageView.setImageResource(R.drawable.trek);
 
+        // show camerabutton
+        ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        camBtn.setVisibility(View.VISIBLE);
+
         // get the treks pic for header background
         // TODO: prevent this shit by createting abstract EditFragment -class. See "ListFragment" for example.
         if (this.editFragment instanceof TrekEditFragment) {
@@ -68,7 +73,7 @@ public class MainEditFragment extends Fragment {
         final TabAdapter adapter = new TabAdapter
                 (context.getSupportFragmentManager());
 
-        // adapter shows edit for trek and list for trekitems
+        // adapter shows editfrag for trek and listfrag for trekitems
         adapter.addTabContent(this.editFragment);
         adapter.addTabContent(this.listFragment);
 

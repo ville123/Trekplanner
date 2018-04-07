@@ -3,7 +3,13 @@ package com.trekplanner.app.fragment.editable;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -27,6 +33,7 @@ import android.widget.TimePicker;
 
 
 import com.trekplanner.app.R;
+import com.trekplanner.app.activity.MainActivity;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.utils.AppUtils;
@@ -40,6 +47,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Sami
@@ -71,25 +80,18 @@ public class ItemEditFragment extends EditFragment {
         // first close the keyboard
         AppUtils.closeInputwidget(getActivity(), parentView);
 
-        Spinner typeSpinner = parentView.findViewById(R.id.spinner_type);
         EditText mWeight = parentView.findViewById(R.id.edit_text_weight);
         EditText mName = parentView.findViewById(R.id.edit_text_name);
         EditText mNotes = parentView.findViewById(R.id.text_edit_notes_edit);
-        //EditText mPics = parentView.findViewById(R.id.edit_text_pic_edit);
         EditText mEnergy = parentView.findViewById(R.id.edit_text_energy);
         EditText mProtein = parentView.findViewById(R.id.edit_text_protein);
         EditText mDeadline = parentView.findViewById(R.id.edit_text_deadline);
-        //CheckBox isDefCheckBox = parentView.findViewById(R.id.is_default_checkbox);
-
-        //this.item.setType((String)typeOptionMap.keySet().toArray()[typeSpinner.getSelectedItemPosition()]);
-        //this.item.setDefault(isDefCheckBox.isSelected());
 
         if (!mWeight.getText().toString().isEmpty())
             this.item.setWeight(Double.valueOf(mWeight.getText().toString()));
 
         this.item.setName(mName.getText().toString());
         this.item.setNotes(mNotes.getText().toString());
-        //this.item.setPic(mPics.getText().toString());
 
         if (this.item.getType().equals(getResources().getString(R.string.enum_itemtype3))) {
             if (!mEnergy.getText().toString().isEmpty())
@@ -110,8 +112,7 @@ public class ItemEditFragment extends EditFragment {
             Log.d("TREK_is_default", "item is default in save: " + item.isDefault());
             db.saveItem(this.item);
 
-            Snackbar.make(view, R.string.phrase_save_success, Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+            AppUtils.showOkMessage(view, R.string.phrase_save_success);
         }
     }
 
@@ -136,6 +137,18 @@ public class ItemEditFragment extends EditFragment {
         //Actionbar content
         ((AppCompatActivity) this.getActivity()).getSupportActionBar()
                 .setTitle(getResources().getString(R.string.term_item));
+
+        /** camera button and picture **/
+        ImageButton fab = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, AppUtils.REQUEST_IMAGE_CAPTURE);
+            }
+        });
+
+        /** camera button and picture end **/
 
         //populate type and status key-values
         if (typeOptionMap == null) {
@@ -254,7 +267,6 @@ public class ItemEditFragment extends EditFragment {
             // update item
             EditText mName = view.findViewById(R.id.edit_text_name);
             EditText mNotes = view.findViewById(R.id.text_edit_notes_edit);
-            //EditText mPics = view.findViewById(R.id.edit_text_pic_edit);
 
             EditText mWeight = view.findViewById(R.id.edit_text_weight);
             if (mWeight!= null && item.getWeight() != null)
@@ -269,12 +281,31 @@ public class ItemEditFragment extends EditFragment {
 
             mName.setText(item.getName());
             mNotes.setText(item.getNotes());
-            //mPics.setText(item.getPic());
 
             if (mDeadline!=null) mDeadline.setText(item.getDeadline());
             isDefCheckBox.setChecked(item.isDefault());
+
+            if (item.getPic() != null && !item.getPic().isEmpty()) {
+                View headerLayout = getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
+                headerLayout.setBackground(new BitmapDrawable(getResources(), AppUtils.decodeToBitmap(item.getPic())));
+            }
         }
 
+    }
+
+    // handle image capture from camera
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) { // parametreinä requestcode ja resultcode jotta voidaan varmistaa menikö kuvan otto ok
+        if(requestCode == AppUtils.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap picMap = (Bitmap) extras.get("data");
+            this.item.setPic(AppUtils.encodeToString(picMap));
+            if (this.item.getId() != null && !this.item.getId().isEmpty()) db.saveItem(this.item);
+            View headerLayout = getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
+            headerLayout.setBackground(new BitmapDrawable(getResources(), picMap));
+
+        }
+        super.onActivityResult(requestCode,resultCode,data);
     }
 
     @Override

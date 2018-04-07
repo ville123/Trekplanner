@@ -24,10 +24,6 @@
     <string name="term_autum">Syksy</string>
     <string name="term_winter">Talvi</string>
     <string name="term_automated_theme">Automaattinen vuodenaika</string>
-    <string name="term_lesson">Opittua</string>
-    <string name="term_start_end_coord">Koordinaatit</string>
-    <string name="term_length">Pituus</string>
-    <string name="term_level">Taso</string>
     <string name="term_itemtype">Tyyppi</string>
     <string name="term_deadline">Muistutuspäivä</string>
     <string name="term_weight">Paino</string>

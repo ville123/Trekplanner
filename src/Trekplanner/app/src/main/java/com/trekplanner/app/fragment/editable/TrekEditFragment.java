@@ -1,7 +1,9 @@
 package com.trekplanner.app.fragment.editable;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +13,14 @@ import android.widget.EditText;
 import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.widget.ImageButton;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Sami
@@ -40,7 +45,6 @@ public class TrekEditFragment extends EditFragment {
         CoordinatorLayout parentView = (CoordinatorLayout) view.getParent();
         EditText startField = parentView.findViewById(R.id.editview_trek_start_fld);
         this.trek.setStart(startField.getText().toString());
-
 
         EditText descField = parentView.findViewById(R.id.editview_trek_description_fld);
         this.trek.setDescription(descField.getText().toString());
@@ -68,12 +72,9 @@ public class TrekEditFragment extends EditFragment {
         Double length = Double.parseDouble(lengthString);
         this.trek.setLength(length);
 
-        // TODO: add all fields
-
         db.saveTrek(this.trek);
 
-        Snackbar.make(view, R.string.phrase_save_success, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        AppUtils.showOkMessage(view, R.string.phrase_save_success);
     }
 
     @Override
@@ -117,6 +118,33 @@ public class TrekEditFragment extends EditFragment {
 
         ((AppCompatActivity)this.getActivity()).getSupportActionBar()
                 .setTitle(getResources().getString(R.string.term_trek) + " - " + trek.getDescription());
+
+        /** camera button and picture **/
+        ImageButton fab = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, AppUtils.REQUEST_IMAGE_CAPTURE);
+            }
+        });
+
+        /** camera button and picture end **/
+    }
+
+    // handle image capture from camera
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) { // parametreinä requestcode ja resultcode jotta voidaan varmistaa menikö kuvan otto ok
+        if(requestCode == AppUtils.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap picMap = (Bitmap) extras.get("data");
+            this.trek.setPic(AppUtils.encodeToString(picMap));
+            if (this.trek.getId() != null && !this.trek.getId().isEmpty()) db.saveTrek(this.trek);
+            View headerLayout = getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
+            headerLayout.setBackground(new BitmapDrawable(getResources(), picMap));
+
+        }
+        super.onActivityResult(requestCode,resultCode,data);
     }
 
     @Override
@@ -124,6 +152,7 @@ public class TrekEditFragment extends EditFragment {
         return R.layout.editview_trek_content_layout;
     }
 
+    // TODO: poista tämä ja siirrä buildView -metodiin
     public void setHeaderPic(Resources resources, View headerLayout) {
         if (trek.getPic() != null && !trek.getPic().isEmpty()) {
             headerLayout.setBackground(new BitmapDrawable(resources, AppUtils.decodeToBitmap(trek.getPic())));
