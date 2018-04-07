@@ -27,6 +27,7 @@ import com.trekplanner.app.fragment.editable.TrekEditFragment;
 import com.trekplanner.app.fragment.listable.ItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekListFragment;
+import com.trekplanner.app.fragment.listable.adapter.ItemAdapter;
 import com.trekplanner.app.handler.ExportActionHandler;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private Menu menu;
     private DrawerLayout mDrawerLayout;
     private PreferenceActivity preferencesFragment;
+
+    private ItemAdapter adapter;
 
     /**
      * item is only for testi
@@ -72,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         // thus singletons can be used
         itemListFragment = ItemListFragment.getInstance(db);
         trekListFragment = TrekListFragment.getInstance(db);
+
+        adapter = new ItemAdapter(MainActivity.this, null);
 
         Log.d("TREK_MainActivity", "opening splash screen");
         openSplashScreenActivity();
@@ -278,5 +283,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void doMySearch(String query){
         db.getItemListByKeyword(query);
+        adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_NAME));
+        adapter.notifyDataSetChanged();
     }
 }
