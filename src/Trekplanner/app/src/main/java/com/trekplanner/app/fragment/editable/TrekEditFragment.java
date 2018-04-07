@@ -7,15 +7,26 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.widget.Spinner;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
+
+import java.sql.Array;
+import java.sql.Struct;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Sami
@@ -25,6 +36,7 @@ import com.trekplanner.app.utils.AppUtils;
 public class TrekEditFragment extends EditFragment {
 
     private Trek trek;
+    private static Map<String,String> levelOptionMap;
 
     public static TrekEditFragment getNewInstance(DbHelper db, Trek trek) {
         Log.d("TREK_TrekEditFragment", "New TrekEditFragment -instance created");
@@ -38,9 +50,11 @@ public class TrekEditFragment extends EditFragment {
     public void onClick(View view) {
         Log.d("TREK_TrekEditFragment", "Save button clicked");
         CoordinatorLayout parentView = (CoordinatorLayout) view.getParent();
+
+
+
         EditText startField = parentView.findViewById(R.id.editview_trek_start_fld);
         this.trek.setStart(startField.getText().toString());
-
 
         EditText descField = parentView.findViewById(R.id.editview_trek_description_fld);
         this.trek.setDescription(descField.getText().toString());
@@ -54,8 +68,11 @@ public class TrekEditFragment extends EditFragment {
         EditText lessonField = parentView.findViewById(R.id.editview_trek_lesson_fld);
         this.trek.setLessonsLearned(lessonField.getText().toString());
 
-        EditText levelField = parentView.findViewById(R.id.editview_trek_level_fld);
-        this.trek.setLevel(levelField.getText().toString());
+        Spinner levelSpinner = parentView.findViewById(R.id.spinnerTrekLevel);
+        this.trek.setLevel((String)levelOptionMap.keySet().toArray()[levelSpinner.getSelectedItemPosition()]);
+
+        //EditText levelField = parentView.findViewById(R.id.editview_trek_level_fld);
+        //this.trek.setLevel(levelField.getText().toString());
 
         EditText startCoordsField = parentView.findViewById(R.id.editview_trek_start_coord_fld);
         this.trek.setStartCoords(startCoordsField.getText().toString());
@@ -101,8 +118,34 @@ public class TrekEditFragment extends EditFragment {
         EditText lessonField = view.findViewById(R.id.editview_trek_lesson_fld);
         lessonField.setText(trek.getLessonsLearned());
 
-        EditText levelField = view.findViewById(R.id.editview_trek_level_fld);
-        levelField.setText(trek.getLevel());
+        if (levelOptionMap == null) {
+            levelOptionMap = new HashMap<>();
+            List<String> levelOptionList = Arrays.asList(getResources().getStringArray(R.array.array_trek_level));
+            List<String> levelEnumList = Arrays.asList(getResources().getStringArray(R.array.array_trek_level_enums));
+            for (int i = 0; i < levelEnumList.size(); i++) {
+                levelOptionMap.put(levelEnumList.get(i), levelOptionList.get(i));
+            }
+        }
+
+        Spinner levelSpinner = view.findViewById(R.id.spinnerTrekLevel);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, new ArrayList<>(levelOptionMap.values()));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        levelSpinner.setAdapter(adapter);
+
+        levelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (trek != null)
+                    trek.setLevel((String) levelOptionMap.keySet().toArray()[i]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+
+//        EditText levelField = view.findViewById(R.id.editview_trek_level_fld);
+//        levelField.setText(trek.getLevel());
 
         EditText lengthField = view.findViewById(R.id.editview_trek_length_fld);
         lengthField.setText(trek.getLength().toString().trim());

@@ -36,12 +36,22 @@
                 android:layout_weight="1"
                 android:text="@string/term_level"/>
 
-            <EditText
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerTrekLevel"
+                android:spinnerMode="dropdown"
+                style="@style/field_row_style">
+            </Spinner>
+
+
+<!--    Retken vaativuustason valinta: Kokeillaan korvata tekstikenttä ylläolevalla Spinner systeemillä..
+                <EditText
                 android:id="@+id/editview_trek_level_fld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"  />
-
+-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
