@@ -29,4 +29,16 @@
         <item>@string/item_status_3</item>
     </string-array>
 
+    <string-array name="array_trek_level_enums">
+        <item>trek_level_1</item>
+        <item>trek_level_2</item>
+        <item>trek_level_3</item>
+    </string-array>
+
+    <string-array name="array_trek_level">
+        <item>@string/trek_level_1</item>
+        <item>@string/trek_level_2</item>
+        <item>@string/trek_level_3</item>
+    </string-array>
+
 </resources>
