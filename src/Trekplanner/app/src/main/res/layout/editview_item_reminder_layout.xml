@@ -77,115 +77,10 @@
             android:inputType="textCapSentences"
             style="@style/field_row_style"/>
 
-
-        <!-- notes -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/term_notes"
-            style="@style/label_row_style"/>
-
-        <!-- input field -->
-        <EditText
-            android:id="@+id/text_edit_notes_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryTransparent"
-            android:inputType="textMultiLine|textCapSentences"
-            android:overScrollMode="always"
-            android:gravity="top|left"
-            android:scrollbarStyle="insideInset"
-            android:scrollbars="vertical"
-            android:lines="6"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:scrollHorizontally="false"
-            style="@style/field_row_style"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:id="@+id/editview_weight_data_layout">
-
-            <!-- weight -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/term_weight"
-                style="@style/label_row_style"/>
-
-            <!-- input field -->
-            <EditText
-                android:id="@+id/edit_text_weight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:hint="@string/phrase_doublevalue_hint"
-                style="@style/field_row_style"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
-            android:id="@+id/editview_food_data_layout">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="50"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <!-- energy -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/term_energy"
-                    style="@style/label_row_style"/>
-
-                <!-- input field -->
-                <EditText
-                    android:id="@+id/edit_text_energy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="@string/phrase_doublevalue_hint"
-                    style="@style/field_row_style"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="50"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <!-- protein -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/term_protein"
-                    style="@style/label_row_style"/>
-
-                <!-- input field -->
-                <EditText
-                    android:id="@+id/edit_text_protein"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="@string/phrase_doublevalue_hint"
-                    style="@style/field_row_style"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:id="@+id/editview_reminder_data_layout">
+            android:layout_height="wrap_content">
 
             <!-- deadline -->
             <TextView
@@ -227,6 +122,29 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <!-- notes -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/term_notes"
+            style="@style/label_row_style"/>
+
+        <!-- input field -->
+        <EditText
+            android:id="@+id/text_edit_notes_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryTransparent"
+            android:inputType="textMultiLine|textCapSentences"
+            android:overScrollMode="always"
+            android:gravity="top|left"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:lines="6"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:scrollHorizontally="false"
+            style="@style/field_row_style"/>
 
     </LinearLayout>
 

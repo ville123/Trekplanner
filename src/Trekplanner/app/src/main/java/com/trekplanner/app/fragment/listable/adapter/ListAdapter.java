@@ -48,4 +48,6 @@ public abstract class ListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
+    public abstract void updateDataSetWithQuery(String query);
 }

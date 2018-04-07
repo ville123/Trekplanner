@@ -54,6 +54,11 @@ public class TrekItemListFragment extends ListFragment implements ListFragment.L
         listView.setAdapter(adapter);
     }
 
+    @Override
+    public void updateDataSetWithQuery(String query) {
+        // do nothing
+    }
+
     // floating button clicked
     @Override
     public void onClick(View view) {

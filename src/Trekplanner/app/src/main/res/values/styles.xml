@@ -94,8 +94,15 @@
     <style name="field_row_style">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:buttonTint">#FFFFFF</item>
+        <item name="android:spinnerStyle">@style/spinnerStyle</item>
         <item name="android:layout_marginBottom">@dimen/margin</item>
         <item name="android:textCursorDrawable">@null</item><!-- sets the cursor to white -->
+    </style>
+
+    <style name="spinnerStyle">
+        <item name="android:background"></item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:clickable">true</item>
     </style>
 
     <style name="image_style">

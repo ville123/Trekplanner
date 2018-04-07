@@ -33,6 +33,11 @@ public class TrekItemAdapter extends ListAdapter {
         super(context, listener);
     }
 
+    @Override
+    public void updateDataSetWithQuery(String query) {
+        // do nothing
+    }
+
     public void setListRows(List<TrekItem> rows) {
         this.listRows = rows;
     }

@@ -81,4 +81,6 @@ public abstract class ListFragment extends Fragment implements View.OnClickListe
         return this;
     }
 
+    public abstract void updateDataSetWithQuery(String query);
+
 }

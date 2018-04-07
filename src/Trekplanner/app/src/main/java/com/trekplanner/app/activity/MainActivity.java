@@ -27,10 +27,13 @@ import com.trekplanner.app.fragment.editable.TrekEditFragment;
 import com.trekplanner.app.fragment.listable.ItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekListFragment;
+import com.trekplanner.app.fragment.listable.adapter.ItemAdapter;
 import com.trekplanner.app.handler.ExportActionHandler;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
+
+import java.util.Map;
 
 /**
  * Created by Sami
@@ -188,18 +191,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Floating button clicked on some listview
-    public void onListViewActionButtonClick(Integer actionId, View view) {
+    public void onListViewFloatingButtonClick(Integer actionId, View view, Map<String, Object> attributes) {
         Log.d("TREK_MainActivity", "List view floating button clicked");
 
-        // TODO: for now this action toggles between item and trek -lists
-        // until -left menu is implemented
-
-        // TODO: Item / trek editor should be opened here for creating new object
-
         if (actionId == AppUtils.ITEM_LIST_ACTION_ID) {
-            openItemPage(null);
+            Item item = new Item();
+            item.setType((String)attributes.get(AppUtils.ITEM_TYPE_KEY)); // defaults to selected type
+            item.setStatus(getResources().getString(R.string.enum_itemstatus1)); // default ok
+            openItemPage(item);
         } else if (actionId == AppUtils.TREK_LIST_ACTION_ID) {
-            openItemList();
+            //openItemList();
+            openTrekPage(null);
         }
     }
 

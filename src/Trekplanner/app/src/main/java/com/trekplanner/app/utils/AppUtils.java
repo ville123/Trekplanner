@@ -37,6 +37,7 @@ public class AppUtils {
     public static final String DATETIME_FORMAT_DB_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DATETIME_FORMAT_ONLY_DATE = "dd.MM.yyyy";
     public static final String DATETIME_FORMAT_DATE_TIME = "dd.MM.yyyy HH:mm:ss";
+    public static final String ITEM_TYPE_KEY = "item_type_key";
 
 
     // can implement some small nice functions to handle routine tasks
