@@ -300,11 +300,11 @@ public class DbHelper extends SQLiteOpenHelper {
         } else {
             db.insert(TREK_TABLE_NAME,null, values);
         }
-
+/*
         for (Item item : trek.getItems()) {
             saveTrekItem(trek.getId(), item.getId());
-        }
-
+        } // Trekin muutosten tallennus ei onnistu trekEditFragmentissa jos nämä rivit ovat käytössä -> applikaatio kaatuu kun painetaan save-nappia
+*/
         return trek.getId();
     }
 
