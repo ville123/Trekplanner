@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,7 +20,7 @@ import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageButton;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -30,8 +29,6 @@ import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
 
-import java.sql.Array;
-import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -250,6 +247,12 @@ public class TrekEditFragment extends EditFragment {
 //        EditText lengthField = view.findViewById(R.id.editview_trek_length_fld);
 //        lengthField.setText(trek.getLength().toString().trim());
 
+        // get the treks pic for header background
+        if (trek.getPic() != null && !trek.getPic().isEmpty()) {
+            ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+            hdrImage.setImageBitmap(AppUtils.decodeToBitmap(trek.getPic()));
+        }
+
         FloatingActionButton myFab = (FloatingActionButton) view.findViewById(R.id.editview_floating_camera_btn);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -282,8 +285,8 @@ public class TrekEditFragment extends EditFragment {
             Bitmap picMap = (Bitmap) extras.get("data");
             this.trek.setPic(AppUtils.encodeToString(picMap));
             if (this.trek.getId() != null && !this.trek.getId().isEmpty()) db.saveTrek(this.trek);
-            View headerLayout = getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
-            headerLayout.setBackground(new BitmapDrawable(getResources(), picMap));
+            ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+            hdrImage.setImageBitmap(picMap);
 
         }
         super.onActivityResult(requestCode,resultCode,data);

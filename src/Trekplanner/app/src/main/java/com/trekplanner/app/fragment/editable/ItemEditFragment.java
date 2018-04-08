@@ -2,53 +2,40 @@ package com.trekplanner.app.fragment.editable;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 
 import com.trekplanner.app.R;
-import com.trekplanner.app.activity.MainActivity;
 import com.trekplanner.app.db.DbHelper;
-import com.trekplanner.app.handler.ImageActionHandler;
+import com.trekplanner.app.handler.PictureActionHandler;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -124,7 +111,7 @@ public class ItemEditFragment extends EditFragment {
 
         // setting page header content
         ImageView headerImageView
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_icon);
         headerImageView.setImageResource(R.drawable.item);
 
         // hide actions from header
@@ -145,7 +132,7 @@ public class ItemEditFragment extends EditFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUtils.showSelectionDialog(getActivity(), null, R.array.image_action_choices, new ImageActionHandler(getActivity()));
+                AppUtils.showSelectionDialog(getActivity(), null, R.array.image_action_choices, new PictureActionHandler(getActivity()));
             }
         });
 
@@ -287,8 +274,8 @@ public class ItemEditFragment extends EditFragment {
             isDefCheckBox.setChecked(item.isDefault());
 
             if (item.getPic() != null && !item.getPic().isEmpty()) {
-                View headerLayout = getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
-                headerLayout.setBackground(new BitmapDrawable(getResources(), AppUtils.decodeToBitmap(item.getPic())));
+                ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+                hdrImage.setImageBitmap(AppUtils.decodeToBitmap(item.getPic()));
             }
         }
 
@@ -302,8 +289,8 @@ public class ItemEditFragment extends EditFragment {
             Bitmap picMap = (Bitmap) extras.get("data");
             this.item.setPic(AppUtils.encodeToString(picMap));
             if (this.item.getId() != null && !this.item.getId().isEmpty()) db.saveItem(this.item);
-            View headerLayout = getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
-            headerLayout.setBackground(new BitmapDrawable(getResources(), picMap));
+            ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+            hdrImage.setImageBitmap(AppUtils.decodeToBitmap(item.getPic()));
 
         }
         super.onActivityResult(requestCode,resultCode,data);

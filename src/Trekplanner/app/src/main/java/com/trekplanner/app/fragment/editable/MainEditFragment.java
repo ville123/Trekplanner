@@ -43,22 +43,13 @@ public class MainEditFragment extends Fragment {
 
         // setting page header content
         ImageView headerImageView
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_icon);
 
         headerImageView.setImageResource(R.drawable.trek);
 
         // show camerabutton
         ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
         camBtn.setVisibility(View.VISIBLE);
-
-        // get the treks pic for header background
-        // TODO: prevent this shit by createting abstract EditFragment -class. See "ListFragment" for example.
-        if (this.editFragment instanceof TrekEditFragment) {
-            ((TrekEditFragment) this.editFragment)
-                    .setHeaderPic(
-                            this.getActivity().getResources(),
-                            this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout));
-        }
 
         // create tab layout and adapter
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);

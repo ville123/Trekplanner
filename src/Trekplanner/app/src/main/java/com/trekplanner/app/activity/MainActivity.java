@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -25,9 +27,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
+import com.trekplanner.app.fragment.PictureFragment;
 import com.trekplanner.app.fragment.editable.ItemEditFragment;
 import com.trekplanner.app.fragment.editable.MainEditFragment;
 import com.trekplanner.app.fragment.editable.TrekEditFragment;
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment trekListFragment;
     private Menu menu;
     private DrawerLayout mDrawerLayout;
+    private PictureFragment pictureFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         // thus singletons can be used
         itemListFragment = ItemListFragment.getInstance(db);
         trekListFragment = TrekListFragment.getInstance(db);
+        pictureFragment = PictureFragment.getInstance();
 
         Log.d("TREK_MainActivity", "opening splash screen");
         openSplashScreenActivity();
@@ -210,9 +216,17 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        // TODO: implement search for items
-
         return super.onOptionsItemSelected(item);
+    }
+
+    // handle header image onclick -action
+    public void showPicture(View view) {
+        Drawable drawable = ((ImageView) view).getDrawable();
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        if (bitmap!=null) {
+            this.pictureFragment.setPic(bitmap);
+            openFragment(pictureFragment, true, true);
+        }
     }
 
     // Floating button clicked on some listview
@@ -248,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
 
         menu.findItem(R.id.action_search).setVisible(true);
 
-        openFragment(this.itemListFragment, false);
+        openFragment(this.itemListFragment, false, false);
     }
 
     private void openTrekList() {
@@ -256,12 +270,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.term_treks);
         menu.findItem(R.id.action_search).setVisible(false);
 
-        openFragment(this.trekListFragment, false);
+        openFragment(this.trekListFragment, false, false);
     }
 
     private void openItemPage(Item item) {
         menu.findItem(R.id.action_search).setVisible(false);
-        openFragment(ItemEditFragment.getNewInstance(db, item), true);
+        openFragment(ItemEditFragment.getNewInstance(db, item), true, false);
     }
 
     private void openPreferences() {
@@ -281,18 +295,23 @@ public class MainActivity extends AppCompatActivity {
                 MainEditFragment.getNewInstance(
                         TrekEditFragment.getNewInstance(db, trek),
                         TrekItemListFragment.getNewInstance(db, trek.getId())),
-                true);
+                true, false);
     }
 
     private void openSplashScreenActivity() {
         startActivity(new Intent(this, SplashActivity.class));
     }
 
-    private void openFragment(Fragment fragment, boolean addToBackStack) {
+    private void openFragment(Fragment fragment, boolean addToBackStack, boolean fullPage) {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frag_container, fragment);
+
+        if (fullPage) {
+            ft.replace(android.R.id.content, fragment);
+        } else {
+            ft.replace(R.id.frag_container, fragment);
+        }
 
         // if added to back stack, android back -button gets back to previous page
         if (addToBackStack)  ft.addToBackStack(fragment.getClass().getName());

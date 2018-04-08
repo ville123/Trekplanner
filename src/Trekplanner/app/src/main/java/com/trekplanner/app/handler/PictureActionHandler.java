@@ -8,11 +8,11 @@ import android.support.design.widget.Snackbar;
 
 import com.trekplanner.app.utils.AppUtils;
 
-public class ImageActionHandler implements DialogInterface.OnClickListener {
+public class PictureActionHandler implements DialogInterface.OnClickListener {
 
     private final Activity activity;
 
-    public ImageActionHandler(Activity activity) {
+    public PictureActionHandler(Activity activity) {
         this.activity = activity;
     }
 

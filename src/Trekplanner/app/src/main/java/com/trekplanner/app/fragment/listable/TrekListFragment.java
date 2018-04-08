@@ -47,7 +47,7 @@ public class TrekListFragment extends ListFragment implements ListFragment.ListV
 
         // setting page header content
         ImageView headerImageView
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_icon);
         headerImageView.setImageResource(R.drawable.treks);
 
         // hide actions from header
@@ -59,10 +59,9 @@ public class TrekListFragment extends ListFragment implements ListFragment.ListV
                 = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_action2);
         action2View.setText("");
 
-        // empty header background
-        View headerLayout
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
-        headerLayout.setBackgroundResource(0);
+        // empty header image
+        ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+        hdrImage.setImageBitmap(null);
 
         ((AppCompatActivity)this.getActivity()).getSupportActionBar()
                 .setTitle(getResources().getString(R.string.term_treks));

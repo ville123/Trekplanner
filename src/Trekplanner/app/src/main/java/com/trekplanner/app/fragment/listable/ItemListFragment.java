@@ -1,6 +1,5 @@
 package com.trekplanner.app.fragment.listable;
 
-import android.app.Activity;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
@@ -19,8 +18,6 @@ import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,13 +54,12 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
 
         // setting page header content
         ImageView headerImageView
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_icon);
         headerImageView.setImageResource(R.drawable.items);
 
-        // empty header background
-        View headerLayout
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
-        headerLayout.setBackgroundResource(0);
+        // empty header image
+        ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+        hdrImage.setImageBitmap(null);
 
         // hide camerabutton
         ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
