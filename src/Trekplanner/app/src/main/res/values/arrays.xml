@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--These are options displayed for type of the item -->
+    <string-array name="array_type_options">
+        <item>@string/item_type_1</item>
+        <item>@string/item_type_2</item>
+        <item>@string/item_type_3</item>
+        <item>@string/item_type_4</item>
+        <item>@string/item_type_5</item>
+        <item>@string/item_type_6</item>
+        <item>@string/item_type_7</item>
+        <item>@string/item_type_8</item>
+    </string-array>
+    <string-array name="array_type_enums">
+        <item>item_type_1</item>
+        <item>item_type_2</item>
+        <item>item_type_3</item>
+        <item>item_type_4</item>
+        <item>item_type_5</item>
+        <item>item_type_6</item>
+        <item>item_type_7</item>
+        <item>item_type_8</item>
+    </string-array>
+    <string-array name="array_trek_level_enums">
+        <item>trek_level_1</item>
+        <item>trek_level_2</item>
+        <item>trek_level_3</item>
+    </string-array>
+
+    <string-array name="array_trek_level">
+        <item>@string/trek_level_1</item>
+        <item>@string/trek_level_2</item>
+        <item>@string/trek_level_3</item>
+    </string-array>
+
     <string-array name="theme_list_entries">
         <item>@string/term_spring</item>
         <item>@string/term_summer</item>
@@ -34,5 +67,15 @@
         <item>@string/fs_harddrive</item>
         <item>@string/fs_gdrive</item>
         <item>@string/fs_onedrive</item>
+    </string-array>
+    <string-array name="image_action_choices">
+        <item>@string/term_camera</item>
+        <item>@string/term_gallery</item>
+    </string-array>
+    <string-array name="import_template_choices">
+        <item>@string/term_daytrip</item>
+        <item>@string/term_overnighttrip</item>
+        <item>@string/term_weektrip</item>
+        <item>@string/term_wintertrip</item>
     </string-array>
 </resources>

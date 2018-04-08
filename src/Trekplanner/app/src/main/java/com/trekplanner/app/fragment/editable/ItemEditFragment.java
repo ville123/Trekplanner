@@ -3,6 +3,7 @@ package com.trekplanner.app.fragment.editable;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -35,6 +36,7 @@ import android.widget.TimePicker;
 import com.trekplanner.app.R;
 import com.trekplanner.app.activity.MainActivity;
 import com.trekplanner.app.db.DbHelper;
+import com.trekplanner.app.handler.ImageActionHandler;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.utils.AppUtils;
 
@@ -143,8 +145,7 @@ public class ItemEditFragment extends EditFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, AppUtils.REQUEST_IMAGE_CAPTURE);
+                AppUtils.showSelectionDialog(getActivity(), null, R.array.image_action_choices, new ImageActionHandler(getActivity()));
             }
         });
 

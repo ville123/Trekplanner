@@ -96,7 +96,7 @@ public class AppUtils {
                 .show();
     }
 
-    public static void showSelectionDialog(Activity activity, int messageResouce,
+    public static void showSelectionDialog(Activity activity,
                                            DialogInterface.OnClickListener cancelListener,
                                            int itemArray,
                                            DialogInterface.OnClickListener selectionListener) {

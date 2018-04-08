@@ -36,11 +36,13 @@
                 android:layout_weight="1"
                 android:text="@string/term_level"/>
 
-            <EditText
-                android:id="@+id/editview_trek_level_fld"
+            <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"  />
+                android:id="@+id/spinnerTrekLevel"
+                android:spinnerMode="dropdown"
+                style="@style/field_row_style">
+            </Spinner>
 
             <TextView
                 android:layout_width="match_parent"
@@ -70,9 +72,26 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"  />
 
-                <TextView android:text=" - "
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content" />
+                <ImageButton
+                    android:id="@+id/editview_trek_start_select_date_button"
+                    style="@style/image_style"
+                    android:layout_width="24dp"
+                    android:layout_height="28dp"
+                    android:src="@android:drawable/ic_menu_today"
+                    android:text="@string/phrase_select_date" />
+
+                <ImageButton
+                    android:id="@+id/editview_trek_start_select_time_button"
+                    style="@style/image_style"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:src="@android:drawable/ic_menu_info_details"
+                    android:text="@string/phrase_select_time" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/editview_trek_end_fld"
@@ -80,6 +99,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"  />
 
+                <ImageButton
+                    android:id="@+id/editview_trek_end_select_date_button"
+                    style="@style/image_style"
+                    android:layout_width="24dp"
+                    android:layout_height="28dp"
+                    android:src="@android:drawable/ic_menu_today"
+                    android:text="@string/phrase_select_date" />
+
+                <ImageButton
+                    android:id="@+id/editview_trek_end_select_time_button"
+                    style="@style/image_style"
+                    android:layout_width="23dp"
+                    android:layout_height="32dp"
+                    android:src="@android:drawable/ic_menu_info_details"
+                    android:text="@string/phrase_select_time" />
             </LinearLayout>
 
             <TextView

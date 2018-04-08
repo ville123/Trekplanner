@@ -184,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_export) {
             // TODO: export items and treks to a json/csv/xml file
             AppUtils.showSelectionDialog(this,
-                    R.string.phrase_select_filesystem,
                     null,
                     R.array.filesystems,
                     new ExportActionHandler(this));
@@ -201,6 +200,13 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == android.R.id.home){
             // Open navigation menu
             mDrawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        } else if (id == R.id.action_load_template) {
+            // TODO: import trek from a json template
+            AppUtils.showSelectionDialog(this,
+                    null,
+                    R.array.import_template_choices,
+                    new ExportActionHandler(this));
             return true;
         }
 

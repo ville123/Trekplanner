@@ -300,11 +300,11 @@ public class DbHelper extends SQLiteOpenHelper {
         } else {
             db.insert(TREK_TABLE_NAME,null, values);
         }
-
+/*
         for (Item item : trek.getItems()) {
             saveTrekItem(trek.getId(), item.getId());
-        }
-
+        } // Trekin muutosten tallennus ei onnistu trekEditFragmentissa jos nämä rivit ovat käytössä -> applikaatio kaatuu kun painetaan save-nappia
+*/
         return trek.getId();
     }
 
@@ -317,7 +317,6 @@ public class DbHelper extends SQLiteOpenHelper {
         boolean update = false;
         if (item.getId() == null || item.getId().isEmpty()) {
             item.setId(AppUtils.generateUUID());
-            item.setStatus("trek_item_status_1");
         } else {
             update = true;
         }
@@ -329,7 +328,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_ITEM_NAME, item.getName());
         values.put(COLUMN_ITEM_NOTES, item.getNotes());
         values.put(COLUMN_ITEM_PIC, item.getPic());
-        values.put(COLUMN_ITEM_DEFAULT, item.isDefault());
+        values.put(COLUMN_ITEM_DEFAULT, (item.isDefault()?1:0));
         values.put(COLUMN_ITEM_ENERGY, item.getEnergy());
         values.put(COLUMN_ITEM_PROTEIN, item.getProtein());
         values.put(COLUMN_ITEM_DEADLINE, item.getDeadline());
@@ -432,7 +431,9 @@ public class DbHelper extends SQLiteOpenHelper {
             item.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
             item.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NOTES)));
             item.setPic(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_PIC)));
-            item.setDefault(cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_DEFAULT)) != 1);
+
+            int defaultAsInt = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_DEFAULT));
+            item.setDefault(defaultAsInt==1?true:false);
             item.setEnergy(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_ENERGY)));
             item.setProtein(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_PROTEIN)));
             item.setDeadline(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_DEADLINE)));
@@ -555,36 +556,35 @@ public class DbHelper extends SQLiteOpenHelper {
         this.getWritableDatabase().insert(TREKITEM_TABLE_NAME, null, contentValues);
     }
 
-    public void getItemListByKeyword(String search) {
+    public Cursor getItemListByKeyword(String search) {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        List<Item> items = new ArrayList<Item>();
-        String selectQuery = null;
+        String selectQuery =  "SELECT " +
+                COLUMN_ITEM_ID + "," +
+                COLUMN_ITEM_TYPE + "," +
+                COLUMN_ITEM_STATUS + "," +
+                COLUMN_ITEM_WEIGHT + "," +
+                COLUMN_ITEM_NAME + "," +
+                COLUMN_ITEM_NOTES + "," +
+                COLUMN_ITEM_PIC + "," +
+                COLUMN_ITEM_DEFAULT + "," +
+                COLUMN_ITEM_ENERGY + "," +
+                COLUMN_ITEM_PROTEIN + "," +
+                COLUMN_ITEM_DEADLINE +
+                " FROM " + ITEM_TABLE_NAME +
+                " WHERE " +  COLUMN_ITEM_NAME + "  LIKE  '%" + search + "%' ";
 
-        if (search != null && !search.isEmpty()) {
-            selectQuery = "SELECT rowid as" +
-                    COLUMN_ITEM_TYPE + " , " +
-                    COLUMN_ITEM_STATUS + " , " +
-                    COLUMN_ITEM_WEIGHT + " , " +
-                    COLUMN_ITEM_NAME + " , " +
-                    COLUMN_ITEM_NOTES + " , " +
-                    COLUMN_ITEM_PIC + " , " +
-                    COLUMN_ITEM_DEFAULT + " , " +
-                    COLUMN_ITEM_ENERGY + " , " +
-                    COLUMN_ITEM_PROTEIN + " , " +
-                    COLUMN_ITEM_DEADLINE +
-                    " FROM " + ITEM_TABLE_NAME +
-                    " WHERE " +  COLUMN_ITEM_NAME + "  LIKE  '%" +search + "%' ";
-        } else {
-            selectQuery = "SELECT " + COLUMN_ITEM_NAME + " , "
-                    + COLUMN_ITEM_WEIGHT +
-                    " FROM " + ITEM_TABLE_NAME +
-                    " WHERE " +  COLUMN_ITEM_NAME + "  LIKE  '%" +search + "%' ";
-        }
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
 
-        cursor.moveToNext();
+        if (cursor == null) {
+            return null;
+        } else if (!cursor.moveToFirst()) {
+            cursor.close();
+            return null;
+        }
+        return cursor;
     }
 }

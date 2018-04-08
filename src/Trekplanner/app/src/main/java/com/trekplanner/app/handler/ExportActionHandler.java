@@ -13,7 +13,7 @@ public class ExportActionHandler implements DialogInterface.OnClickListener {
     }
 
     @Override
-    public void onClick(DialogInterface dialogInterface, int which) {
+    public void onClick(DialogInterface dialogInterface, int rowIndex) {
 
         // TODO: implement saving the items to json file in selected filesystem
         // TODO: only 0 = phone is implemented! no 1 and 2.
@@ -22,7 +22,7 @@ public class ExportActionHandler implements DialogInterface.OnClickListener {
         // 1= GDrive
         // 2= OneDrive
 
-        switch (which) {
+        switch (rowIndex) {
 
             case 0:
                 Snackbar.make(this.activity.findViewById(android.R.id.content), "TODO: toteuta json-filun tallennus puhelimeen (public)", Snackbar.LENGTH_LONG)
