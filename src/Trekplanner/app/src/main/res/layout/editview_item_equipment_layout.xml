@@ -43,7 +43,6 @@
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
 
-
                 <!-- is default? -->
                 <TextView
                     android:layout_width="wrap_content"

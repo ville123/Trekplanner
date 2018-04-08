@@ -130,10 +130,10 @@ public class TrekEditFragment extends EditFragment {
         });
 
         /* tehdään tähän date-time-picker retken alku- ja loppu ajankohdan muokkausta varten */
-        ImageButton btnDatePickerStart = view.findViewById(R.id.editview_trek_start_select_date_button);
-        ImageButton btnDatePickerEnd = view.findViewById(R.id.editview_trek_end_select_date_button);
-        ImageButton btnTimePickerStart = view.findViewById(R.id.editview_trek_start_select_time_button);
-        ImageButton btnTimePickerEnd = view.findViewById(R.id.editview_trek_end_select_time_button);
+        ImageView btnDatePickerStart = view.findViewById(R.id.editview_trek_start_select_date_button);
+        ImageView btnDatePickerEnd = view.findViewById(R.id.editview_trek_end_select_date_button);
+        ImageView btnTimePickerStart = view.findViewById(R.id.editview_trek_start_select_time_button);
+        ImageView btnTimePickerEnd = view.findViewById(R.id.editview_trek_end_select_time_button);
         final EditText startField = view.findViewById(R.id.editview_trek_start_fld);
         final EditText endField = view.findViewById(R.id.editview_trek_end_fld);
 
@@ -253,14 +253,6 @@ public class TrekEditFragment extends EditFragment {
             hdrImage.setImageBitmap(AppUtils.decodeToBitmap(trek.getPic()));
         }
 
-        FloatingActionButton myFab = (FloatingActionButton) view.findViewById(R.id.editview_floating_camera_btn);
-        myFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 0);
-            }
-        });
-
         ((AppCompatActivity)this.getActivity()).getSupportActionBar()
                 .setTitle(getResources().getString(R.string.term_trek) + " - " + trek.getDescription());
 
@@ -295,11 +287,5 @@ public class TrekEditFragment extends EditFragment {
     @Override
     protected int getLayout() {
         return R.layout.editview_trek_content_layout;
-    }
-
-    public void setHeaderPic(Resources resources, View headerLayout) {
-        if (trek.getPic() != null && !trek.getPic().isEmpty()) {
-            headerLayout.setBackground(new BitmapDrawable(resources, AppUtils.decodeToBitmap(trek.getPic())));
-        }
     }
 }

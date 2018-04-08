@@ -294,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
         openFragment(
                 MainEditFragment.getNewInstance(
                         TrekEditFragment.getNewInstance(db, trek),
-                        TrekItemListFragment.getNewInstance(db, trek.getId())),
+                        TrekItemListFragment.getNewInstance(db, trek!=null?trek.getId():null)),
                 true, false);
     }
 

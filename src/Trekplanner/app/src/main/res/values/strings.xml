@@ -42,6 +42,8 @@
     <string name="term_overnighttrip">Yön yli -retki</string>
     <string name="term_weektrip">Pidempi retki</string>
     <string name="term_wintertrip">Talviretki</string>
+    <string name="term_start_date">Alkupäivä</string>
+    <string name="term_end_date">Loppupäivä</string>
 
     <!--settings -->
     <string name="term_settings">Asetukset</string>
@@ -125,12 +127,10 @@
     <string name="trek_item_status_3">Palautettu</string>
 
     <string name="expand_marks">...</string>
+    <string name="separator">/</string>
 
     <string name="fs_harddrive">Puhelin</string>
     <string name="fs_onedrive">OneDrive</string>
     <string name="fs_gdrive">GDrive</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
