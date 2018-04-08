@@ -210,7 +210,7 @@
 
                 <ImageButton
                     android:id="@+id/editview_select_date_button"
-                    style="@style/image_style"
+                    style="@style/icon_style"
                     android:layout_width="24dp"
                     android:layout_height="28dp"
                     android:src="@android:drawable/ic_menu_today"
@@ -218,7 +218,7 @@
 
                 <ImageButton
                     android:id="@+id/editview_select_time_button"
-                    style="@style/image_style"
+                    style="@style/icon_style"
                     android:layout_width="23dp"
                     android:layout_height="32dp"
                     android:src="@android:drawable/ic_menu_info_details"

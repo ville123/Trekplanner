@@ -76,23 +76,25 @@ public class ItemEditFragment extends EditFragment {
         EditText mProtein = parentView.findViewById(R.id.edit_text_protein);
         EditText mDeadline = parentView.findViewById(R.id.edit_text_deadline);
 
-        if (!mWeight.getText().toString().isEmpty())
+        if (mWeight!= null && !mWeight.getText().toString().isEmpty())
             this.item.setWeight(Double.valueOf(mWeight.getText().toString()));
 
         this.item.setName(mName.getText().toString());
         this.item.setNotes(mNotes.getText().toString());
 
         if (this.item.getType().equals(getResources().getString(R.string.enum_itemtype3))) {
-            if (!mEnergy.getText().toString().isEmpty())
+            if (mEnergy!= null && !mEnergy.getText().toString().isEmpty())
                 this.item.setEnergy(Double.valueOf(mEnergy.getText().toString()));
 
-            if (!mProtein.getText().toString().isEmpty())
+            if (mProtein!=null && !mProtein.getText().toString().isEmpty())
                 this.item.setProtein(Double.valueOf(mProtein.getText().toString()));
         }
 
         if (this.item.getType().equals(getResources().getString(R.string.enum_itemtype5)) ||
                 this.item.getType().equals(getResources().getString(R.string.enum_itemtype7))) {
-            this.item.setDeadline(mDeadline.getText().toString());
+            if (mDeadline!=null && !mDeadline.getText().toString().isEmpty()) {
+                this.item.setDeadline(mDeadline.getText().toString());
+            }
         }
 
         if(TextUtils.isEmpty(mName.getText())) {
@@ -132,13 +134,17 @@ public class ItemEditFragment extends EditFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUtils.showSelectionDialog(getActivity(), null, R.array.image_action_choices, new PictureActionHandler(getActivity()));
+                AppUtils.showSelectionDialog(
+                        getActivity(),
+                        null,
+                        R.array.image_action_choices,
+                        new PictureActionHandler(getActivity()));
             }
         });
 
         /** camera button and picture end **/
 
-        //populate type and status key-values
+        //populate type and status key-values, if not done already
         if (typeOptionMap == null) {
             typeOptionMap = new HashMap<>();
             List<String> typeOptionList = Arrays.asList(getResources().getStringArray(R.array.array_type_options));
@@ -176,8 +182,8 @@ public class ItemEditFragment extends EditFragment {
 
         /** date time pickers **/
 
-        ImageButton btnDatePicker = view.findViewById(R.id.editview_select_date_button);
-        ImageButton btnTimePicker = view.findViewById(R.id.editview_select_time_button);
+        ImageView btnDatePicker = view.findViewById(R.id.editview_select_date_button);
+        ImageView btnTimePicker = view.findViewById(R.id.editview_select_time_button);
         final EditText mDeadline = view.findViewById(R.id.edit_text_deadline);
 
         if (btnDatePicker != null) {

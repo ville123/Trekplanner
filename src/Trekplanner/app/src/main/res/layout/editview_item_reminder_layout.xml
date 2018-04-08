@@ -103,20 +103,20 @@
                     android:inputType="datetime"
                     style="@style/field_row_style"/>
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/editview_select_date_button"
-                    style="@style/image_style"
-                    android:layout_width="24dp"
-                    android:layout_height="28dp"
-                    android:src="@android:drawable/ic_menu_today"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/calendar"
                     android:text="@string/phrase_select_date" />
 
-                <ImageButton
+                <Space
+                    android:layout_width="@dimen/element_space"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
                     android:id="@+id/editview_select_time_button"
-                    style="@style/image_style"
-                    android:layout_width="23dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_info_details"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/clock"
                     android:text="@string/phrase_select_time" />
 
             </LinearLayout>

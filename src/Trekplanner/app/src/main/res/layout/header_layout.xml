@@ -29,7 +29,7 @@
 
     <ImageView
         android:id="@+id/view_header_icon"
-        style="@style/image_style"
+        style="@style/icon_style"
         android:layout_gravity="center_horizontal"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
