@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.ExtractedTextRequest;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
@@ -274,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
 */
 //            if (trek.getId() == null)
 //            {
-                db.saveTrek(trek);
+                //db.saveTrek(trek);
 //                trek.setId(AppUtils.generateUUID());
 //            }
             String newId = trek.getId();
