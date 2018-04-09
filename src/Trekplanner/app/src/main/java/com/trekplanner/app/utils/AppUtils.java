@@ -203,7 +203,6 @@ public class AppUtils {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-
                                 field.setText(field.getText().toString() + " " + hourOfDay + ":" + String.format("%02d", minute));
                             }
                         }, mHour, mMinute, true);

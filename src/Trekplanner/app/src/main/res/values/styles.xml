@@ -89,12 +89,12 @@
     </style>
 
     <style name="label_row_style">
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="field_row_style">
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:buttonTint">#FFFFFF</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:buttonTint">@android:color/white</item>
         <item name="android:spinnerStyle">@style/spinnerStyle</item>
         <item name="android:layout_marginBottom">@dimen/margin</item>
         <item name="android:textSize">@dimen/normal_textsize</item>
@@ -103,7 +103,7 @@
 
     <style name="spinnerStyle">
         <item name="android:background"></item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:clickable">true</item>
     </style>
 
