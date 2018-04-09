@@ -78,7 +78,7 @@ public class TrekEditFragment extends EditFragment {
         Spinner levelSpinner = parentView.findViewById(R.id.spinnerTrekLevel);
         this.trek.setLevel((String)levelOptionMap.keySet().toArray()[levelSpinner.getSelectedItemPosition()]);
 
-       EditText startCoordsField = parentView.findViewById(R.id.editview_trek_start_coord_fld);
+        EditText startCoordsField = parentView.findViewById(R.id.editview_trek_start_coord_fld);
         this.trek.setStartCoords(startCoordsField.getText().toString());
 
         EditText endCoordsField = parentView.findViewById(R.id.editview_trek_end_coord_fld);
