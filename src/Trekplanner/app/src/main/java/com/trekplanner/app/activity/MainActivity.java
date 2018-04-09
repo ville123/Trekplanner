@@ -21,6 +21,7 @@ import android.view.View;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
+import com.trekplanner.app.fragment.editable.EditFragment;
 import com.trekplanner.app.fragment.editable.ItemEditFragment;
 import com.trekplanner.app.fragment.editable.MainEditFragment;
 import com.trekplanner.app.fragment.editable.TrekEditFragment;
@@ -204,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
         if (actionId == AppUtils.ITEM_LIST_ACTION_ID) {
             openItemPage(null);
         } else if (actionId == AppUtils.TREK_LIST_ACTION_ID) {
-            //openItemList();
             openTrekPage(null);
         }
     }
@@ -257,11 +257,39 @@ public class MainActivity extends AppCompatActivity {
         // since edit fragment context changes (some item / trek),
         // a new instances are always created
 
-                openFragment(
-                MainEditFragment.getNewInstance(
-                        TrekEditFragment.getNewInstance(db, trek),
-                        TrekItemListFragment.getNewInstance(db, trek.getId())),
-                true);
+        if (trek == null) {     // luodaan uusi trek
+            trek = new Trek();
+            trek.setDescription("");
+            trek.setLength(0.00);
+
+
+/*            trek.setLevel("");
+            trek.setNotes("");
+            trek.setLessonsLearned("");
+            trek.setStart("");
+            trek.setPic("");
+            trek.setEnd("");
+            trek.setStartCoords("");
+            trek.setEndCoords("");
+*/
+//            if (trek.getId() == null)
+//            {
+                db.saveTrek(trek);
+//                trek.setId(AppUtils.generateUUID());
+//            }
+            String newId = trek.getId();
+            openFragment(
+                    MainEditFragment.getNewInstance(
+                            TrekEditFragment.getNewInstance(db, trek),
+                            TrekItemListFragment.getNewInstance(db, newId)),
+                    true);
+        } else  {   // tässä mennään muokkaamaan olemassa olevaa trekkiä
+            openFragment(
+                    MainEditFragment.getNewInstance(
+                            TrekEditFragment.getNewInstance(db, trek),
+                            TrekItemListFragment.getNewInstance(db, trek.getId())),
+                    true);
+        }
     }
 
     private void openSplashScreenActivity() {
