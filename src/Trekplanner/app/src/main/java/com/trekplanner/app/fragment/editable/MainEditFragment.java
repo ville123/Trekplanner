@@ -48,7 +48,7 @@ public class MainEditFragment extends Fragment {
         headerImageView.setImageResource(R.drawable.trek);
 
         // show camerabutton
-        ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        ImageView camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
         camBtn.setVisibility(View.VISIBLE);
 
         // create tab layout and adapter

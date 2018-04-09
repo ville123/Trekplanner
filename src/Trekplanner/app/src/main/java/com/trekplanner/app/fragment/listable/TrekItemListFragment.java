@@ -76,7 +76,7 @@ public class TrekItemListFragment extends ListFragment implements ListFragment.L
     @Override
     public void onModifyCountButtonClicked(TrekItem trekItem) {
         db.saveTrekItem(trekItem);
-        AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
+        //AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
     }
 
     // delete -button clicked on trekitem listview
@@ -90,7 +90,7 @@ public class TrekItemListFragment extends ListFragment implements ListFragment.L
                 TrekItem trekItem = (TrekItem) o;
                 db.deleteTrekItem(trekItem);
                 adapter.removeFromListAndNotify(trekItem);
-                AppUtils.showOkMessage(getView(), R.string.phrase_delete_success);
+                //AppUtils.showOkMessage(getView(), R.string.phrase_delete_success);
 
             }
         };

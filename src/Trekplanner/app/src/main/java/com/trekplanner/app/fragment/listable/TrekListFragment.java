@@ -67,7 +67,7 @@ public class TrekListFragment extends ListFragment implements ListFragment.ListV
                 .setTitle(getResources().getString(R.string.term_treks));
 
         // hide camerabutton
-        ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        ImageView camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
         camBtn.setVisibility(View.INVISIBLE);
 
     }

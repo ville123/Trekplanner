@@ -130,7 +130,7 @@ public class ItemEditFragment extends EditFragment {
                 .setTitle(getResources().getString(R.string.term_item));
 
         /** camera button and picture **/
-        ImageButton fab = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        ImageView fab = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +138,7 @@ public class ItemEditFragment extends EditFragment {
                         getActivity(),
                         null,
                         R.array.image_action_choices,
-                        new PictureActionHandler(getActivity()));
+                        pictureActionHandler);
             }
         });
 
@@ -187,54 +187,8 @@ public class ItemEditFragment extends EditFragment {
         final EditText mDeadline = view.findViewById(R.id.edit_text_deadline);
 
         if (btnDatePicker != null) {
-            btnDatePicker.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    // Get Current Date
-                    final Calendar c = Calendar.getInstance();
-                    int mYear = c.get(Calendar.YEAR);
-                    int mMonth = c.get(Calendar.MONTH);
-                    int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                            new DatePickerDialog.OnDateSetListener() {
-
-                                @Override
-                                public void onDateSet(DatePicker view, int year,
-                                                      int monthOfYear, int dayOfMonth) {
-
-                                    mDeadline.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-
-                                }
-                            }, mYear, mMonth, mDay);
-
-                    datePickerDialog.show();
-                }
-            });
-            btnTimePicker.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Get Current Time
-                    final Calendar c = Calendar.getInstance();
-                    int mHour = c.get(Calendar.HOUR_OF_DAY);
-                    int mMinute = c.get(Calendar.MINUTE);
-
-                    // Launch Time Picker Dialog
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
-                            new TimePickerDialog.OnTimeSetListener() {
-
-                                @Override
-                                public void onTimeSet(TimePicker view, int hourOfDay,
-                                                      int minute) {
-
-                                    mDeadline.setText(mDeadline.getText().toString() + " " + hourOfDay + ":" + minute);
-                                }
-                            }, mHour, mMinute, true);
-                    timePickerDialog.show();
-                }
-            });
+            btnDatePicker.setOnClickListener(AppUtils.getDatePickerListener(this.getActivity(), mDeadline));
+            btnTimePicker.setOnClickListener(AppUtils.getTimePickerListener(this.getActivity(), mDeadline));
         }
 
         /** date time pickers end **/

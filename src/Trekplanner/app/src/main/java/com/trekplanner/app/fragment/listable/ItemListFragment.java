@@ -62,7 +62,7 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
         hdrImage.setImageBitmap(null);
 
         // hide camerabutton
-        ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        ImageView camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
         camBtn.setVisibility(View.INVISIBLE);
 
         //Actionbar content

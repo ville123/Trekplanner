@@ -44,6 +44,8 @@
                         android:id="@+id/editview_trek_length_fld"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/phrase_doublevalue_hint"
                         style="@style/field_row_style"/>
                 </LinearLayout>
 
@@ -76,16 +78,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:weightSum="80">
                 <EditText
                     android:id="@+id/editview_trek_start_fld"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
+                    android:hint="@string/phrase_datetimevalue_hint"
                     style="@style/field_row_style"/>
                 <ImageView
                     android:id="@+id/editview_trek_start_select_date_button"
                     style="@style/icon_style_small"
+                    android:layout_width="wrap_content"
                     android:src="@drawable/calendar"
                     android:text="@string/phrase_select_date" />
                 <Space
@@ -94,25 +99,29 @@
                 <ImageView
                     android:id="@+id/editview_trek_start_select_time_button"
                     style="@style/icon_style_small"
+                    android:layout_width="wrap_content"
                     android:src="@drawable/clock"
-                    android:text="@string/phrase_select_time" />
+                    android:text="@string/phrase_select_time"/>
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/term_end_date"
+                android:hint="@string/phrase_datetimevalue_hint"
                 style="@style/label_row_style"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:weightSum="80">
                 <EditText
                     android:id="@+id/editview_trek_end_fld"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
+                    android:hint="@string/phrase_datetimevalue_hint"
                     style="@style/field_row_style"/>
                 <ImageView
                     android:id="@+id/editview_trek_end_select_date_button"
@@ -141,14 +150,15 @@
                 android:orientation="horizontal">
                 <EditText
                     android:id="@+id/editview_trek_start_coord_fld"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
+                    android:hint="@string/phrase_coordinatevalue_hint"
                     style="@style/field_row_style"/>
                 <ImageView
                     android:id="@+id/editview_trek_start_coord_btn"
                     style="@style/icon_style_small"
-                    android:src="@android:drawable/ic_menu_mapmode"
+                    android:src="@drawable/map"
                     android:text="@string/phrase_select_time" />
                 <Space
                     android:layout_width="@dimen/element_space"
@@ -162,14 +172,15 @@
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/editview_trek_end_coord_fld"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
+                    android:hint="@string/phrase_coordinatevalue_hint"
                     style="@style/field_row_style"/>
                 <ImageView
                     android:id="@+id/editview_trek_end_coord_btn"
                     style="@style/icon_style_small"
-                    android:src="@android:drawable/ic_menu_mapmode"
+                    android:src="@drawable/map"
                     android:text="@string/phrase_select_time" />
             </LinearLayout>
 
