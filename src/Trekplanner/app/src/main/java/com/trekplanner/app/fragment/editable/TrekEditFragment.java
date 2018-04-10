@@ -207,10 +207,10 @@ public class TrekEditFragment extends EditFragment {
             }
         });
 
-/*        if (this.trek == null) {
+        if (this.trek == null) {
             this.trek = new Trek();
         } else {
-*/            EditText descField = view.findViewById(R.id.editview_trek_description_fld);
+            EditText descField = view.findViewById(R.id.editview_trek_description_fld);
             EditText startCoordsField = view.findViewById(R.id.editview_trek_start_coord_fld);
             EditText endCoordsField = view.findViewById(R.id.editview_trek_end_coord_fld);
             EditText notesField = view.findViewById(R.id.editview_trek_notes_fld);
@@ -227,7 +227,7 @@ public class TrekEditFragment extends EditFragment {
             endCoordsField.setText(trek.getEndCoords());
             startField.setText(trek.getStart());
             endField.setText(trek.getEnd());
- //       }
+        }
 
         // get the treks pic for header background
         if (trek.getPic() != null && !trek.getPic().isEmpty()) {
