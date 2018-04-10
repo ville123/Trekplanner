@@ -311,8 +311,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void doMySearch(String query){
-        db.getItemListByKeyword(query);
-        adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_NAME));
-        adapter.notifyDataSetChanged();
+        ((ItemListFragment)this.itemListFragment).refreshItemList(query);
     }
 }

@@ -145,4 +145,9 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
         db.saveItem((Item) o);
         AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
     }
+
+    public void refreshItemList(String query){
+        adapter.setListRows(db.getItemListByKeyword(query));
+        adapter.notifyDataSetChanged();
+    }
 }
