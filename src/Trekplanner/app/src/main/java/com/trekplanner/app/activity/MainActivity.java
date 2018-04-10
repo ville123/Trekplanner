@@ -27,11 +27,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
-import com.trekplanner.app.fragment.PictureFragment;
 import com.trekplanner.app.fragment.editable.ItemEditFragment;
 import com.trekplanner.app.fragment.editable.MainEditFragment;
 import com.trekplanner.app.fragment.editable.TrekEditFragment;
@@ -239,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
             item.setStatus(getResources().getString(R.string.enum_itemstatus1)); // default ok
             openItemPage(item);
         } else if (actionId == AppUtils.TREK_LIST_ACTION_ID) {
-            //openItemList();
             openTrekPage(null);
         }
     }
