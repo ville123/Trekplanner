@@ -81,7 +81,7 @@ public class TrekEditFragment extends EditFragment {
         Spinner levelSpinner = parentView.findViewById(R.id.spinnerTrekLevel);
         this.trek.setLevel((String)levelOptionMap.keySet().toArray()[levelSpinner.getSelectedItemPosition()]);
 
-       EditText startCoordsField = parentView.findViewById(R.id.editview_trek_start_coord_fld);
+        EditText startCoordsField = parentView.findViewById(R.id.editview_trek_start_coord_fld);
         this.trek.setStartCoords(startCoordsField.getText().toString());
 
         EditText endCoordsField = parentView.findViewById(R.id.editview_trek_end_coord_fld);
@@ -165,24 +165,6 @@ public class TrekEditFragment extends EditFragment {
             startField.setText(trek.getStart());
             endField.setText(trek.getEnd());
         }
-
-//        EditText descField = view.findViewById(R.id.editview_trek_description_fld);
-//        descField.setText(trek.getDescription());
-
-//        EditText startCoordsField = view.findViewById(R.id.editview_trek_start_coord_fld);
-//        startCoordsField.setText(trek.getStartCoords());
-
-//        EditText endCoordsField = view.findViewById(R.id.editview_trek_end_coord_fld);
-//        endCoordsField.setText(trek.getEndCoords());
-
-//        EditText notesField = view.findViewById(R.id.editview_trek_notes_fld);
-//        notesField.setText(trek.getNotes());
-
-//        EditText lessonField = view.findViewById(R.id.editview_trek_lesson_fld);
-//        lessonField.setText(trek.getLessonsLearned());
-
-//        EditText lengthField = view.findViewById(R.id.editview_trek_length_fld);
-//        lengthField.setText(trek.getLength().toString().trim());
 
         // get the treks pic for header background
         if (trek.getPic() != null && !trek.getPic().isEmpty()) {

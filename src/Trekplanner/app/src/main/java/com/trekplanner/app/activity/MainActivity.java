@@ -3,21 +3,17 @@ package com.trekplanner.app.activity;
 import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -38,15 +34,12 @@ import com.trekplanner.app.fragment.editable.TrekEditFragment;
 import com.trekplanner.app.fragment.listable.ItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekListFragment;
-import com.trekplanner.app.fragment.listable.adapter.ItemAdapter;
 import com.trekplanner.app.handler.ExportActionHandler;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
 
 import java.util.Map;
-
-import static com.trekplanner.app.utils.AppUtils.REQUEST_IMAGE_CAPTURE;
 
 /**
  * Created by Sami
@@ -242,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
             item.setStatus(getResources().getString(R.string.enum_itemstatus1)); // default ok
             openItemPage(item);
         } else if (actionId == AppUtils.TREK_LIST_ACTION_ID) {
-            //openItemList();
             openTrekPage(null);
         }
     }
