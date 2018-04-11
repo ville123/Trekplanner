@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void doMySearch(String query){
-        db.getItemListByKeyword(query);
+        ((ItemListFragment)this.itemListFragment).refreshItemList(query);
     }
 
 }

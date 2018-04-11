@@ -557,9 +557,10 @@ public class DbHelper extends SQLiteOpenHelper {
         this.getWritableDatabase().insert(TREKITEM_TABLE_NAME, null, contentValues);
     }
 
-    public Cursor getItemListByKeyword(String search) {
+    public List<Item> getItemListByKeyword(String search) {
 
         SQLiteDatabase db = this.getReadableDatabase();
+        List<Item> items = new ArrayList<Item>();
 
         String selectQuery =  "SELECT " +
                 COLUMN_ITEM_ID + "," +
@@ -576,16 +577,30 @@ public class DbHelper extends SQLiteOpenHelper {
                 " FROM " + ITEM_TABLE_NAME +
                 " WHERE " +  COLUMN_ITEM_NAME + "  LIKE  '%" + search + "%' ";
 
-
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
 
-        if (cursor == null) {
-            return null;
-        } else if (!cursor.moveToFirst()) {
-            cursor.close();
-            return null;
+        //Looping through all rows and adding to list
+        cursor.moveToFirst();
+
+        while(cursor.isAfterLast() == false){
+            Item item = new Item();
+            item.setId(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_ID)));
+            item.setType(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_TYPE)));
+            item.setStatus(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_STATUS)));
+            item.setWeight(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_WEIGHT)));
+            item.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
+            item.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NOTES)));
+            item.setPic(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_PIC)));
+            item.setDefault(cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_DEFAULT)) != 1);
+            item.setEnergy(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_ENERGY)));
+            item.setProtein(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_PROTEIN)));
+            item.setDeadline(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_DEADLINE)));
+
+            items.add(item);
+
+            cursor.moveToNext();
         }
-        return cursor;
+
+        return items;
     }
 }
