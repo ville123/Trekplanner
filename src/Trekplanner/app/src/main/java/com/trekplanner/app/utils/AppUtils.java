@@ -210,4 +210,8 @@ public class AppUtils {
             }
         };
     }
+
+    public abstract static class EditTextOkListener {
+        public abstract void onOk(String text);
+    }
 }

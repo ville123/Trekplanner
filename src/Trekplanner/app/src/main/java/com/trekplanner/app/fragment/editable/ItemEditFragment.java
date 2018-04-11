@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -141,7 +142,6 @@ public class ItemEditFragment extends EditFragment {
                         pictureActionHandler);
             }
         });
-
         /** camera button and picture end **/
 
         //populate type and status key-values, if not done already
@@ -155,9 +155,6 @@ public class ItemEditFragment extends EditFragment {
                 );
             }
         }
-
-        // handle Item insert/update
-        // first get all UI views
 
         /** spinners **/
         Spinner typeSpinner = view.findViewById(R.id.spinner_type);
@@ -177,11 +174,9 @@ public class ItemEditFragment extends EditFragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
         /** spinners end **/
 
         /** date time pickers **/
-
         ImageView btnDatePicker = view.findViewById(R.id.editview_select_date_button);
         ImageView btnTimePicker = view.findViewById(R.id.editview_select_time_button);
         final EditText mDeadline = view.findViewById(R.id.edit_text_deadline);
@@ -190,11 +185,9 @@ public class ItemEditFragment extends EditFragment {
             btnDatePicker.setOnClickListener(AppUtils.getDatePickerListener(this.getActivity(), mDeadline));
             btnTimePicker.setOnClickListener(AppUtils.getTimePickerListener(this.getActivity(), mDeadline));
         }
-
         /** date time pickers end **/
 
         /** checkbox **/
-
         CheckBox isDefCheckBox = view.findViewById(R.id.is_default_checkbox);
 
         if (isDefCheckBox!=null) {
@@ -207,14 +200,47 @@ public class ItemEditFragment extends EditFragment {
                 }
             });
         }
-
         /** checkbox end **/
+
+        /** editor for notes **/
+        final EditText notesFld = view.findViewById(R.id.text_edit_notes_edit);
+        final Fragment thisFrag = this;
+        notesFld.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditTextFragment frag = EditTextFragment.getInstance(notesFld, new AppUtils.EditTextOkListener() {
+                    @Override
+                    public void onOk(String text) {
+
+                        //notesFld.setText(text);
+                        item.setNotes(text);
+                        db.saveItem(item);
+                        //notesFld.invalidate();
+
+                        // TODO: ei toimi kentän tai fragmentin refreshaus
+//                        Fragment frag = getActivity()
+//                            .getSupportFragmentManager()
+//                                .findFragmentByTag("myfrag");
+//                        getActivity().getSupportFragmentManager()
+//                                .beginTransaction()
+//                                .detach(frag)
+//                                .attach(frag)
+//                                .commit();
+                    }
+                });
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frag_container, frag).addToBackStack("myfrag")
+                .commit();
+            }
+        });
+        /** editor for notes end **/
 
         if (this.item.getId() != null && !this.item.getId().isEmpty()) {
 
             // update item
             EditText mName = view.findViewById(R.id.edit_text_name);
-            EditText mNotes = view.findViewById(R.id.text_edit_notes_edit);
+            TextView mNotes = view.findViewById(R.id.text_edit_notes_edit);
 
             EditText mWeight = view.findViewById(R.id.edit_text_weight);
             if (mWeight!= null && item.getWeight() != null)

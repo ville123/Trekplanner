@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openItemPage(Item item) {
         menu.findItem(R.id.action_search).setVisible(false);
-        openFragment(ItemEditFragment.getNewInstance(db, item), true, false);
+        openFragment(ItemEditFragment.getNewInstance(db, item), "myfrag", false);
     }
 
     private void openPreferences() {
@@ -295,6 +295,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void openSplashScreenActivity() {
         startActivity(new Intent(this, SplashActivity.class));
+    }
+
+    private void openFragment(Fragment fragment, String tag, boolean fullPage) {
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        if (fullPage) {
+            ft.replace(android.R.id.content, fragment);
+        } else {
+            ft.replace(R.id.frag_container, fragment);
+        }
+
+        ft.addToBackStack(tag);
+
+        ft.commit();
+
     }
 
     private void openFragment(Fragment fragment, boolean addToBackStack, boolean fullPage) {
