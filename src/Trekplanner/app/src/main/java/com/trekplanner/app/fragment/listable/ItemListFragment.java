@@ -2,18 +2,24 @@ package com.trekplanner.app.fragment.listable;
 
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.trekplanner.app.activity.MainActivity;
 import com.trekplanner.app.R;
+import com.trekplanner.app.activity.MainActivity;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.fragment.listable.adapter.ItemAdapter;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Sami
@@ -48,13 +54,16 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
 
         // setting page header content
         ImageView headerImageView
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_icon);
         headerImageView.setImageResource(R.drawable.items);
 
-        // empty header background
-        View headerLayout
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
-        headerLayout.setBackgroundResource(0);
+        // empty header image
+        ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+        hdrImage.setImageBitmap(null);
+
+        // hide camerabutton
+        ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        camBtn.setVisibility(View.INVISIBLE);
 
         //Actionbar content
         ((AppCompatActivity)this.getActivity()).getSupportActionBar()
@@ -118,8 +127,47 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
 
     // floating button clicked, this case its to add new Item
     @Override
-    public void onClick(View view) {
-        ((MainActivity) this.getActivity()).onListViewActionButtonClick(AppUtils.ITEM_LIST_ACTION_ID, view);
+    public void onClick(final View view) {
+
+        AppUtils.showItemTypeSelectionPopup(
+                view,
+                this.getActivity(),
+                R.menu.item_type_selection_menu,
+                new PopupMenu.OnMenuItemClickListener() {
+
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        Map<String, Object> attribs = new HashMap<>();
+                        String type;
+                        switch (menuItem.getItemId()) {
+                            case R.id.item_type_2:
+                                type = getResources().getString(R.string.enum_itemtype2);
+                                break;
+                            case R.id.item_type_3:
+                                type = getResources().getString(R.string.enum_itemtype3);
+                                break;
+                            case R.id.item_type_4:
+                                type = getResources().getString(R.string.enum_itemtype4);
+                                break;
+                            case R.id.item_type_5:
+                                type = getResources().getString(R.string.enum_itemtype5);
+                                break;
+                            case R.id.item_type_6:
+                                type = getResources().getString(R.string.enum_itemtype6);
+                                break;
+                            case R.id.item_type_7:
+                                type = getResources().getString(R.string.enum_itemtype7);
+                                break;
+                            case R.id.item_type_8:
+                                type = getResources().getString(R.string.enum_itemtype8);
+                                break;
+                            default:
+                                type = getResources().getString(R.string.enum_itemtype1);
+                        }
+                        attribs.put(AppUtils.ITEM_TYPE_KEY, type);
+                        ((MainActivity) getActivity()).onListViewFloatingButtonClick(AppUtils.ITEM_LIST_ACTION_ID, view, attribs);
+                        return true;
+                    }
+                });
     }
 
     // list view item forward button clicked

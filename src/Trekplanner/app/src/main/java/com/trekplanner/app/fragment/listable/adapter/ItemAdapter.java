@@ -16,6 +16,7 @@ import com.trekplanner.app.fragment.listable.ListFragment;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.utils.AppUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,14 +27,28 @@ import java.util.List;
 public class ItemAdapter extends ListAdapter {
 
     private List<Item> listRows;
+    private List<Item> copyOfListRows;
 
     public ItemAdapter(Context context, ListFragment.ListViewActionListener listener) {
-
         super(context, listener);
+    }
+
+    @Override
+    public void updateDataSetWithQuery(String query) {
+        List<Item> items = new ArrayList<>();
+        for (Item item : copyOfListRows) {
+            if (item.getName().toLowerCase().contains(query)) {
+                items.add(item);
+            }
+        }
+        this.listRows = items;
+        notifyDataSetChanged();
     }
 
     public void setListRows(List<Item> rows) {
         this.listRows = rows;
+        this.copyOfListRows = new ArrayList<>();
+        this.copyOfListRows.addAll(this.listRows); // for quering items
     }
 
     @Override

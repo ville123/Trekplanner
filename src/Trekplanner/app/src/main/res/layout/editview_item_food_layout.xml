@@ -77,59 +77,25 @@
             android:inputType="textCapSentences"
             style="@style/field_row_style"/>
 
-
-        <!-- notes -->
+        <!-- weight -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/term_notes"
+            android:text="@string/term_weight"
             style="@style/label_row_style"/>
 
         <!-- input field -->
         <EditText
-            android:id="@+id/text_edit_notes_edit"
+            android:id="@+id/edit_text_weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryTransparent"
-            android:inputType="textMultiLine|textCapSentences"
-            android:overScrollMode="always"
-            android:gravity="top|left"
-            android:scrollbarStyle="insideInset"
-            android:scrollbars="vertical"
-            android:lines="6"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:scrollHorizontally="false"
+            android:inputType="numberDecimal"
+            android:hint="@string/phrase_doublevalue_hint"
             style="@style/field_row_style"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:id="@+id/editview_weight_data_layout">
-
-            <!-- weight -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/term_weight"
-                style="@style/label_row_style"/>
-
-            <!-- input field -->
-            <EditText
-                android:id="@+id/edit_text_weight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:hint="@string/phrase_doublevalue_hint"
-                style="@style/field_row_style"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
-            android:id="@+id/editview_food_data_layout">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -181,52 +147,28 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <!-- notes -->
+        <TextView
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="wrap_content"
-            android:id="@+id/editview_reminder_data_layout">
+            android:text="@string/term_notes"
+            style="@style/label_row_style"/>
 
-            <!-- deadline -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/term_deadline"
-                style="@style/label_row_style"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- input field -->
-                <EditText
-                    android:id="@+id/edit_text_deadline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/phrase_datetimevalue_hint"
-                    android:inputType="datetime"
-                    style="@style/field_row_style"/>
-
-                <ImageButton
-                    android:id="@+id/editview_select_date_button"
-                    style="@style/icon_style"
-                    android:layout_width="24dp"
-                    android:layout_height="28dp"
-                    android:src="@android:drawable/ic_menu_today"
-                    android:text="@string/phrase_select_date" />
-
-                <ImageButton
-                    android:id="@+id/editview_select_time_button"
-                    style="@style/icon_style"
-                    android:layout_width="23dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_info_details"
-                    android:text="@string/phrase_select_time" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        <!-- input field -->
+        <EditText
+            android:id="@+id/text_edit_notes_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryTransparent"
+            android:inputType="textMultiLine|textCapSentences"
+            android:overScrollMode="always"
+            android:gravity="top|left"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:lines="6"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:scrollHorizontally="false"
+            style="@style/field_row_style"/>
 
     </LinearLayout>
 

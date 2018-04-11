@@ -36,7 +36,14 @@
     <string name="term_energy">Energiasisältö</string>
     <string name="term_protein">Proteiinia</string>
     <string name="term_default">Oletusvaruste</string>
-
+    <string name="term_camera">Kamera</string>
+    <string name="term_gallery">Galleria</string>
+    <string name="term_daytrip">Päiväretki</string>
+    <string name="term_overnighttrip">Yön yli -retki</string>
+    <string name="term_weektrip">Pidempi retki</string>
+    <string name="term_wintertrip">Talviretki</string>
+    <string name="term_start_date">Alkupäivä</string>
+    <string name="term_end_date">Loppupäivä</string>
 
     <!--settings -->
     <string name="term_settings">Asetukset</string>
@@ -73,6 +80,7 @@
     <string name="phrase_select_time">Valitse aika</string>
     <string name="phrase_select_filesystem">Valitse kohde</string>
     <string name="phrase_name_required">Nimi pakollinen</string>
+    <string name="phrase_import_trektemplate">Tuo retkipohja...</string>
 
     <string name="enum_itemstatus1">item_status_1</string>
     <string name="enum_itemstatus2">item_status_2</string>
@@ -119,6 +127,7 @@
     <string name="trek_item_status_3">Palautettu</string>
 
     <string name="expand_marks">...</string>
+    <string name="separator">/</string>
 
     <string name="fs_harddrive">Puhelin</string>
     <string name="fs_onedrive">OneDrive</string>

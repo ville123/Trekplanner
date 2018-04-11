@@ -1,11 +1,13 @@
 package com.trekplanner.app.fragment.editable;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -26,8 +29,6 @@ import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
 
-import java.sql.Array;
-import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -91,17 +92,15 @@ public class TrekEditFragment extends EditFragment {
 //        Double length = Double.parseDouble(lengthString);
 //        this.trek.setLength(length);
 
-        // TODO: add all fields
-
         if(TextUtils.isEmpty(descField.getText())) {
             descField.setError("Anna retken nimi plz");
         } else {
             db.saveTrek(this.trek);
-
-        Snackbar.make(view, R.string.phrase_save_success, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+            AppUtils.showOkMessage(view, R.string.phrase_save_success);
         }
+
     }
+
     @Override
     protected void buildView(View view) {
         Log.d("TREK_TrekEditFragment", "Building TrekEdit view");
@@ -131,10 +130,10 @@ public class TrekEditFragment extends EditFragment {
         });
 
         /* tehdään tähän date-time-picker retken alku- ja loppu ajankohdan muokkausta varten */
-        ImageButton btnDatePickerStart = view.findViewById(R.id.editview_trek_start_select_date_button);
-        ImageButton btnDatePickerEnd = view.findViewById(R.id.editview_trek_end_select_date_button);
-        ImageButton btnTimePickerStart = view.findViewById(R.id.editview_trek_start_select_time_button);
-        ImageButton btnTimePickerEnd = view.findViewById(R.id.editview_trek_end_select_time_button);
+        ImageView btnDatePickerStart = view.findViewById(R.id.editview_trek_start_select_date_button);
+        ImageView btnDatePickerEnd = view.findViewById(R.id.editview_trek_end_select_date_button);
+        ImageView btnTimePickerStart = view.findViewById(R.id.editview_trek_start_select_time_button);
+        ImageView btnTimePickerEnd = view.findViewById(R.id.editview_trek_end_select_time_button);
         final EditText startField = view.findViewById(R.id.editview_trek_start_fld);
         final EditText endField = view.findViewById(R.id.editview_trek_end_fld);
 
@@ -208,10 +207,10 @@ public class TrekEditFragment extends EditFragment {
             }
         });
 
-/*        if (this.trek == null) {
+        if (this.trek == null) {
             this.trek = new Trek();
         } else {
-*/            EditText descField = view.findViewById(R.id.editview_trek_description_fld);
+            EditText descField = view.findViewById(R.id.editview_trek_description_fld);
             EditText startCoordsField = view.findViewById(R.id.editview_trek_start_coord_fld);
             EditText endCoordsField = view.findViewById(R.id.editview_trek_end_coord_fld);
             EditText notesField = view.findViewById(R.id.editview_trek_notes_fld);
@@ -228,28 +227,47 @@ public class TrekEditFragment extends EditFragment {
             endCoordsField.setText(trek.getEndCoords());
             startField.setText(trek.getStart());
             endField.setText(trek.getEnd());
- //       }
+        }
 
-        FloatingActionButton myFab = (FloatingActionButton) view.findViewById(R.id.editview_floating_camera_btn);
-        myFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 0);
-            }
-        });
+        // get the treks pic for header background
+        if (trek.getPic() != null && !trek.getPic().isEmpty()) {
+            ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+            hdrImage.setImageBitmap(AppUtils.decodeToBitmap(trek.getPic()));
+        }
 
         ((AppCompatActivity)this.getActivity()).getSupportActionBar()
                 .setTitle(getResources().getString(R.string.term_trek) + " - " + trek.getDescription());
+
+        /** camera button and picture **/
+        ImageButton fab = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, AppUtils.REQUEST_IMAGE_CAPTURE);
+            }
+        });
+
+        /** camera button and picture end **/
+    }
+
+    // handle image capture from camera
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) { // parametreinä requestcode ja resultcode jotta voidaan varmistaa menikö kuvan otto ok
+        if(requestCode == AppUtils.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap picMap = (Bitmap) extras.get("data");
+            this.trek.setPic(AppUtils.encodeToString(picMap));
+            if (this.trek.getId() != null && !this.trek.getId().isEmpty()) db.saveTrek(this.trek);
+            ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+            hdrImage.setImageBitmap(picMap);
+
+        }
+        super.onActivityResult(requestCode,resultCode,data);
     }
 
     @Override
     protected int getLayout() {
         return R.layout.editview_trek_content_layout;
-    }
-
-    public void setHeaderPic(Resources resources, View headerLayout) {
-        if (trek.getPic() != null && !trek.getPic().isEmpty()) {
-            headerLayout.setBackground(new BitmapDrawable(resources, AppUtils.decodeToBitmap(trek.getPic())));
-        }
     }
 }

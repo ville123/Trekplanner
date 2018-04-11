@@ -27,6 +27,11 @@
         android:title="@string/phrase_import"/>
 
     <item
+        android:id="@+id/action_load_template"
+        android:orderInCategory="102"
+        android:title="@string/phrase_import_trektemplate"/>
+
+    <item
         android:id="@+id/action_loaddefaults"
         android:orderInCategory="102"
         android:title="@string/phrase_load_defaults"/>

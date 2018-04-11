@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.trekplanner.app.R;
@@ -80,5 +81,7 @@ public abstract class ListFragment extends Fragment implements View.OnClickListe
     protected View.OnClickListener getActionButtonOnClickListener() {
         return this;
     }
+
+    public abstract void updateDataSetWithQuery(String query);
 
 }

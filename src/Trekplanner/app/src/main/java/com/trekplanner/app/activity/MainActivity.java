@@ -1,10 +1,15 @@
 package com.trekplanner.app.activity;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,22 +23,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.ExtractedTextRequest;
+import android.widget.ImageView;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
-import com.trekplanner.app.fragment.editable.EditFragment;
+import com.trekplanner.app.fragment.PictureFragment;
 import com.trekplanner.app.fragment.editable.ItemEditFragment;
 import com.trekplanner.app.fragment.editable.MainEditFragment;
 import com.trekplanner.app.fragment.editable.TrekEditFragment;
 import com.trekplanner.app.fragment.listable.ItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekItemListFragment;
 import com.trekplanner.app.fragment.listable.TrekListFragment;
-import com.trekplanner.app.fragment.listable.adapter.ItemAdapter;
 import com.trekplanner.app.handler.ExportActionHandler;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
+
+import java.util.Map;
 
 /**
  * Created by Sami
@@ -49,14 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment trekListFragment;
     private Menu menu;
     private DrawerLayout mDrawerLayout;
-    private PreferenceActivity preferencesFragment;
-
-    private ItemAdapter adapter;
-
-    /**
-     * item is only for testi
-     */
-    Item item;
+    private PictureFragment pictureFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,52 +70,67 @@ public class MainActivity extends AppCompatActivity {
         // no other instances should be created
         db = new DbHelper(this);
 
-        item = new Item();
-
         // item and trek -list context will not change, only the content
         // thus singletons can be used
         itemListFragment = ItemListFragment.getInstance(db);
         trekListFragment = TrekListFragment.getInstance(db);
-
-        adapter = new ItemAdapter(MainActivity.this, null);
+        pictureFragment = PictureFragment.getInstance();
 
         Log.d("TREK_MainActivity", "opening splash screen");
         openSplashScreenActivity();
-
-        // preferences fragment
-        this.preferencesFragment = new PreferenceActivity();
 
         // Nav menu
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(0).setChecked(true);
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        mDrawerLayout.closeDrawers();
+            new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    // set item as selected to persist highlight
+                    menuItem.setChecked(true);
+                    // close drawer when item is tapped
+                    mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-                        if (menuItem.getItemId() == R.id.nav_first_fragment) {
-                            Log.d("TREK_MainActivity", "First nav item selected");
-                            openItemList();
-                        } else if (menuItem.getItemId() == R.id.nav_second_fragment) {
-                            Log.d("TREK_MainActivity", "Second nav item selected");
-                            openTrekList();
-                        }
-                        return true;
+                    // Add code here to update the UI based on the item selected
+                    // For example, swap UI fragments here
+                    if (menuItem.getItemId() == R.id.nav_first_fragment) {
+                        Log.d("TREK_MainActivity", "First nav item selected");
+                        openItemList();
+                    } else if (menuItem.getItemId() == R.id.nav_second_fragment) {
+                        Log.d("TREK_MainActivity", "Second nav item selected");
+                        openTrekList();
                     }
-                });
+                    return true;
+                }
+            });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        if (checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    AppUtils.REQUEST_IMAGE_CAPTURE);
+        }
+
         Log.d("TREK_MainActivity", "opening item list");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == AppUtils.REQUEST_IMAGE_CAPTURE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // grant ok
+            }
+            else {
+                // TODO: disable all camera features
+            }
+        }
     }
 
     @Override
@@ -169,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_export) {
             // TODO: export items and treks to a json/csv/xml file
             AppUtils.showSelectionDialog(this,
-                    R.string.phrase_select_filesystem,
                     null,
                     R.array.filesystems,
                     new ExportActionHandler(this));
@@ -187,24 +200,37 @@ public class MainActivity extends AppCompatActivity {
             // Open navigation menu
             mDrawerLayout.openDrawer(GravityCompat.START);
             return true;
+        } else if (id == R.id.action_load_template) {
+            // TODO: import trek from a json template
+            AppUtils.showSelectionDialog(this,
+                    null,
+                    R.array.import_template_choices,
+                    new ExportActionHandler(this));
+            return true;
         }
-
-        // TODO: implement search for items
 
         return super.onOptionsItemSelected(item);
     }
 
+    // handle header image onclick -action
+    public void showPicture(View view) {
+        Drawable drawable = ((ImageView) view).getDrawable();
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        if (bitmap!=null) {
+            this.pictureFragment.setPic(bitmap);
+            openFragment(pictureFragment, true, true);
+        }
+    }
+
     // Floating button clicked on some listview
-    public void onListViewActionButtonClick(Integer actionId, View view) {
+    public void onListViewFloatingButtonClick(Integer actionId, View view, Map<String, Object> attributes) {
         Log.d("TREK_MainActivity", "List view floating button clicked");
 
-        // TODO: for now this action toggles between item and trek -lists
-        // until -left menu is implemented
-
-        // TODO: Item / trek editor should be opened here for creating new object
-
         if (actionId == AppUtils.ITEM_LIST_ACTION_ID) {
-            openItemPage(null);
+            Item item = new Item();
+            item.setType((String)attributes.get(AppUtils.ITEM_TYPE_KEY)); // defaults to selected type
+            item.setStatus(getResources().getString(R.string.enum_itemstatus1)); // default ok
+            openItemPage(item);
         } else if (actionId == AppUtils.TREK_LIST_ACTION_ID) {
             openTrekPage(null);
         }
@@ -228,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
         menu.findItem(R.id.action_search).setVisible(true);
 
-        openFragment(this.itemListFragment, false);
+        openFragment(this.itemListFragment, false, false);
     }
 
     private void openTrekList() {
@@ -236,12 +262,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.term_treks);
         menu.findItem(R.id.action_search).setVisible(false);
 
-        openFragment(this.trekListFragment, false);
+        openFragment(this.trekListFragment, false, false);
     }
 
     private void openItemPage(Item item) {
         menu.findItem(R.id.action_search).setVisible(false);
-        openFragment(ItemEditFragment.getNewInstance(db, item), true);
+        openFragment(ItemEditFragment.getNewInstance(db, item), true, false);
     }
 
     private void openPreferences() {
@@ -257,51 +283,27 @@ public class MainActivity extends AppCompatActivity {
 
         // since edit fragment context changes (some item / trek),
         // a new instances are always created
-
-        if (trek == null) {     // luodaan uusi trek
-            trek = new Trek();
-            trek.setDescription("");
-            trek.setLength(0.00);
-
-
-/*            trek.setLevel("");
-            trek.setNotes("");
-            trek.setLessonsLearned("");
-            trek.setStart("");
-            trek.setPic("");
-            trek.setEnd("");
-            trek.setStartCoords("");
-            trek.setEndCoords("");
-*/
-//            if (trek.getId() == null)
-//            {
-                //db.saveTrek(trek);
-//                trek.setId(AppUtils.generateUUID());
-//            }
-            String newId = trek.getId();
-            openFragment(
-                    MainEditFragment.getNewInstance(
-                            TrekEditFragment.getNewInstance(db, trek),
-                            TrekItemListFragment.getNewInstance(db, newId)),
-                    true);
-        } else  {   // tässä mennään muokkaamaan olemassa olevaa trekkiä
-            openFragment(
-                    MainEditFragment.getNewInstance(
-                            TrekEditFragment.getNewInstance(db, trek),
-                            TrekItemListFragment.getNewInstance(db, trek.getId())),
-                    true);
-        }
+        openFragment(
+                MainEditFragment.getNewInstance(
+                        TrekEditFragment.getNewInstance(db, trek),
+                        TrekItemListFragment.getNewInstance(db, trek!=null?trek.getId():null)),
+                true, false);
     }
 
     private void openSplashScreenActivity() {
         startActivity(new Intent(this, SplashActivity.class));
     }
 
-    private void openFragment(Fragment fragment, boolean addToBackStack) {
+    private void openFragment(Fragment fragment, boolean addToBackStack, boolean fullPage) {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frag_container, fragment);
+
+        if (fullPage) {
+            ft.replace(android.R.id.content, fragment);
+        } else {
+            ft.replace(R.id.frag_container, fragment);
+        }
 
         // if added to back stack, android back -button gets back to previous page
         if (addToBackStack)  ft.addToBackStack(fragment.getClass().getName());
@@ -313,4 +315,5 @@ public class MainActivity extends AppCompatActivity {
     private void doMySearch(String query){
         ((ItemListFragment)this.itemListFragment).refreshItemList(query);
     }
+
 }

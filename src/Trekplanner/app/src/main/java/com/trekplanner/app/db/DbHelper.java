@@ -318,7 +318,6 @@ public class DbHelper extends SQLiteOpenHelper {
         boolean update = false;
         if (item.getId() == null || item.getId().isEmpty()) {
             item.setId(AppUtils.generateUUID());
-            item.setStatus("trek_item_status_1");
         } else {
             update = true;
         }
@@ -330,7 +329,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_ITEM_NAME, item.getName());
         values.put(COLUMN_ITEM_NOTES, item.getNotes());
         values.put(COLUMN_ITEM_PIC, item.getPic());
-        values.put(COLUMN_ITEM_DEFAULT, item.isDefault());
+        values.put(COLUMN_ITEM_DEFAULT, (item.isDefault()?1:0));
         values.put(COLUMN_ITEM_ENERGY, item.getEnergy());
         values.put(COLUMN_ITEM_PROTEIN, item.getProtein());
         values.put(COLUMN_ITEM_DEADLINE, item.getDeadline());
@@ -433,7 +432,9 @@ public class DbHelper extends SQLiteOpenHelper {
             item.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
             item.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NOTES)));
             item.setPic(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_PIC)));
-            item.setDefault(cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_DEFAULT)) != 1);
+
+            int defaultAsInt = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_DEFAULT));
+            item.setDefault(defaultAsInt==1?true:false);
             item.setEnergy(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_ENERGY)));
             item.setProtein(cursor.getDouble(cursor.getColumnIndex(COLUMN_ITEM_PROTEIN)));
             item.setDeadline(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_DEADLINE)));

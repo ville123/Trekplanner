@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.trekplanner.app.R;
@@ -42,18 +43,13 @@ public class MainEditFragment extends Fragment {
 
         // setting page header content
         ImageView headerImageView
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_icon);
 
         headerImageView.setImageResource(R.drawable.trek);
 
-        // get the treks pic for header background
-        // TODO: prevent this shit by createting abstract EditFragment -class. See "ListFragment" for example.
-        if (this.editFragment instanceof TrekEditFragment) {
-            ((TrekEditFragment) this.editFragment)
-                    .setHeaderPic(
-                            this.getActivity().getResources(),
-                            this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout));
-        }
+        // show camerabutton
+        ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        camBtn.setVisibility(View.VISIBLE);
 
         // create tab layout and adapter
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
@@ -68,7 +64,7 @@ public class MainEditFragment extends Fragment {
         final TabAdapter adapter = new TabAdapter
                 (context.getSupportFragmentManager());
 
-        // adapter shows edit for trek and list for trekitems
+        // adapter shows editfrag for trek and listfrag for trekitems
         adapter.addTabContent(this.editFragment);
         adapter.addTabContent(this.listFragment);
 

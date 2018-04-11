@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,7 +47,7 @@ public class TrekListFragment extends ListFragment implements ListFragment.ListV
 
         // setting page header content
         ImageView headerImageView
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_image);
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_icon);
         headerImageView.setImageResource(R.drawable.treks);
 
         // hide actions from header
@@ -58,13 +59,16 @@ public class TrekListFragment extends ListFragment implements ListFragment.ListV
                 = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_action2);
         action2View.setText("");
 
-        // empty header background
-        View headerLayout
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_layout);
-        headerLayout.setBackgroundResource(0);
+        // empty header image
+        ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+        hdrImage.setImageBitmap(null);
 
         ((AppCompatActivity)this.getActivity()).getSupportActionBar()
                 .setTitle(getResources().getString(R.string.term_treks));
+
+        // hide camerabutton
+        ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        camBtn.setVisibility(View.INVISIBLE);
 
     }
 
@@ -86,10 +90,15 @@ public class TrekListFragment extends ListFragment implements ListFragment.ListV
         });
     }
 
+    @Override
+    public void updateDataSetWithQuery(String query) {
+        // do nothing
+    }
+
     // floating button clicked, this case its to add new Trek
     @Override
     public void onClick(View view) {
-        ((MainActivity) this.getActivity()).onListViewActionButtonClick(AppUtils.TREK_LIST_ACTION_ID, view);
+        ((MainActivity) this.getActivity()).onListViewFloatingButtonClick(AppUtils.TREK_LIST_ACTION_ID, view, null);
     }
 
     @Override

@@ -13,7 +13,7 @@
         
         <ImageView
             android:id="@+id/editview_row_header_image"
-            style="@style/image_style"/>
+            style="@style/icon_style"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -43,12 +43,12 @@
         <ImageView
             android:id="@+id/editview_row_substract_count_button"
             android:src="@drawable/substract"
-            style="@style/image_style"/>
+            style="@style/icon_style"/>
 
         <ImageView
             android:id="@+id/editview_row_add_count_button"
             android:src="@drawable/add"
-            style="@style/image_style"/>
+            style="@style/icon_style"/>
 
         <android.support.v4.widget.Space
             android:layout_width="@dimen/element_space"
@@ -57,7 +57,7 @@
         <ImageView
             android:id="@+id/editview_row_delete_button"
             android:src="@drawable/delete"
-            style="@style/image_style"/>
+            style="@style/icon_style"/>
 
     </LinearLayout>
 

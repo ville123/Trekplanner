@@ -77,6 +77,51 @@
             android:inputType="textCapSentences"
             style="@style/field_row_style"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <!-- deadline -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/term_deadline"
+                style="@style/label_row_style"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- input field -->
+                <EditText
+                    android:id="@+id/edit_text_deadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/phrase_datetimevalue_hint"
+                    android:inputType="datetime"
+                    style="@style/field_row_style"/>
+
+                <ImageView
+                    android:id="@+id/editview_select_date_button"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/calendar"
+                    android:text="@string/phrase_select_date" />
+
+                <Space
+                    android:layout_width="@dimen/element_space"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/editview_select_time_button"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/clock"
+                    android:text="@string/phrase_select_time" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <!-- notes -->
         <TextView
@@ -100,133 +145,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:scrollHorizontally="false"
             style="@style/field_row_style"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:id="@+id/editview_weight_data_layout">
-
-            <!-- weight -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/term_weight"
-                style="@style/label_row_style"/>
-
-            <!-- input field -->
-            <EditText
-                android:id="@+id/edit_text_weight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:hint="@string/phrase_doublevalue_hint"
-                style="@style/field_row_style"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
-            android:id="@+id/editview_food_data_layout">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="50"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <!-- energy -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/term_energy"
-                    style="@style/label_row_style"/>
-
-                <!-- input field -->
-                <EditText
-                    android:id="@+id/edit_text_energy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="@string/phrase_doublevalue_hint"
-                    style="@style/field_row_style"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="50"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <!-- protein -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/term_protein"
-                    style="@style/label_row_style"/>
-
-                <!-- input field -->
-                <EditText
-                    android:id="@+id/edit_text_protein"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="@string/phrase_doublevalue_hint"
-                    style="@style/field_row_style"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:id="@+id/editview_reminder_data_layout">
-
-            <!-- deadline -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/term_deadline"
-                style="@style/label_row_style"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- input field -->
-                <EditText
-                    android:id="@+id/edit_text_deadline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/phrase_datetimevalue_hint"
-                    android:inputType="datetime"
-                    style="@style/field_row_style"/>
-
-                <ImageButton
-                    android:id="@+id/editview_select_date_button"
-                    style="@style/icon_style"
-                    android:layout_width="24dp"
-                    android:layout_height="28dp"
-                    android:src="@android:drawable/ic_menu_today"
-                    android:text="@string/phrase_select_date" />
-
-                <ImageButton
-                    android:id="@+id/editview_select_time_button"
-                    style="@style/icon_style"
-                    android:layout_width="23dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_info_details"
-                    android:text="@string/phrase_select_time" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
     </LinearLayout>
 

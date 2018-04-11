@@ -3,10 +3,14 @@ package com.trekplanner.app.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +18,9 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.trekplanner.app.R;
 
+import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,6 +44,8 @@ public class AppUtils {
     public static final String DATETIME_FORMAT_DB_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DATETIME_FORMAT_ONLY_DATE = "dd.MM.yyyy";
     public static final String DATETIME_FORMAT_DATE_TIME = "dd.MM.yyyy HH:mm:ss";
+    public static final String ITEM_TYPE_KEY = "item_type_key";
+    public static final Integer REQUEST_IMAGE_CAPTURE = 1;
 
 
     // can implement some small nice functions to handle routine tasks
@@ -48,6 +57,12 @@ public class AppUtils {
     public static Bitmap decodeToBitmap(String pic) {
         byte[] bytes = Base64.decode(pic, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    public static String encodeToString(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        return Base64.encodeToString(byteArrayOutputStream .toByteArray(), Base64.DEFAULT);
     }
 
     public static String generateUUID() {
@@ -81,7 +96,7 @@ public class AppUtils {
                 .show();
     }
 
-    public static void showSelectionDialog(Activity activity, int messageResouce,
+    public static void showSelectionDialog(Activity activity,
                                            DialogInterface.OnClickListener cancelListener,
                                            int itemArray,
                                            DialogInterface.OnClickListener selectionListener) {
@@ -92,6 +107,28 @@ public class AppUtils {
                 .setNegativeButton(android.R.string.no, cancelListener)
                 .setItems(itemArray, selectionListener)
                 .show();
+    }
+
+    public static void showItemTypeSelectionPopup(View view, Activity activity, int menuId, PopupMenu.OnMenuItemClickListener listener) {
+        PopupMenu popup = new PopupMenu(activity, view);
+        try {
+            Field[] fields = popup.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                if ("mPopup".equals(field.getName())) {
+                    field.setAccessible(true);
+                    Object menuPopupHelper = field.get(popup);
+                    Class<?> classPopupHelper = Class.forName(menuPopupHelper.getClass().getName());
+                    Method setForceIcons = classPopupHelper.getMethod("setForceShowIcon", boolean.class);
+                    setForceIcons.invoke(menuPopupHelper, true);
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        popup.getMenuInflater().inflate(menuId, popup.getMenu());
+        popup.setOnMenuItemClickListener(listener);
+        popup.show();
     }
 
     public static void showOkMessage(View view, int message) {

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        style="@style/edit_layout_style">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <!-- type -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/term_itemtype"
+                    style="@style/label_row_style"/>
+
+                <!-- input field -->
+                <!-- type drop-down spinner -->
+                <Spinner
+                    android:id="@+id/spinner_type"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:spinnerMode="dropdown"
+                    style="@style/field_row_style"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <!-- is default? -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/term_default"
+                    style="@style/label_row_style"/>
+
+                <!-- input field -->
+                <CheckBox
+                    android:id="@+id/is_default_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/field_row_style"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- name -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/term_name"
+            style="@style/label_row_style"/>
+
+        <!-- input field -->
+        <EditText
+            android:id="@+id/edit_text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"
+            style="@style/field_row_style"/>
+
+        <!-- notes -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/term_notes"
+            style="@style/label_row_style"/>
+
+        <!-- input field -->
+        <EditText
+            android:id="@+id/text_edit_notes_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryTransparent"
+            android:inputType="textMultiLine|textCapSentences"
+            android:overScrollMode="always"
+            android:gravity="top|left"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:lines="6"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:scrollHorizontally="false"
+            style="@style/field_row_style"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/editview_floating_action_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margin"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        style="@style/floatingActionButton"/>
+
+</android.support.design.widget.CoordinatorLayout>

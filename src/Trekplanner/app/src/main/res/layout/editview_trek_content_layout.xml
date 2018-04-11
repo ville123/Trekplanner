@@ -1,154 +1,183 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/trek_editor_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:paddingRight="@dimen/margin">
+        style="@style/edit_layout_style">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_description"/>
-
+                android:text="@string/term_description"
+                style="@style/label_row_style"/>
             <EditText
                 android:id="@+id/editview_trek_description_fld"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"  />
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_level"/>
-
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinnerTrekLevel"
-                android:spinnerMode="dropdown"
-                style="@style/field_row_style">
-            </Spinner>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_length"/>
-
-            <EditText
-                android:id="@+id/editview_trek_length_fld"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"  />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_start_end"/>
+                style="@style/field_row_style"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:orientation="horizontal"
                 android:layout_height="wrap_content">
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/term_length"
+                        style="@style/label_row_style"/>
+                    <EditText
+                        android:id="@+id/editview_trek_length_fld"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/field_row_style"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/term_level"
+                        style="@style/label_row_style"/>
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinnerTrekLevel"
+                        android:spinnerMode="dropdown"
+                        sstyle="@style/field_row_style">
+                    </Spinner>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/term_start_date"
+                style="@style/label_row_style"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/editview_trek_start_fld"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"  />
-
-                <ImageButton
+                    android:layout_weight="50"
+                    style="@style/field_row_style"/>
+                <ImageView
                     android:id="@+id/editview_trek_start_select_date_button"
-                    style="@style/image_style"
-                    android:layout_width="24dp"
-                    android:layout_height="28dp"
-                    android:src="@android:drawable/ic_menu_today"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/calendar"
                     android:text="@string/phrase_select_date" />
-
-                <ImageButton
+                <Space
+                    android:layout_width="@dimen/element_space"
+                    android:layout_height="wrap_content" />
+                <ImageView
                     android:id="@+id/editview_trek_start_select_time_button"
-                    style="@style/image_style"
-                    android:layout_width="23dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_info_details"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/clock"
                     android:text="@string/phrase_select_time" />
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/term_end_date"
+                style="@style/label_row_style"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
+                android:orientation="horizontal"
                 android:layout_height="wrap_content">
-
                 <EditText
                     android:id="@+id/editview_trek_end_fld"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"  />
-
-                <ImageButton
+                    android:layout_weight="50"
+                    style="@style/field_row_style"/>
+                <ImageView
                     android:id="@+id/editview_trek_end_select_date_button"
-                    style="@style/image_style"
-                    android:layout_width="24dp"
-                    android:layout_height="28dp"
-                    android:src="@android:drawable/ic_menu_today"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/calendar"
                     android:text="@string/phrase_select_date" />
-
-                <ImageButton
+                <Space
+                    android:layout_width="@dimen/element_space"
+                    android:layout_height="wrap_content" />
+                <ImageView
                     android:id="@+id/editview_trek_end_select_time_button"
-                    style="@style/image_style"
-                    android:layout_width="23dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_info_details"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/clock"
                     android:text="@string/phrase_select_time" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_start_end_coord"/>
+                android:text="@string/term_start_end_coord"
+                style="@style/label_row_style"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <EditText
                     android:id="@+id/editview_trek_start_coord_fld"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"  />
-
-                <TextView android:text=" / "
+                    android:layout_weight="50"
+                    style="@style/field_row_style"/>
+                <ImageView
+                    android:id="@+id/editview_trek_start_coord_btn"
+                    style="@style/icon_style_small"
+                    android:src="@android:drawable/ic_menu_mapmode"
+                    android:text="@string/phrase_select_time" />
+                <Space
+                    android:layout_width="@dimen/element_space"
+                    android:layout_height="wrap_content" />
+                <TextView android:text="@string/separator"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content" />
-
+                    android:layout_width="wrap_content"
+                    style="@style/label_row_style"/>
+                <Space
+                    android:layout_width="@dimen/element_space"
+                    android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/editview_trek_end_coord_fld"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"  />
-
+                    android:layout_weight="50"
+                    style="@style/field_row_style"/>
+                <ImageView
+                    android:id="@+id/editview_trek_end_coord_btn"
+                    style="@style/icon_style_small"
+                    android:src="@android:drawable/ic_menu_mapmode"
+                    android:text="@string/phrase_select_time" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_notes"/>
+                android:text="@string/term_notes"
+                style="@style/label_row_style"/>
 
             <EditText
                 android:id="@+id/editview_trek_notes_fld"
@@ -162,13 +191,14 @@
                 android:scrollbars="vertical"
                 android:lines="6"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:scrollHorizontally="false" />
+                android:scrollHorizontally="false"
+                style="@style/field_row_style"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/term_lesson"/>
+                android:text="@string/term_lesson"
+                style="@style/label_row_style"/>
 
             <EditText
                 android:id="@+id/editview_trek_lesson_fld"
@@ -182,7 +212,8 @@
                 android:scrollbars="vertical"
                 android:lines="6"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:scrollHorizontally="false"  />
+                android:scrollHorizontally="false"
+                style="@style/field_row_style"/>
 
         </LinearLayout>
 
@@ -195,18 +226,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin"
         app:srcCompat="@android:drawable/ic_menu_save"
-        style="@style/floatingActionButton"/>
-
-    <!-- Kameran nappi kelluu perus FAB:n päällä täällä -->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/editview_floating_camera_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|top"
-        android:layout_marginBottom="32pt"
-        app:srcCompat="@android:drawable/ic_menu_camera"
-        app:layout_anchor="@id/editview_floating_action_btn"
-        app:layout_anchorGravity="top"
         style="@style/floatingActionButton"/>
 
 </android.support.design.widget.CoordinatorLayout>
