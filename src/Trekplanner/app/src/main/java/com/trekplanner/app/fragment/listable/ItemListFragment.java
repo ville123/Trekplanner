@@ -125,12 +125,6 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
         listView.setAdapter(adapter);
     }
 
-    @Override
-    public void updateDataSetWithQuery(String query) {
-        this.adapter.updateDataSetWithQuery(query);
-        this.adapter.notifyDataSetChanged();
-    }
-
     // floating button clicked, this case its to add new Item
     @Override
     public void onClick(final View view) {
@@ -200,8 +194,8 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
         AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
     }
 
-    public void resetDataSet() {
-        this.adapter.setListRows(db.getItems(null, null));
-        this.adapter.notifyDataSetChanged();
+    public void refreshItemList(String query){
+        adapter.setListRows(db.getItemListByKeyword(query));
+        adapter.notifyDataSetChanged();
     }
 }
