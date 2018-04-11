@@ -602,4 +602,30 @@ public class DbHelper extends SQLiteOpenHelper {
 
         return items;
     }
+
+    public Double getItemsTotalWeight() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        double weight = 0;
+
+        String selectQuery =  "SELECT SUM(" +
+                COLUMN_ITEM_WEIGHT + ")" +
+                " AS " + "Totalweight" +
+                " FROM " + ITEM_TABLE_NAME +
+                " WHERE " + COLUMN_ITEM_WEIGHT +
+                " > " + 0.0 +  ";";
+
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        //Looping through all rows and adding to list
+        if(cursor.moveToFirst()){
+            weight = cursor.getInt(0);
+        }else{
+            weight = -1;
+        }
+
+        return weight;
+    }
 }

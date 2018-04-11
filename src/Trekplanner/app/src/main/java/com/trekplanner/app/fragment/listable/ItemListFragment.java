@@ -146,6 +146,7 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
         AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
     }
 
+    //Refreshes item list during search
     public void refreshItemList(String query){
         adapter.setListRows(db.getItemListByKeyword(query));
         adapter.notifyDataSetChanged();
