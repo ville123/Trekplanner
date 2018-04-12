@@ -3,6 +3,7 @@ package com.trekplanner.app.activity;
 import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -118,6 +119,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Log.d("TREK_MainActivity", "opening item list");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment frag = getSupportFragmentManager().findFragmentById(R.id.frag_container);
+        if(frag instanceof ItemListFragment || frag instanceof TrekListFragment) {
+            AppUtils.showConfirmDialog(this, R.string.phrase_you_want_to_leave,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    }, null);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
