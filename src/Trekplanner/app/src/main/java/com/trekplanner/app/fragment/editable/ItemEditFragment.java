@@ -1,42 +1,30 @@
 package com.trekplanner.app.fragment.editable;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
-import com.trekplanner.app.handler.PictureActionHandler;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,62 +41,22 @@ public class ItemEditFragment extends EditFragment {
     private Item item;
     private static Map<String, String> typeOptionMap;
 
+    // field for trek-private items
+    private String trekId;
 
-    public static ItemEditFragment getNewInstance(DbHelper db, Item item) {
+    public static ItemEditFragment getNewInstance(DbHelper db, Item item, String trekId, String itemType) {
         Log.d("TREK_ItemEditFragment", "New TrekEditFragment -instance created");
 
         // cant use singelton -pattern for item edit page since context (item) is changing
         ItemEditFragment instance = new ItemEditFragment();
         instance.db = db;
         instance.item = item;
+        instance.trekId = trekId;
+        if (instance.item == null) {
+            instance.item = new Item();
+            instance.item.setType(itemType);
+        }
         return instance;
-    }
-
-    @Override
-    public void onClick(View view) {
-        Log.d("TREK_ItemEditFragment", "Save button clicked");
-
-        CoordinatorLayout parentView = (CoordinatorLayout) view.getParent();
-
-        // first close the keyboard
-        AppUtils.closeInputwidget(getActivity(), parentView);
-
-        EditText mWeight = parentView.findViewById(R.id.edit_text_weight);
-        EditText mName = parentView.findViewById(R.id.edit_text_name);
-        TextView mNotes = parentView.findViewById(R.id.text_edit_notes_edit);
-        EditText mEnergy = parentView.findViewById(R.id.edit_text_energy);
-        EditText mProtein = parentView.findViewById(R.id.edit_text_protein);
-        EditText mDeadline = parentView.findViewById(R.id.edit_text_deadline);
-
-        if (mWeight!= null && !mWeight.getText().toString().isEmpty())
-            this.item.setWeight(Double.valueOf(mWeight.getText().toString()));
-
-        this.item.setName(mName.getText().toString());
-        this.item.setNotes(mNotes.getText().toString());
-
-        if (this.item.getType().equals(getResources().getString(R.string.enum_itemtype3))) {
-            if (mEnergy!= null && !mEnergy.getText().toString().isEmpty())
-                this.item.setEnergy(Double.valueOf(mEnergy.getText().toString()));
-
-            if (mProtein!=null && !mProtein.getText().toString().isEmpty())
-                this.item.setProtein(Double.valueOf(mProtein.getText().toString()));
-        }
-
-        if (this.item.getType().equals(getResources().getString(R.string.enum_itemtype5)) ||
-                this.item.getType().equals(getResources().getString(R.string.enum_itemtype7))) {
-            if (mDeadline!=null && !mDeadline.getText().toString().isEmpty()) {
-                this.item.setDeadline(mDeadline.getText().toString());
-            }
-        }
-
-        if(TextUtils.isEmpty(mName.getText())) {
-            mName.setError(getResources().getString(R.string.phrase_name_required));
-        } else {
-            Log.d("TREK_is_default", "item is default in save: " + item.isDefault());
-            db.saveItem(this.item);
-
-            AppUtils.showOkMessage(view, R.string.phrase_save_success);
-        }
     }
 
     @Override
@@ -193,7 +141,7 @@ public class ItemEditFragment extends EditFragment {
         /** checkbox **/
         CheckBox isDefCheckBox = view.findViewById(R.id.is_default_checkbox);
 
-        if (isDefCheckBox!=null) {
+        if (isDefCheckBox != null) {
             isDefCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
                 @Override
@@ -239,6 +187,59 @@ public class ItemEditFragment extends EditFragment {
             }
         }
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        Log.d("TREK_ItemEditFragment", "Save button clicked");
+
+        CoordinatorLayout parentView = (CoordinatorLayout) view.getParent();
+
+        // first close the keyboard
+        AppUtils.closeInputwidget(getActivity(), parentView);
+
+        EditText mWeight = parentView.findViewById(R.id.edit_text_weight);
+        EditText mName = parentView.findViewById(R.id.edit_text_name);
+        TextView mNotes = parentView.findViewById(R.id.text_edit_notes_edit);
+        EditText mEnergy = parentView.findViewById(R.id.edit_text_energy);
+        EditText mProtein = parentView.findViewById(R.id.edit_text_protein);
+        EditText mDeadline = parentView.findViewById(R.id.edit_text_deadline);
+
+        if (mWeight!= null && !mWeight.getText().toString().isEmpty())
+            this.item.setWeight(Double.valueOf(mWeight.getText().toString()));
+
+        this.item.setName(mName.getText().toString());
+        this.item.setNotes(mNotes.getText().toString());
+
+        if (this.item.getType().equals(getResources().getString(R.string.enum_itemtype3))) {
+            if (mEnergy!= null && !mEnergy.getText().toString().isEmpty())
+                this.item.setEnergy(Double.valueOf(mEnergy.getText().toString()));
+
+            if (mProtein!=null && !mProtein.getText().toString().isEmpty())
+                this.item.setProtein(Double.valueOf(mProtein.getText().toString()));
+        }
+
+        if (this.item.getType().equals(getResources().getString(R.string.enum_itemtype5)) ||
+                this.item.getType().equals(getResources().getString(R.string.enum_itemtype7))) {
+            if (mDeadline!=null && !mDeadline.getText().toString().isEmpty()) {
+                this.item.setDeadline(mDeadline.getText().toString());
+            }
+        }
+
+        if(TextUtils.isEmpty(mName.getText())) {
+            mName.setError(getResources().getString(R.string.phrase_name_required));
+        } else {
+
+            if (this.trekId != null && !this.trekId.isEmpty()) {
+                // save trek specific item to second item table
+                db.saveTrekSpecificItem(this.item, this.trekId);
+            } else {
+                // save normal item to items
+                db.saveItem(this.item);
+            }
+
+            AppUtils.showOkMessage(view, R.string.phrase_save_success);
+        }
     }
 
     // handle image capture from camera

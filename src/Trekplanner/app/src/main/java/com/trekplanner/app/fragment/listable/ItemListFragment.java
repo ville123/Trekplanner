@@ -44,6 +44,21 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
     }
 
     @Override
+    protected void prepareListViewData() {
+        Log.d("TREK_ItemListFrag", "Preparing ItemListView data with item rowid " + this.rowId);
+
+        this.adapter = new ItemAdapter(this.getActivity(), this);
+
+        // itemlist contains items from db
+        if (this.sortOrder == AppUtils.SORT_ORDER_BY_NAME) {
+            adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_NAME));
+        } else {
+            adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_TYPE));
+        }
+        listView.setAdapter(adapter);
+    }
+
+    @Override
     protected int getLayout() {
         return R.layout.listview_list_layout;
     }
@@ -108,21 +123,6 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
                 action1View.setTypeface(null, Typeface.NORMAL);
             }
         });
-    }
-
-    @Override
-    protected void prepareListViewData() {
-        Log.d("TREK_ItemListFrag", "Preparing ItemListView data with item rowid " + this.rowId);
-
-        this.adapter = new ItemAdapter(this.getActivity(), this);
-
-        // itemlist contains items from db
-        if (this.sortOrder == AppUtils.SORT_ORDER_BY_NAME) {
-            adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_NAME));
-        } else {
-            adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_TYPE));
-        }
-        listView.setAdapter(adapter);
     }
 
     // floating button clicked, this case its to add new Item

@@ -164,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
 
         openItemList();
 
-        //TODO: Search not working at all
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -228,6 +227,8 @@ public class MainActivity extends AppCompatActivity {
 
     // handle header image onclick -action
     public void showPicture(View view) {
+
+        // TODO: open something where you can zoom the picture
         Drawable drawable = ((ImageView) view).getDrawable();
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
         if (bitmap!=null) {
@@ -240,6 +241,11 @@ public class MainActivity extends AppCompatActivity {
     public void closePictureFragment(View view) {
         FragmentManager fm = getSupportFragmentManager();
         fm.popBackStackImmediate();
+    }
+
+    // trekitem selection dialog "create new item" -button clicked
+    public void onNewTrekItemClick(String rowId, String itemType) {
+        openFragment(ItemEditFragment.getNewInstance(db, null, rowId, itemType), true, false);
     }
 
     // Floating button clicked on some listview
@@ -287,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openItemPage(Item item) {
         menu.findItem(R.id.action_search).setVisible(false);
-        openFragment(ItemEditFragment.getNewInstance(db, item), "myfrag", false);
+        openFragment(ItemEditFragment.getNewInstance(db, item, null, null), true, false);
     }
 
     private void openPreferences() {
@@ -314,23 +320,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, SplashActivity.class));
     }
 
-    private void openFragment(Fragment fragment, String tag, boolean fullPage) {
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-
-        if (fullPage) {
-            ft.replace(android.R.id.content, fragment);
-        } else {
-            ft.replace(R.id.frag_container, fragment);
-        }
-
-        ft.addToBackStack(tag);
-
-        ft.commit();
-
-    }
-
     private void openFragment(Fragment fragment, boolean addToBackStack, boolean fullPage) {
 
         FragmentManager fm = getSupportFragmentManager();
@@ -352,5 +341,4 @@ public class MainActivity extends AppCompatActivity {
     private void doMySearch(String query){
         ((ItemListFragment)this.itemListFragment).refreshItemList(query);
     }
-
 }

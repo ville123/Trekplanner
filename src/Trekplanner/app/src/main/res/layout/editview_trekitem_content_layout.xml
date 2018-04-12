@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/edit_layout_style">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/term_description"
+                style="@style/label_row_style"/>
+            <EditText
+                android:id="@+id/editview_trek_description_fld"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/field_row_style"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/term_length"
+                        style="@style/label_row_style"/>
+                    <EditText
+                        android:id="@+id/editview_trek_length_fld"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/phrase_doublevalue_hint"
+                        style="@style/field_row_style"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/term_level"
+                        style="@style/label_row_style"/>
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinnerTrekLevel"
+                        android:spinnerMode="dropdown"
+                        sstyle="@style/field_row_style">
+                    </Spinner>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/term_start_date"
+                style="@style/label_row_style"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:weightSum="80">
+                <EditText
+                    android:id="@+id/editview_trek_start_fld"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:hint="@string/phrase_datetimevalue_hint"
+                    style="@style/field_row_style"/>
+                <ImageView
+                    android:id="@+id/editview_trek_start_select_date_button"
+                    style="@style/icon_style_small"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/calendar"
+                    android:text="@string/phrase_select_date" />
+                <Space
+                    android:layout_width="@dimen/element_space"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/editview_trek_start_select_time_button"
+                    style="@style/icon_style_small"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/clock"
+                    android:text="@string/phrase_select_time"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/term_end_date"
+                android:hint="@string/phrase_datetimevalue_hint"
+                style="@style/label_row_style"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:weightSum="80">
+                <EditText
+                    android:id="@+id/editview_trek_end_fld"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:hint="@string/phrase_datetimevalue_hint"
+                    style="@style/field_row_style"/>
+                <ImageView
+                    android:id="@+id/editview_trek_end_select_date_button"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/calendar"
+                    android:text="@string/phrase_select_date" />
+                <Space
+                    android:layout_width="@dimen/element_space"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/editview_trek_end_select_time_button"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/clock"
+                    android:text="@string/phrase_select_time" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/term_start_end_coord"
+                style="@style/label_row_style"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/editview_trek_start_coord_fld"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:hint="@string/phrase_coordinatevalue_hint"
+                    style="@style/field_row_style"/>
+                <ImageView
+                    android:id="@+id/editview_trek_start_coord_btn"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/map"
+                    android:text="@string/phrase_select_time" />
+                <Space
+                    android:layout_width="@dimen/element_space"
+                    android:layout_height="wrap_content" />
+                <TextView android:text="@string/separator"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    style="@style/label_row_style"/>
+                <Space
+                    android:layout_width="@dimen/element_space"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/editview_trek_end_coord_fld"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:hint="@string/phrase_coordinatevalue_hint"
+                    style="@style/field_row_style"/>
+                <ImageView
+                    android:id="@+id/editview_trek_end_coord_btn"
+                    style="@style/icon_style_small"
+                    android:src="@drawable/map"
+                    android:text="@string/phrase_select_time" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/term_notes"
+                style="@style/label_row_style"/>
+
+            <TextView
+                android:id="@+id/editview_trek_notes_fld"
+                style="@style/field_row_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimaryTransparent"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:overScrollMode="always"
+                android:paddingRight="@dimen/margin"
+                android:paddingLeft="@dimen/margin"
+                android:paddingTop="@dimen/margin"
+                android:paddingBottom="@dimen/margin"
+                android:scrollHorizontally="true"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/term_lesson"
+                style="@style/label_row_style"/>
+
+            <TextView
+                android:id="@+id/editview_trek_lesson_fld"
+                style="@style/field_row_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimaryTransparent"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:overScrollMode="always"
+                android:paddingRight="@dimen/margin"
+                android:paddingLeft="@dimen/margin"
+                android:paddingTop="@dimen/margin"
+                android:paddingBottom="@dimen/margin"
+                android:scrollHorizontally="true"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/editview_floating_action_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margin"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        style="@style/floatingActionButton"/>
+
+</android.support.design.widget.CoordinatorLayout>

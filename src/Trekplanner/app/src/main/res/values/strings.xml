@@ -44,6 +44,7 @@
     <string name="term_wintertrip">Talviretki</string>
     <string name="term_start_date">Alkupäivä</string>
     <string name="term_end_date">Loppupäivä</string>
+    <string name="term_save">OK</string>
 
     <!--settings -->
     <string name="term_settings">Asetukset</string>
@@ -82,6 +83,9 @@
     <string name="phrase_select_filesystem">Valitse kohde</string>
     <string name="phrase_name_required">Nimi pakollinen</string>
     <string name="phrase_import_trektemplate">Tuo retkipohja...</string>
+    <string name="phase_select_trekitems">Valitse varusteita retkelle</string>
+    <string name="phrase_you_want_to_leave">Haluatko poistua?</string>
+    <string name="phrase_create_new_item">Luo uusi varuste</string>
 
     <string name="enum_itemstatus1">item_status_1</string>
     <string name="enum_itemstatus2">item_status_2</string>
@@ -133,8 +137,5 @@
     <string name="fs_harddrive">Puhelin</string>
     <string name="fs_onedrive">OneDrive</string>
     <string name="fs_gdrive">GDrive</string>
-    <string name="term_save">OK</string>
-    <string name="phase_select_trekitems">Valitse varusteita retkelle</string>
-    <string name="phrase_you_want_to_leave">Haluatko poistua?</string>
 
 </resources>

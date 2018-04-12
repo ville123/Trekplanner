@@ -2,13 +2,16 @@ package com.trekplanner.app.fragment.listable;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.trekplanner.app.R;
+import com.trekplanner.app.activity.MainActivity;
 import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.fragment.listable.adapter.TrekItemAdapter;
 import com.trekplanner.app.fragment.listable.adapter.TrekItemSelectionAdapter;
@@ -19,7 +22,9 @@ import com.trekplanner.app.utils.AppUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Sami
@@ -49,7 +54,7 @@ public class TrekItemListFragment extends ListFragment implements ListFragment.L
 
     @Override
     protected void buildView(View view) {
-        // nothing to build since trekitem -list has no page header (it is handled by MainEditFragment (tab-layout)
+        // nothing to build since trekitem -list has no page header (it is handled by MainEditFragment tab-layout)
     }
 
     @Override
@@ -58,13 +63,16 @@ public class TrekItemListFragment extends ListFragment implements ListFragment.L
         this.adapter = new TrekItemAdapter(this.getActivity(), this);
 
         // treklist contains items for a trek from db (rowId = Trek.Id)
-        this.adapter.setListRows(db.getTrekItems(this.rowId));
+
+        List<TrekItem> trekItems = db.getTrekItems(this.rowId);
+
+        this.adapter.setListRows(trekItems);
         listView.setAdapter(this.adapter);
     }
 
     // floating button clicked
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
 
         // open dialog for selecting multiple items for the trek
 
@@ -86,6 +94,51 @@ public class TrekItemListFragment extends ListFragment implements ListFragment.L
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 adapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.phrase_create_new_item), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+
+                // TODO this dialog is copy-paste from ItemListFragmen --> nou nou!
+                AppUtils.showItemTypeSelectionPopup(
+                        view,
+                        getActivity(),
+                        R.menu.item_type_selection_menu,
+                        new PopupMenu.OnMenuItemClickListener() {
+
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                Map<String, Object> attribs = new HashMap<>();
+                                String type;
+                                switch (menuItem.getItemId()) {
+                                    case R.id.item_type_2:
+                                        type = getResources().getString(R.string.enum_itemtype2);
+                                        break;
+                                    case R.id.item_type_3:
+                                        type = getResources().getString(R.string.enum_itemtype3);
+                                        break;
+                                    case R.id.item_type_4:
+                                        type = getResources().getString(R.string.enum_itemtype4);
+                                        break;
+                                    case R.id.item_type_5:
+                                        type = getResources().getString(R.string.enum_itemtype5);
+                                        break;
+                                    case R.id.item_type_6:
+                                        type = getResources().getString(R.string.enum_itemtype6);
+                                        break;
+                                    case R.id.item_type_7:
+                                        type = getResources().getString(R.string.enum_itemtype7);
+                                        break;
+                                    case R.id.item_type_8:
+                                        type = getResources().getString(R.string.enum_itemtype8);
+                                        break;
+                                    default:
+                                        type = getResources().getString(R.string.enum_itemtype1);
+                                }
+                                ((MainActivity) getActivity()).onNewTrekItemClick(rowId, type);
+                                return true;
+                            }
+                        });
             }
         });
         AlertDialog dialog = builder.create();

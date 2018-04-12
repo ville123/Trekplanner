@@ -245,6 +245,7 @@ public class TrekItemAdapter extends ExpandableListAdapter {
             @Override
             public int compare(TrekItem ti1, TrekItem ti2) {
                 if (ti1.getItem() == null || ti2.getItem() == null) return 0;
+                if (ti1.getItem().getName()==null || ti2.getItem().getName()==null) return 0;
                 return ti1.getItem().getName().compareTo(ti2.getItem().getName());
             }
         });

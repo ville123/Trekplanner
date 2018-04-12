@@ -79,6 +79,7 @@ public class AppUtils {
     }
 
     public static String formatDateTime(String datetime, String pattern) {
+        if (datetime == null) return null;
         SimpleDateFormat formatter = new SimpleDateFormat(DATETIME_FORMAT_DATE_TIME);
         SimpleDateFormat reFormatter = new SimpleDateFormat(pattern);
         try {
