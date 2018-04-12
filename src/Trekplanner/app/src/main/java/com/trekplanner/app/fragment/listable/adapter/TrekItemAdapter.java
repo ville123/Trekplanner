@@ -18,6 +18,8 @@ import com.trekplanner.app.fragment.listable.ListFragment;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.TrekItem;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -35,7 +37,7 @@ public class TrekItemAdapter extends ExpandableListAdapter {
     }
 
     public void setListRows(List<TrekItem> rows) {
-        this.listRows = rows;
+        this.listRows = sortByItemName(rows);
     }
 
     @Override
@@ -234,5 +236,18 @@ public class TrekItemAdapter extends ExpandableListAdapter {
 
     public void add(TrekItem titem) {
         this.listRows.add(titem);
+        sortByItemName(this.listRows); // TODO: do in another thread
+    }
+
+
+    private List<TrekItem> sortByItemName(List<TrekItem> trekItems) {
+        Collections.sort(trekItems, new Comparator<TrekItem>() {
+            @Override
+            public int compare(TrekItem ti1, TrekItem ti2) {
+                if (ti1.getItem() == null || ti2.getItem() == null) return 0;
+                return ti1.getItem().getName().compareTo(ti2.getItem().getName());
+            }
+        });
+        return trekItems;
     }
 }

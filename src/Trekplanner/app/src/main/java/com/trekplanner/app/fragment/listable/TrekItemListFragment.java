@@ -17,6 +17,8 @@ import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -66,7 +68,7 @@ public class TrekItemListFragment extends ListFragment implements ListFragment.L
 
         // open dialog for selecting multiple items for the trek
 
-        List<Item> allItems = db.getItems(null, null); // TODO: some cache needed for all items!
+        List<Item> allItems = db.getItems(null, AppUtils.SORT_ORDER_BY_TYPE); // TODO: some cache needed for all items!
         final List<Item> items = filterItems(allItems);
         CharSequence ids[] = new CharSequence[items.size()];
         int i=0;
@@ -76,7 +78,6 @@ public class TrekItemListFragment extends ListFragment implements ListFragment.L
 
         final TrekItemSelectionAdapter selectionAdapter =
                 new TrekItemSelectionAdapter(items, this.getActivity());
-
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(getString(R.string.phase_select_trekitems));

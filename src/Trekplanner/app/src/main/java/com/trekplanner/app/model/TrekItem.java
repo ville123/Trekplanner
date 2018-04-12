@@ -1,10 +1,12 @@
 package com.trekplanner.app.model;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by Shakur on 24.3.2018.
  */
 
-public class TrekItem  {
+public class TrekItem {
 
     private String id;
     private String itemId;
