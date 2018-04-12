@@ -21,17 +21,12 @@ import java.util.List;
  *
  * Adapter for treklist
  */
-public class TrekAdapter extends ListAdapter {
+public class TrekAdapter extends ExpandableListAdapter {
 
     private List<Trek> listRows;
 
     public TrekAdapter(Context context, ListFragment.ListViewActionListener listener) {
         super(context, listener);
-    }
-
-    @Override
-    public void updateDataSetWithQuery(String query) {
-        // do nothing
     }
 
     public void setListRows(List<Trek> rows) {

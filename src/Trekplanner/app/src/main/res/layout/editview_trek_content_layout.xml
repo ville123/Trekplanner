@@ -190,20 +190,23 @@
                 android:text="@string/term_notes"
                 style="@style/label_row_style"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/editview_trek_notes_fld"
+                style="@style/field_row_style"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/colorPrimaryTransparent"
+                android:gravity="top|left"
                 android:inputType="textMultiLine"
                 android:overScrollMode="always"
-                android:gravity="top|left"
+                android:paddingRight="@dimen/margin"
+                android:paddingLeft="@dimen/margin"
+                android:paddingTop="@dimen/margin"
+                android:paddingBottom="@dimen/margin"
+                android:scrollHorizontally="true"
                 android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
-                android:lines="6"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:scrollHorizontally="false"
-                style="@style/field_row_style"/>
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -211,20 +214,23 @@
                 android:text="@string/term_lesson"
                 style="@style/label_row_style"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/editview_trek_lesson_fld"
+                style="@style/field_row_style"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/colorPrimaryTransparent"
+                android:gravity="top|left"
                 android:inputType="textMultiLine"
                 android:overScrollMode="always"
-                android:gravity="top|left"
+                android:paddingRight="@dimen/margin"
+                android:paddingLeft="@dimen/margin"
+                android:paddingTop="@dimen/margin"
+                android:paddingBottom="@dimen/margin"
+                android:scrollHorizontally="true"
                 android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
-                android:lines="6"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:scrollHorizontally="false"
-                style="@style/field_row_style"/>
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         </LinearLayout>
 

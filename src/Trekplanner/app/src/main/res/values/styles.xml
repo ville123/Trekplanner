@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@android:color/darker_gray</item>
         <item name="android:textColorHighlight">@color/colorPrimaryDark</item>
+
+        <item name="android:alertDialogTheme">@style/AppTheme_Fall</item>
     </style>
 
     <style name="header_layout_style">
@@ -76,6 +78,7 @@
         <item name="android:layout_marginLeft">@dimen/margin</item>
         <item name="android:layout_marginTop">@dimen/margin</item>
         <item name="android:layout_marginRight">@dimen/margin</item>
+        <item name="android:layout_marginBottom">@dimen/margin</item>
     </style>
 
     <style name="edit_layout_style">

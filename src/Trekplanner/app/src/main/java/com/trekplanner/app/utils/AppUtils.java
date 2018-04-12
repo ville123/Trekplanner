@@ -16,13 +16,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.trekplanner.app.R;
+import com.trekplanner.app.model.Item;
 
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
@@ -211,7 +216,61 @@ public class AppUtils {
         };
     }
 
+    public static void setItemRowContent(Context context, Item item, TextView textView, ImageView imageView) {
+        if (item.getType().equals(context.getString(R.string.enum_itemtype1))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + context.getString(R.string.term_kilogram));
+            imageView.setImageResource(R.drawable.item);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype2))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + context.getString(R.string.term_kilogram));
+            imageView.setImageResource(R.drawable.backpack);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype3))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + context.getString(R.string.term_kilogram));
+            imageView.setImageResource(R.drawable.food);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype4))) {
+            textView.setText("");
+            imageView.setImageResource(R.drawable.idea);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype5))) {
+            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
+            imageView.setImageResource(R.drawable.remember);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype6))) {
+            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
+            imageView.setImageResource(R.drawable.remember);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype7))) {
+            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
+            imageView.setImageResource(R.drawable.task);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype8))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + context.getString(R.string.term_kilogram));
+            imageView.setImageResource(R.drawable.cutlery);
+        }
+    }
+    public static void buildEditorForNotes(final Activity activity, final TextView notesFld) {
+        notesFld.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setTitle(null);
+                builder.setPositiveButton(activity.getString(R.string.term_save), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        EditText textFld = ((AlertDialog)dialogInterface).findViewById(R.id.edittext_fld);
+                        notesFld.setText(textFld.getText());
+                    }
+                });
+                LayoutInflater infltr = activity.getLayoutInflater();
+                View diaView = infltr.inflate(R.layout.edittext_layout, null);
+                builder.setView(diaView);
+                TextView textView = diaView.findViewById(R.id.edittext_fld);
+                textView.setText(notesFld.getText());
+                builder.create().show();
+            }
+        });
+    }
+
     public abstract static class EditTextOkListener {
         public abstract void onOk(String text);
+    }
+
+    public abstract static class SelectionListener {
+        public abstract void onItemClick(Item item);
     }
 }

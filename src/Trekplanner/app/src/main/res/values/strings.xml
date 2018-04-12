@@ -75,7 +75,7 @@
     <string name="phrase_sort_by_name">(a..z) Nimi</string>
     <string name="phrase_select">Valitse</string>
     <string name="phrase_doublevalue_hint">0.000</string>
-    <string name="phrase_datetimevalue_hint">esim. 04.06.2018 13:08</string>
+    <string name="phrase_datetimevalue_hint">pp.kk.vvvv hh:mm</string>
     <string name="phrase_coordinatevalue_hint">61°10,83\'N, 24°33,48\'E</string>
     <string name="phrase_select_date">Valitse päivä</string>
     <string name="phrase_select_time">Valitse aika</string>
@@ -133,5 +133,7 @@
     <string name="fs_harddrive">Puhelin</string>
     <string name="fs_onedrive">OneDrive</string>
     <string name="fs_gdrive">GDrive</string>
+    <string name="term_save">OK</string>
+    <string name="phase_select_trekitems">Valitse varusteita retkelle</string>
 
 </resources>

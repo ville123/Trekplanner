@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.fragment.listable.ListFragment;
+import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.TrekItem;
 
 import java.util.List;
@@ -24,18 +25,13 @@ import java.util.List;
  *
  * Adapter for trekitems
  */
-public class TrekItemAdapter extends ListAdapter {
+public class TrekItemAdapter extends ExpandableListAdapter {
 
     private List<TrekItem> listRows;
 
     public TrekItemAdapter(Context context, ListFragment.ListViewActionListener listener) {
 
         super(context, listener);
-    }
-
-    @Override
-    public void updateDataSetWithQuery(String query) {
-        // do nothing
     }
 
     public void setListRows(List<TrekItem> rows) {
@@ -136,9 +132,8 @@ public class TrekItemAdapter extends ListAdapter {
         return convertView;
     }
 
-    public void removeFromListAndNotify(TrekItem trekItem) {
+    public void remove(TrekItem trekItem) {
         this.listRows.remove(trekItem);
-        notifyDataSetChanged();
     }
 
     @Override
@@ -215,9 +210,6 @@ public class TrekItemAdapter extends ListAdapter {
 
             @Override
             public void onClick(View view) {
-
-                Log.d("TREK_TrekItemListAdaptr", "Clicked substract count for item " + trekItem.getItem().getName());
-
                 if (trekItem.getCount() > 1) {
                     trekItem.setCount(trekItem.getCount() - 1);
                     viewActionListener.onModifyCountButtonClicked(trekItem);
@@ -233,13 +225,14 @@ public class TrekItemAdapter extends ListAdapter {
 
             @Override
             public void onClick(View view) {
-
-                Log.d("TREK_TrekItemListAdaptr", "Clicked delete for item " + trekItem.getItem().getName());
-
                 viewActionListener.onDeleteButtonClicked(trekItem);
             }
         });
 
         return convertView;
+    }
+
+    public void add(TrekItem titem) {
+        this.listRows.add(titem);
     }
 }

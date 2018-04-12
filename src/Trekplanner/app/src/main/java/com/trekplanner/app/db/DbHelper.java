@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.trekplanner.app.R;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.model.TrekItem;
@@ -354,6 +355,14 @@ public class DbHelper extends SQLiteOpenHelper {
             titem.setId(AppUtils.generateUUID());
         } else {
             update = true;
+        }
+
+        //sanitycheck
+        if (titem.getStatus()==null || titem.getStatus().isEmpty()) {
+            titem.setStatus(this.context.getString(R.string.enum_trekitemstatus1));
+        }
+        if (titem.getCount()==0) {
+            titem.setCount(1);
         }
 
         values.put(COLUMN_TREKITEM_ID, titem.getId());

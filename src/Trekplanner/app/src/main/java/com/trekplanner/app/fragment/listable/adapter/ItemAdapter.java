@@ -24,31 +24,17 @@ import java.util.List;
  *
  * Adapter for itemlist
  */
-public class ItemAdapter extends ListAdapter {
+public class ItemAdapter extends ExpandableListAdapter {
 
     private List<Item> listRows;
-    private List<Item> copyOfListRows;
 
     public ItemAdapter(Context context, ListFragment.ListViewActionListener listener) {
         super(context, listener);
     }
 
-    @Override
-    public void updateDataSetWithQuery(String query) {
-        List<Item> items = new ArrayList<>();
-        for (Item item : copyOfListRows) {
-            if (item.getName().toLowerCase().contains(query)) {
-                items.add(item);
-            }
-        }
-        this.listRows = items;
-        notifyDataSetChanged();
-    }
-
+    // TODO: populate listRows in constructor?
     public void setListRows(List<Item> rows) {
         this.listRows = rows;
-        this.copyOfListRows = new ArrayList<>();
-        this.copyOfListRows.addAll(this.listRows); // for quering items
     }
 
     @Override
@@ -154,31 +140,7 @@ public class ItemAdapter extends ListAdapter {
 
         ImageView imageView = convertView.findViewById(R.id.listview_row_header_image);
 
-        if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype1))) {
-            textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
-            imageView.setImageResource(R.drawable.item);
-        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype2))) {
-            textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
-            imageView.setImageResource(R.drawable.backpack);
-        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype3))) {
-            textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
-            imageView.setImageResource(R.drawable.food);
-        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype4))) {
-            textView.setText("");
-            imageView.setImageResource(R.drawable.idea);
-        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype5))) {
-            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
-            imageView.setImageResource(R.drawable.remember);
-        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype6))) {
-            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
-            imageView.setImageResource(R.drawable.remember);
-        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype7))) {
-            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
-            imageView.setImageResource(R.drawable.task);
-        } else if (item.getType().equals(convertView.getContext().getString(R.string.enum_itemtype8))) {
-            textView.setText(String.valueOf(item.getWeight()) + " " + convertView.getContext().getString(R.string.term_kilogram));
-             imageView.setImageResource(R.drawable.cutlery);
-        }
+        AppUtils.setItemRowContent(this.context, item, textView, imageView);
 
         ImageView button = convertView.findViewById(R.id.listview_forward_button);
 

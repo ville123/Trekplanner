@@ -23,6 +23,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.trekplanner.app.R;
@@ -30,6 +31,8 @@ import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.handler.PictureActionHandler;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,10 +75,10 @@ public class TrekEditFragment extends EditFragment {
         EditText endField = parentView.findViewById(R.id.editview_trek_end_fld);
         this.trek.setEnd(endField.getText().toString());
 
-        EditText notesField = parentView.findViewById(R.id.editview_trek_notes_fld);
+        TextView notesField = parentView.findViewById(R.id.editview_trek_notes_fld);
         this.trek.setNotes(notesField.getText().toString());
 
-        EditText lessonField = parentView.findViewById(R.id.editview_trek_lesson_fld);
+        TextView lessonField = parentView.findViewById(R.id.editview_trek_lesson_fld);
         this.trek.setLessonsLearned(lessonField.getText().toString());
 
         Spinner levelSpinner = parentView.findViewById(R.id.spinnerTrekLevel);
@@ -150,8 +153,10 @@ public class TrekEditFragment extends EditFragment {
             EditText descField = view.findViewById(R.id.editview_trek_description_fld);
             EditText startCoordsField = view.findViewById(R.id.editview_trek_start_coord_fld);
             EditText endCoordsField = view.findViewById(R.id.editview_trek_end_coord_fld);
-            EditText notesField = view.findViewById(R.id.editview_trek_notes_fld);
-            EditText lessonField = view.findViewById(R.id.editview_trek_lesson_fld);
+            TextView notesField = view.findViewById(R.id.editview_trek_notes_fld);
+            AppUtils.buildEditorForNotes(this.getActivity(), notesField);
+            TextView lessonField = view.findViewById(R.id.editview_trek_lesson_fld);
+            AppUtils.buildEditorForNotes(this.getActivity(), lessonField);
             EditText lengthField = view.findViewById(R.id.editview_trek_length_fld);
 
             levelSpinner.setSelection(AppUtils.getSelectionIndex(levelOptionMap.keySet(),trek.getLevel()));

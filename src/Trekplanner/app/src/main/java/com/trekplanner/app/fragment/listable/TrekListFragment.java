@@ -90,11 +90,6 @@ public class TrekListFragment extends ListFragment implements ListFragment.ListV
         });
     }
 
-    @Override
-    public void updateDataSetWithQuery(String query) {
-        // do nothing
-    }
-
     // floating button clicked, this case its to add new Trek
     @Override
     public void onClick(View view) {

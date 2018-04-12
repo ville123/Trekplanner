@@ -2,15 +2,18 @@ package com.trekplanner.app.fragment.editable;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -72,7 +75,7 @@ public class ItemEditFragment extends EditFragment {
 
         EditText mWeight = parentView.findViewById(R.id.edit_text_weight);
         EditText mName = parentView.findViewById(R.id.edit_text_name);
-        EditText mNotes = parentView.findViewById(R.id.text_edit_notes_edit);
+        TextView mNotes = parentView.findViewById(R.id.text_edit_notes_edit);
         EditText mEnergy = parentView.findViewById(R.id.edit_text_energy);
         EditText mProtein = parentView.findViewById(R.id.edit_text_protein);
         EditText mDeadline = parentView.findViewById(R.id.edit_text_deadline);
@@ -203,37 +206,8 @@ public class ItemEditFragment extends EditFragment {
         /** checkbox end **/
 
         /** editor for notes **/
-        final EditText notesFld = view.findViewById(R.id.text_edit_notes_edit);
-        final Fragment thisFrag = this;
-        notesFld.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditTextFragment frag = EditTextFragment.getInstance(notesFld, new AppUtils.EditTextOkListener() {
-                    @Override
-                    public void onOk(String text) {
-
-                        //notesFld.setText(text);
-                        item.setNotes(text);
-                        db.saveItem(item);
-                        //notesFld.invalidate();
-
-                        // TODO: ei toimi kentän tai fragmentin refreshaus
-//                        Fragment frag = getActivity()
-//                            .getSupportFragmentManager()
-//                                .findFragmentByTag("myfrag");
-//                        getActivity().getSupportFragmentManager()
-//                                .beginTransaction()
-//                                .detach(frag)
-//                                .attach(frag)
-//                                .commit();
-                    }
-                });
-
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frag_container, frag).addToBackStack("myfrag")
-                .commit();
-            }
-        });
+        final TextView notesFld = view.findViewById(R.id.text_edit_notes_edit);
+        AppUtils.buildEditorForNotes(this.getActivity(), notesFld);
         /** editor for notes end **/
 
         if (this.item.getId() != null && !this.item.getId().isEmpty()) {
