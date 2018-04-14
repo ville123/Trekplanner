@@ -1,8 +1,10 @@
 package com.trekplanner.app.fragment.editable;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -209,7 +211,30 @@ public class TrekEditFragment extends EditFragment {
 
         if (this.trek == null) {
             this.trek = new Trek();
-        } else {
+            Log.d("TAG: ", "Trek on null, uusi trek-olio luotu.");
+            // dialog-ikkuna jossa kysytään ladataanko oletusvarusteet
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Lisätäänkö retkelle oletusvarusteet?");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked OK button
+                    Log.d("TAG: ", "PAINETTIIN OK-NAPPIA");
+                    // Kopioidaan TrekItem-kantaan ne Item-taulun rivit, joissa default = 1
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    // User cancelled the dialog
+                    Log.d("TAG: ", "PAINETTIIN CANCEL-NAPPIA");
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+       } else {
             EditText descField = view.findViewById(R.id.editview_trek_description_fld);
             EditText startCoordsField = view.findViewById(R.id.editview_trek_start_coord_fld);
             EditText endCoordsField = view.findViewById(R.id.editview_trek_end_coord_fld);
