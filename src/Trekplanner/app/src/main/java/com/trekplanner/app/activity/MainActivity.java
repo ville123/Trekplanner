@@ -3,6 +3,7 @@ package com.trekplanner.app.activity;
 import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -121,6 +122,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Fragment frag = getSupportFragmentManager().findFragmentById(R.id.frag_container);
+        if(frag instanceof ItemListFragment || frag instanceof TrekListFragment) {
+            AppUtils.showConfirmDialog(this, R.string.phrase_you_want_to_leave,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    }, null);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == AppUtils.REQUEST_IMAGE_CAPTURE) {
@@ -147,13 +164,9 @@ public class MainActivity extends AppCompatActivity {
 
         openItemList();
 
-        //TODO: Search not working at all
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -214,12 +227,25 @@ public class MainActivity extends AppCompatActivity {
 
     // handle header image onclick -action
     public void showPicture(View view) {
+
+        // TODO: open something where you can zoom the picture
         Drawable drawable = ((ImageView) view).getDrawable();
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
         if (bitmap!=null) {
             this.pictureFragment.setPic(bitmap);
             openFragment(pictureFragment, true, true);
         }
+    }
+
+    // handle picturefragment onclick -action
+    public void closePictureFragment(View view) {
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStackImmediate();
+    }
+
+    // trekitem selection dialog "create new item" -button clicked
+    public void onNewTrekItemClick(String rowId, String itemType) {
+        ItemEditFragment.getNewInstance(db, null, rowId, itemType).show(getSupportFragmentManager(), null);
     }
 
     // Floating button clicked on some listview
@@ -267,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openItemPage(Item item) {
         menu.findItem(R.id.action_search).setVisible(false);
-        openFragment(ItemEditFragment.getNewInstance(db, item), true, false);
+        openFragment(ItemEditFragment.getNewInstance(db, item, null, null), true, false);
     }
 
     private void openPreferences() {
@@ -315,5 +341,4 @@ public class MainActivity extends AppCompatActivity {
     private void doMySearch(String query){
         ((ItemListFragment)this.itemListFragment).refreshItemList(query);
     }
-
 }

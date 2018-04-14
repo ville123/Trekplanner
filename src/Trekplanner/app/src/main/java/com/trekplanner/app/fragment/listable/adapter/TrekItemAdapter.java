@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -15,8 +16,12 @@ import android.widget.TextView;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.fragment.listable.ListFragment;
+import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.TrekItem;
+import com.trekplanner.app.utils.AppUtils;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,7 +29,7 @@ import java.util.List;
  *
  * Adapter for trekitems
  */
-public class TrekItemAdapter extends ListAdapter {
+public class TrekItemAdapter extends ExpandableListAdapter {
 
     private List<TrekItem> listRows;
 
@@ -33,13 +38,8 @@ public class TrekItemAdapter extends ListAdapter {
         super(context, listener);
     }
 
-    @Override
-    public void updateDataSetWithQuery(String query) {
-        // do nothing
-    }
-
     public void setListRows(List<TrekItem> rows) {
-        this.listRows = rows;
+        this.listRows = sortByItemName(rows);
     }
 
     @Override
@@ -132,13 +132,29 @@ public class TrekItemAdapter extends ListAdapter {
             }
         });
 
+        Button addToItemsBtn = convertView.findViewById(R.id.editview_row_item_private_btn);
+
+        if (trekItem.getIsPrivate()) {
+            // trekitem is "trek-private"
+            addToItemsBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    viewActionListener.saveToItemsClicked(trekItem);
+                    trekItem.setPrivate(false);
+                    notifyDataSetChanged();
+                }
+            });
+        } else {
+            //addToItemsBtn.setVisibility(View.INVISIBLE);
+            ViewGroup group = (ViewGroup)addToItemsBtn.getParent();
+            if (group!=null) group.removeView(addToItemsBtn);
+        }
 
         return convertView;
     }
 
-    public void removeFromListAndNotify(TrekItem trekItem) {
+    public void remove(TrekItem trekItem) {
         this.listRows.remove(trekItem);
-        notifyDataSetChanged();
     }
 
     @Override
@@ -215,9 +231,6 @@ public class TrekItemAdapter extends ListAdapter {
 
             @Override
             public void onClick(View view) {
-
-                Log.d("TREK_TrekItemListAdaptr", "Clicked substract count for item " + trekItem.getItem().getName());
-
                 if (trekItem.getCount() > 1) {
                     trekItem.setCount(trekItem.getCount() - 1);
                     viewActionListener.onModifyCountButtonClicked(trekItem);
@@ -233,13 +246,28 @@ public class TrekItemAdapter extends ListAdapter {
 
             @Override
             public void onClick(View view) {
-
-                Log.d("TREK_TrekItemListAdaptr", "Clicked delete for item " + trekItem.getItem().getName());
-
                 viewActionListener.onDeleteButtonClicked(trekItem);
             }
         });
 
         return convertView;
+    }
+
+    public void add(TrekItem titem) {
+        this.listRows.add(titem);
+        sortByItemName(this.listRows); // TODO: do in another thread
+    }
+
+
+    private List<TrekItem> sortByItemName(List<TrekItem> trekItems) {
+        Collections.sort(trekItems, new Comparator<TrekItem>() {
+            @Override
+            public int compare(TrekItem ti1, TrekItem ti2) {
+                if (ti1.getItem() == null || ti2.getItem() == null) return 0;
+                if (ti1.getItem().getName()==null || ti2.getItem().getName()==null) return 0;
+                return ti1.getItem().getName().compareTo(ti2.getItem().getName());
+            }
+        });
+        return trekItems;
     }
 }

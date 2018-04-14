@@ -1,15 +1,19 @@
 package com.trekplanner.app.fragment.editable;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
+import com.trekplanner.app.handler.PictureActionHandler;
 
 /**
  * Created by Sami
@@ -17,9 +21,10 @@ import com.trekplanner.app.db.DbHelper;
  * Base Class for all edit fragments.
  * Adds floating action buttons for the view
  */
-public abstract class EditFragment extends Fragment implements View.OnClickListener {
+public abstract class EditFragment extends DialogFragment implements View.OnClickListener {
 
     DbHelper db;
+    protected PictureActionHandler pictureActionHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,8 +37,10 @@ public abstract class EditFragment extends Fragment implements View.OnClickListe
         fab.setOnClickListener(getActionButtonOnClickListener());
 
         // show camerabutton
-        ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        ImageView camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
         camBtn.setVisibility(View.VISIBLE);
+
+        this.pictureActionHandler = new PictureActionHandler(this);
 
         buildView(view);
 

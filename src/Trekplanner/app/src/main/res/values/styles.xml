@@ -5,7 +5,10 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@android:color/darker_gray</item>
+        <item name="android:textColorHighlight">@color/colorPrimaryDark</item>
+
+        <item name="android:alertDialogTheme">@style/AppTheme_Fall</item>
     </style>
 
     <style name="header_layout_style">
@@ -75,11 +78,14 @@
         <item name="android:layout_marginLeft">@dimen/margin</item>
         <item name="android:layout_marginTop">@dimen/margin</item>
         <item name="android:layout_marginRight">@dimen/margin</item>
+        <item name="android:layout_marginBottom">@dimen/margin</item>
     </style>
 
     <style name="edit_layout_style">
         <item name="android:layout_marginLeft">@dimen/margin</item>
         <item name="android:layout_marginRight">@dimen/margin</item>
+        <item name="android:layout_marginTop">@dimen/line_height</item>
+        <item name="android:layout_marginBottom">@dimen/margin</item>
         <item name="android:paddingTop">@dimen/margin</item>
         <item name="android:paddingRight">@dimen/margin</item>
         <item name="android:paddingLeft">@dimen/margin</item>
@@ -87,20 +93,21 @@
     </style>
 
     <style name="label_row_style">
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="field_row_style">
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:buttonTint">#FFFFFF</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:buttonTint">@android:color/white</item>
         <item name="android:spinnerStyle">@style/spinnerStyle</item>
         <item name="android:layout_marginBottom">@dimen/margin</item>
+        <item name="android:textSize">@dimen/normal_textsize</item>
         <item name="android:textCursorDrawable">@null</item><!-- sets the cursor to white -->
     </style>
 
     <style name="spinnerStyle">
         <item name="android:background"></item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:clickable">true</item>
     </style>
 

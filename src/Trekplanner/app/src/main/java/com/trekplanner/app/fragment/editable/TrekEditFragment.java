@@ -3,6 +3,7 @@ package com.trekplanner.app.fragment.editable;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -22,12 +23,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
+import com.trekplanner.app.handler.PictureActionHandler;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,10 +75,10 @@ public class TrekEditFragment extends EditFragment {
         EditText endField = parentView.findViewById(R.id.editview_trek_end_fld);
         this.trek.setEnd(endField.getText().toString());
 
-        EditText notesField = parentView.findViewById(R.id.editview_trek_notes_fld);
+        TextView notesField = parentView.findViewById(R.id.editview_trek_notes_fld);
         this.trek.setNotes(notesField.getText().toString());
 
-        EditText lessonField = parentView.findViewById(R.id.editview_trek_lesson_fld);
+        TextView lessonField = parentView.findViewById(R.id.editview_trek_lesson_fld);
         this.trek.setLessonsLearned(lessonField.getText().toString());
 
         Spinner levelSpinner = parentView.findViewById(R.id.spinnerTrekLevel);
@@ -137,75 +142,10 @@ public class TrekEditFragment extends EditFragment {
         final EditText startField = view.findViewById(R.id.editview_trek_start_fld);
         final EditText endField = view.findViewById(R.id.editview_trek_end_fld);
 
-        btnDatePickerStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        startField.setText(year + "-" + (monthOfYear+1) + "-" + dayOfMonth);
-                    }
-                }, mYear,mMonth,mDay);
-                datePickerDialog.show();
-            }
-        });
-
-        btnTimePickerStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar c = Calendar.getInstance();
-                int mHour = c.get(Calendar.HOUR_OF_DAY);
-                int mMinute = c.get(Calendar.MINUTE);
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        startField.setText(startField.getText().toString() + " " + hourOfDay + ":" + minute);
-                    }
-                },mHour,mMinute,true);
-                timePickerDialog.show();
-            }
-        });
-
-        btnDatePickerEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        endField.setText(year + "-" + (monthOfYear+1) + "-" + dayOfMonth);
-                    }
-                },mYear,mMonth,mDay);
-                datePickerDialog.show();
-            }
-        });
-
-        btnTimePickerEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar c = Calendar.getInstance();
-                int mHour = c.get(Calendar.HOUR_OF_DAY);
-                int mMinute = c.get(Calendar.MINUTE);
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        endField.setText(endField.getText().toString() + " " + hourOfDay + ":" + minute);
-                    }
-                },mHour,mMinute,true);
-                timePickerDialog.show();
-            }
-        });
+        btnDatePickerStart.setOnClickListener(AppUtils.getDatePickerListener(this.getActivity(), startField));
+        btnTimePickerStart.setOnClickListener(AppUtils.getTimePickerListener(this.getActivity(), startField));
+        btnDatePickerEnd.setOnClickListener(AppUtils.getDatePickerListener(this.getActivity(), endField));
+        btnTimePickerEnd.setOnClickListener(AppUtils.getTimePickerListener(this.getActivity(), endField));
 
         if (this.trek == null) {
             this.trek = new Trek();
@@ -213,8 +153,10 @@ public class TrekEditFragment extends EditFragment {
             EditText descField = view.findViewById(R.id.editview_trek_description_fld);
             EditText startCoordsField = view.findViewById(R.id.editview_trek_start_coord_fld);
             EditText endCoordsField = view.findViewById(R.id.editview_trek_end_coord_fld);
-            EditText notesField = view.findViewById(R.id.editview_trek_notes_fld);
-            EditText lessonField = view.findViewById(R.id.editview_trek_lesson_fld);
+            TextView notesField = view.findViewById(R.id.editview_trek_notes_fld);
+            AppUtils.buildEditorForNotes(this.getActivity(), notesField);
+            TextView lessonField = view.findViewById(R.id.editview_trek_lesson_fld);
+            AppUtils.buildEditorForNotes(this.getActivity(), lessonField);
             EditText lengthField = view.findViewById(R.id.editview_trek_length_fld);
 
             levelSpinner.setSelection(AppUtils.getSelectionIndex(levelOptionMap.keySet(),trek.getLevel()));
@@ -239,12 +181,16 @@ public class TrekEditFragment extends EditFragment {
                 .setTitle(getResources().getString(R.string.term_trek) + " - " + trek.getDescription());
 
         /** camera button and picture **/
-        ImageButton fab = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        ImageView fab = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
         fab.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, AppUtils.REQUEST_IMAGE_CAPTURE);
+                AppUtils.showSelectionDialog(
+                        getActivity(),
+                        null,
+                        R.array.image_action_choices,
+                        pictureActionHandler);
             }
         });
 

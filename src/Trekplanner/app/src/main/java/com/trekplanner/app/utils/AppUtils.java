@@ -1,6 +1,8 @@
 package com.trekplanner.app.utils;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,15 +10,24 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.trekplanner.app.R;
+import com.trekplanner.app.model.Item;
 
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
@@ -24,6 +35,7 @@ import java.lang.reflect.Method;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
@@ -41,18 +53,15 @@ public class AppUtils {
     public static final Integer SORT_ORDER_BY_NAME = 1;
     public static final Integer SORT_ORDER_BY_TYPE = 2;
 
-    public static final String DATETIME_FORMAT_DB_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATETIME_FORMAT_DB_FORMAT = "yyyy-MM-dd HH:mm";
     public static final String DATETIME_FORMAT_ONLY_DATE = "dd.MM.yyyy";
-    public static final String DATETIME_FORMAT_DATE_TIME = "dd.MM.yyyy HH:mm:ss";
+    public static final String DATETIME_FORMAT_DATE_TIME = "dd.MM.yyyy HH:mm";
     public static final String ITEM_TYPE_KEY = "item_type_key";
     public static final Integer REQUEST_IMAGE_CAPTURE = 1;
 
 
     // can implement some small nice functions to handle routine tasks
     // these are just for example:
-
-    public static Date getDate(String dateTimeString) {return null;}
-    public static Time getTime(String dateTimeString) {return null;}
 
     public static Bitmap decodeToBitmap(String pic) {
         byte[] bytes = Base64.decode(pic, Base64.DEFAULT);
@@ -70,14 +79,14 @@ public class AppUtils {
     }
 
     public static String formatDateTime(String datetime, String pattern) {
-        SimpleDateFormat formatter = new SimpleDateFormat(DATETIME_FORMAT_DB_FORMAT);
+        if (datetime == null) return null;
+        SimpleDateFormat formatter = new SimpleDateFormat(DATETIME_FORMAT_DATE_TIME);
         SimpleDateFormat reFormatter = new SimpleDateFormat(pattern);
         try {
             Date date = formatter.parse(datetime);
             return reFormatter.format(date);
         } catch (ParseException e) {
             Log.w("TREK_AppUtils", "Exception in formatting string " + datetime + ", " + e.getMessage());
-            e.printStackTrace();
             return datetime;
         }
     }
@@ -153,5 +162,116 @@ public class AppUtils {
             i++;
         }
         return -1; // not found
+    }
+
+    public static View.OnClickListener getDatePickerListener(final Activity activity, final EditText field) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Get Current Date
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(activity,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                field.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+
+                datePickerDialog.show();
+            }
+        };
+    }
+
+    public static View.OnClickListener getTimePickerListener(final Activity activity, final EditText field) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get Current Time
+                final Calendar c = Calendar.getInstance();
+                int mHour = c.get(Calendar.HOUR_OF_DAY);
+                int mMinute = c.get(Calendar.MINUTE);
+
+                // Launch Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(activity,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+                                field.setText(field.getText().toString() + " " + hourOfDay + ":" + String.format("%02d", minute));
+                            }
+                        }, mHour, mMinute, true);
+                timePickerDialog.show();
+            }
+        };
+    }
+
+    public static void setItemRowContent(Context context, Item item, TextView textView, ImageView imageView) {
+        if (item.getType().equals(context.getString(R.string.enum_itemtype1))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + context.getString(R.string.term_kilogram));
+            imageView.setImageResource(R.drawable.item);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype2))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + context.getString(R.string.term_kilogram));
+            imageView.setImageResource(R.drawable.backpack);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype3))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + context.getString(R.string.term_kilogram));
+            imageView.setImageResource(R.drawable.food);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype4))) {
+            textView.setText("");
+            imageView.setImageResource(R.drawable.idea);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype5))) {
+            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
+            imageView.setImageResource(R.drawable.remember);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype6))) {
+            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
+            imageView.setImageResource(R.drawable.remember);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype7))) {
+            textView.setText(AppUtils.formatDateTime(item.getDeadline(), AppUtils.DATETIME_FORMAT_DATE_TIME));
+            imageView.setImageResource(R.drawable.task);
+        } else if (item.getType().equals(context.getString(R.string.enum_itemtype8))) {
+            textView.setText(String.valueOf(item.getWeight()) + " " + context.getString(R.string.term_kilogram));
+            imageView.setImageResource(R.drawable.cutlery);
+        }
+    }
+    public static void buildEditorForNotes(final Activity activity, final TextView notesFld) {
+        notesFld.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setTitle(null);
+                builder.setPositiveButton(activity.getString(R.string.term_save), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        EditText textFld = ((AlertDialog)dialogInterface).findViewById(R.id.edittext_fld);
+                        notesFld.setText(textFld.getText());
+                    }
+                });
+                LayoutInflater infltr = activity.getLayoutInflater();
+                View diaView = infltr.inflate(R.layout.edittext_layout, null);
+                builder.setView(diaView);
+                TextView textView = diaView.findViewById(R.id.edittext_fld);
+                textView.setText(notesFld.getText());
+                builder.create().show();
+            }
+        });
+    }
+
+    public abstract static class EditTextOkListener {
+        public abstract void onOk(String text);
+    }
+
+    public abstract static class SelectionListener {
+        public abstract void onItemClick(Item item);
     }
 }
