@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
     // trekitem selection dialog "create new item" -button clicked
     public void onNewTrekItemClick(String rowId, String itemType) {
-        openFragment(ItemEditFragment.getNewInstance(db, null, rowId, itemType), true, false);
+        ItemEditFragment.getNewInstance(db, null, rowId, itemType).show(getSupportFragmentManager(), null);
     }
 
     // Floating button clicked on some listview

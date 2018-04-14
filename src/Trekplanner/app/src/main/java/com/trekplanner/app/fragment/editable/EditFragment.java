@@ -3,6 +3,7 @@ package com.trekplanner.app.fragment.editable;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.trekplanner.app.handler.PictureActionHandler;
  * Base Class for all edit fragments.
  * Adds floating action buttons for the view
  */
-public abstract class EditFragment extends Fragment implements View.OnClickListener {
+public abstract class EditFragment extends DialogFragment implements View.OnClickListener {
 
     DbHelper db;
     protected PictureActionHandler pictureActionHandler;

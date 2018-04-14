@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.trekplanner.app.R;
 import com.trekplanner.app.fragment.listable.ListFragment;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.TrekItem;
+import com.trekplanner.app.utils.AppUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -130,6 +132,23 @@ public class TrekItemAdapter extends ExpandableListAdapter {
             }
         });
 
+        Button addToItemsBtn = convertView.findViewById(R.id.editview_row_item_private_btn);
+
+        if (trekItem.getIsPrivate()) {
+            // trekitem is "trek-private"
+            addToItemsBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    viewActionListener.saveToItemsClicked(trekItem);
+                    trekItem.setPrivate(false);
+                    notifyDataSetChanged();
+                }
+            });
+        } else {
+            //addToItemsBtn.setVisibility(View.INVISIBLE);
+            ViewGroup group = (ViewGroup)addToItemsBtn.getParent();
+            if (group!=null) group.removeView(addToItemsBtn);
+        }
 
         return convertView;
     }

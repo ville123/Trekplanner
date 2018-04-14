@@ -194,6 +194,12 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
         AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
     }
 
+    @Override
+    public void saveToItemsClicked(TrekItem trekItem) {
+        // no such button in item
+        // TODO: move from interface to somewhere else
+    }
+
     public void refreshItemList(String query){
         adapter.setListRows(db.getItemListByKeyword(query));
         adapter.notifyDataSetChanged();

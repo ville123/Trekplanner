@@ -14,7 +14,7 @@
         android:gravity="top|left"
         android:inputType="textMultiLine"
         android:overScrollMode="always"
-        android:lines="60"
+        android:lines="40"
         android:scrollHorizontally="true"
         android:scrollbarStyle="insideInset"
         android:scrollbars="vertical"

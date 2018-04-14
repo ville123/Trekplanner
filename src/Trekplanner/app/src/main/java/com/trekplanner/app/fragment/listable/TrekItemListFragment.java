@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.trekplanner.app.R;
@@ -20,8 +19,6 @@ import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -215,5 +212,11 @@ public class TrekItemListFragment extends ListFragment implements ListFragment.L
     @Override
     public void saveButtonClicked(Object o) {
         db.saveTrekItem((TrekItem) o);
+    }
+
+    @Override
+    public void saveToItemsClicked(TrekItem trekItem) {
+        db.moveTrekPrivateItemToItems(trekItem);
+        AppUtils.showOkMessage(getView(), R.string.phase_trekitem_saved_to_items);
     }
 }

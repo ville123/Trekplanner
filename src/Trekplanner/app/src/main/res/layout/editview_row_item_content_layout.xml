@@ -48,12 +48,27 @@
 
     </RadioGroup>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/term_notes"
-        style="@style/label_row_style"/>
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/label_row_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="@string/term_notes" />
+
+        <Button
+            android:id="@+id/editview_row_item_private_btn"
+            style="@style/field_row_style"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/term_add_to_items" />
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/editview_row_item_notes_fld"

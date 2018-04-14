@@ -118,4 +118,9 @@ public class TrekListFragment extends ListFragment implements ListFragment.ListV
         db.saveTrek((Trek) o);
         AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
     }
+
+    @Override
+    public void saveToItemsClicked(TrekItem trekItem) {
+        // no such button in trek
+    }
 }

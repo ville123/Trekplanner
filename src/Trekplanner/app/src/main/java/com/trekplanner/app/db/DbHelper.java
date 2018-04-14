@@ -608,7 +608,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
             Item item = null;
             if (trekItem.getIsPrivate()) {
-                item = getTrekSpecificItem(trekItem.getItemId());
+                item = getTrekPrivateItem(trekItem.getItemId());
             } else {
                 item = getItem(trekItem.getItemId());
             }
@@ -622,7 +622,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return trekItems;
     }
 
-    private Item getTrekSpecificItem(String itemId) {
+    private Item getTrekPrivateItem(String itemId) {
 
         String selectQuery = "SELECT * FROM " + ITEM_TABLE2_NAME + " WHERE " + COLUMN_ITEM_ID + "='" + itemId + "'";
         SQLiteDatabase db = this.getReadableDatabase();
@@ -746,5 +746,22 @@ public class DbHelper extends SQLiteOpenHelper {
         }
 
         return items;
+    }
+
+    public void moveTrekPrivateItemToItems(TrekItem trekItem) {
+        // get item from trek-private table
+        Item privItem = getTrekPrivateItem(trekItem.getItemId());
+        privItem.setId(null); // to create new item
+        String newItemId = saveItem(privItem);
+        trekItem.setPrivate(false);
+        trekItem.setItemId(newItemId);
+        saveTrekItem(trekItem);
+        deleteTrekPrivateItem(trekItem.getId());
+    }
+
+    private void deleteTrekPrivateItem(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ITEM_TABLE2_NAME, COLUMN_ITEM_ID + "='" + id + "'",
+                null);
     }
 }

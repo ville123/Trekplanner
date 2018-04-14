@@ -137,5 +137,7 @@
     <string name="fs_harddrive">Puhelin</string>
     <string name="fs_onedrive">OneDrive</string>
     <string name="fs_gdrive">GDrive</string>
+    <string name="term_add_to_items">Lisää varustelistalle</string>
+    <string name="phase_trekitem_saved_to_items">Varuste lisättiin varustelistalle</string>
 
 </resources>
