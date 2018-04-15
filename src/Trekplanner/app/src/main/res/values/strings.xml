@@ -86,6 +86,7 @@
     <string name="phase_select_trekitems">Valitse varusteita retkelle</string>
     <string name="phrase_you_want_to_leave">Haluatko poistua?</string>
     <string name="phrase_create_new_item">Luo uusi varuste</string>
+    <string name="phrase_add_default_items">Lisätäänkö retkelle oletusvarusteet?</string>
 
     <string name="enum_itemstatus1">item_status_1</string>
     <string name="enum_itemstatus2">item_status_2</string>

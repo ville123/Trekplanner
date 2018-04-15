@@ -159,7 +159,7 @@ public class TrekEditFragment extends EditFragment {
 
             // dialog-ikkuna jossa kysytään ladataanko oletusvarusteet
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Lisätäänkö retkelle oletusvarusteet?");
+            builder.setTitle(R.string.phrase_add_default_items);
 
             builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
