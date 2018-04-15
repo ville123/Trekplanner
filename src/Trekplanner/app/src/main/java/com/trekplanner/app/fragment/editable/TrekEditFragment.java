@@ -32,6 +32,7 @@ import com.trekplanner.app.db.DbHelper;
 import com.trekplanner.app.handler.PictureActionHandler;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
+import com.trekplanner.app.model.TrekItem;
 import com.trekplanner.app.utils.AppUtils;
 
 import org.w3c.dom.Text;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -51,8 +53,9 @@ import java.util.Map;
 public class TrekEditFragment extends EditFragment {
 
     private Trek trek;
-    private Item item;      // lisäsin tämän
-    private DbHelper db;    // ja tämän
+    private Item item;
+    private TrekItem trekItem;
+    private DbHelper db;
     private static Map<String,String> levelOptionMap;
 
     public static TrekEditFragment getNewInstance(DbHelper db, Trek trek) {
@@ -107,7 +110,6 @@ public class TrekEditFragment extends EditFragment {
             db.saveTrek(this.trek);
             AppUtils.showOkMessage(view, R.string.phrase_save_success);
         }
-
     }
 
     @Override
@@ -153,39 +155,40 @@ public class TrekEditFragment extends EditFragment {
 
         if (this.trek == null) {
             this.trek = new Trek();
-            Log.d("TAG: ", "Trek on null, uusi trek-olio luotu.");
+            Log.d("TAG", "Trek on null, uusi trek-olio luotu.");
+
             // dialog-ikkuna jossa kysytään ladataanko oletusvarusteet
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Lisätäänkö retkelle oletusvarusteet?");
+
             builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
                     // User clicked OK button
-                    Log.d("TAG: ", "PAINETTIIN OK-NAPPIA");
+                    Log.d("TAG", "PAINETTIIN OK-NAPPIA");
                     // Kopioidaan TrekItem-kantaan ne Item-taulun rivit, joissa default = 1
 
-                    //Testi: luetaan ja tulostetaan logcatiin Trek-taulusta kaikki Itemit joiden default on true
                     List<Item> items = new ArrayList<>();
-                    items = db.getItemListByKeyword("DEFAULT");
+                    items = db.getItems(trek.getId(), 1);
 
-                    //db.getItemListByKeyword("DEFAULT");
+                    for (Iterator<Item> i = items.iterator();i.hasNext();) {
+                        item = i.next();
+                        if (item.isDefault() == true) {
+                            trek.addItem(item);
 
-                    for (int i = 0; i<items.size(); i++)
-                        Log.d("ITEMLIST: ", item.getName(i));
-//                    Log.d("ITEMLIST: ", items.toString());
-//                    while (!(item.getId().isEmpty())) {
-//                        if (item.isDefault()) {
-//                            Log.d("DEFAULT ITEM: ", item.getName().toString());
-//                        }
-//                    }
-
+                            trekItem = new TrekItem();
+                            trekItem.setItem(item);
+                            db.saveTrekItem(trekItem);
+                        }
+                    }
                 }
             });
+
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
                     // User cancelled the dialog
-                    Log.d("TAG: ", "PAINETTIIN CANCEL-NAPPIA");
+                    Log.d("TAG", "PAINETTIIN CANCEL-NAPPIA");
                 }
             });
 
