@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.BaseExpandableListAdapter;
 
 import com.trekplanner.app.fragment.listable.ListFragment;
+import com.trekplanner.app.model.Item;
 
 /**
  * Created by Sami
@@ -12,12 +13,12 @@ import com.trekplanner.app.fragment.listable.ListFragment;
  * Base class for all list adapters.
  * Adds the expandable list header action listener.
  */
-public abstract class ListAdapter extends BaseExpandableListAdapter {
+public abstract class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     protected ListFragment.ListViewActionListener viewActionListener;
     protected Context context;
 
-    public ListAdapter(Context context, ListFragment.ListViewActionListener listener) {
+    public ExpandableListAdapter(Context context, ListFragment.ListViewActionListener listener) {
         Log.d("TREK_ListviewAdapter", "Adding action as action listener");
         this.context = context;
         // adding listener for all adapter level actions
@@ -49,5 +50,4 @@ public abstract class ListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    public abstract void updateDataSetWithQuery(String query);
 }

@@ -1,10 +1,7 @@
 package com.trekplanner.app.fragment.editable;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,24 +12,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
-import com.trekplanner.app.handler.PictureActionHandler;
 import com.trekplanner.app.model.Item;
 import com.trekplanner.app.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,15 +41,152 @@ public class ItemEditFragment extends EditFragment {
     private Item item;
     private static Map<String, String> typeOptionMap;
 
+    // field for trek-private items
+    private String trekId;
 
-    public static ItemEditFragment getNewInstance(DbHelper db, Item item) {
+    public static ItemEditFragment getNewInstance(DbHelper db, Item item, String trekId, String itemType) {
         Log.d("TREK_ItemEditFragment", "New TrekEditFragment -instance created");
 
         // cant use singelton -pattern for item edit page since context (item) is changing
         ItemEditFragment instance = new ItemEditFragment();
         instance.db = db;
         instance.item = item;
+        instance.trekId = trekId;
+        if (instance.item == null) {
+            instance.item = new Item();
+            instance.item.setType(itemType);
+        }
         return instance;
+    }
+
+    @Override
+    protected void buildView(View view) {
+        Log.d("TREK_ItemEditFragment", "Building TrekEdit view");
+
+        // setting page header content
+        ImageView headerImageView
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_icon);
+        headerImageView.setImageResource(R.drawable.item);
+
+        // hide actions from header
+        TextView action1View
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_action1);
+        action1View.setText("");
+
+        TextView action2View
+                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_action2);
+        action2View.setText("");
+
+        //Actionbar content
+        ((AppCompatActivity) this.getActivity()).getSupportActionBar()
+                .setTitle(getResources().getString(R.string.term_item));
+
+        /** camera button and picture **/
+        ImageView fab = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppUtils.showSelectionDialog(
+                        getActivity(),
+                        null,
+                        R.array.image_action_choices,
+                        pictureActionHandler);
+            }
+        });
+        /** camera button and picture end **/
+
+        //populate type and status key-values, if not done already
+        if (typeOptionMap == null) {
+            typeOptionMap = new HashMap<>();
+            List<String> typeOptionList = Arrays.asList(getResources().getStringArray(R.array.array_type_options));
+            List<String> typeEnumList = Arrays.asList(getResources().getStringArray(R.array.array_type_enums));
+            for (int i = 0; i < typeEnumList.size(); i++) {
+                typeOptionMap.put(
+                        typeEnumList.get(i), typeOptionList.get(i)
+                );
+            }
+        }
+
+        /** spinners **/
+        Spinner typeSpinner = view.findViewById(R.id.spinner_type);
+        ArrayAdapter<String> dataAdapter =
+                new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, new ArrayList<>(typeOptionMap.values()));
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(dataAdapter);
+        typeSpinner.setSelection(AppUtils.getSelectionIndex(typeOptionMap.keySet(), item.getType()));
+        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (item != null)
+                    item.setType((String) typeOptionMap.keySet().toArray()[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        /** spinners end **/
+
+        /** date time pickers **/
+        ImageView btnDatePicker = view.findViewById(R.id.editview_select_date_button);
+        ImageView btnTimePicker = view.findViewById(R.id.editview_select_time_button);
+        final EditText mDeadline = view.findViewById(R.id.edit_text_deadline);
+
+        if (btnDatePicker != null) {
+            btnDatePicker.setOnClickListener(AppUtils.getDatePickerListener(this.getActivity(), mDeadline));
+            btnTimePicker.setOnClickListener(AppUtils.getTimePickerListener(this.getActivity(), mDeadline));
+        }
+        /** date time pickers end **/
+
+        /** checkbox **/
+        CheckBox isDefCheckBox = view.findViewById(R.id.is_default_checkbox);
+
+        if (isDefCheckBox != null) {
+            isDefCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView,
+                                             boolean isChecked) {
+                    item.setDefault(isChecked);
+                }
+            });
+        }
+        /** checkbox end **/
+
+        /** editor for notes **/
+        final TextView notesFld = view.findViewById(R.id.text_edit_notes_edit);
+        AppUtils.buildEditorForNotes(this.getActivity(), notesFld);
+        /** editor for notes end **/
+
+        if (this.item.getId() != null && !this.item.getId().isEmpty()) {
+
+            // update item
+            EditText mName = view.findViewById(R.id.edit_text_name);
+            TextView mNotes = view.findViewById(R.id.text_edit_notes_edit);
+
+            EditText mWeight = view.findViewById(R.id.edit_text_weight);
+            if (mWeight!= null && item.getWeight() != null)
+                mWeight.setText(String.valueOf(item.getWeight()));
+
+            EditText mEnergy = view.findViewById(R.id.edit_text_energy);
+            EditText mProtein = view.findViewById(R.id.edit_text_protein);
+            if (mEnergy!= null && item.getEnergy() != null)
+                mEnergy.setText(String.valueOf(item.getEnergy()));
+            if (mProtein != null && item.getProtein() != null)
+                mProtein.setText(String.valueOf(item.getProtein()));
+
+            mName.setText(item.getName());
+            mNotes.setText(item.getNotes());
+
+            if (mDeadline!=null) mDeadline.setText(item.getDeadline());
+            isDefCheckBox.setChecked(item.isDefault());
+
+            if (item.getPic() != null && !item.getPic().isEmpty()) {
+                ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
+                hdrImage.setImageBitmap(AppUtils.decodeToBitmap(item.getPic()));
+            }
+        }
+
     }
 
     @Override
@@ -71,7 +200,7 @@ public class ItemEditFragment extends EditFragment {
 
         EditText mWeight = parentView.findViewById(R.id.edit_text_weight);
         EditText mName = parentView.findViewById(R.id.edit_text_name);
-        EditText mNotes = parentView.findViewById(R.id.text_edit_notes_edit);
+        TextView mNotes = parentView.findViewById(R.id.text_edit_notes_edit);
         EditText mEnergy = parentView.findViewById(R.id.edit_text_energy);
         EditText mProtein = parentView.findViewById(R.id.edit_text_protein);
         EditText mDeadline = parentView.findViewById(R.id.edit_text_deadline);
@@ -100,191 +229,17 @@ public class ItemEditFragment extends EditFragment {
         if(TextUtils.isEmpty(mName.getText())) {
             mName.setError(getResources().getString(R.string.phrase_name_required));
         } else {
-            Log.d("TREK_is_default", "item is default in save: " + item.isDefault());
-            db.saveItem(this.item);
+
+            if (this.trekId != null && !this.trekId.isEmpty()) {
+                // save trek specific item to second item table
+                db.saveTrekSpecificItem(this.item, this.trekId);
+            } else {
+                // save normal item to items
+                db.saveItem(this.item);
+            }
 
             AppUtils.showOkMessage(view, R.string.phrase_save_success);
         }
-    }
-
-    @Override
-    protected void buildView(View view) {
-        Log.d("TREK_ItemEditFragment", "Building TrekEdit view");
-
-        // setting page header content
-        ImageView headerImageView
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_icon);
-        headerImageView.setImageResource(R.drawable.item);
-
-        // hide actions from header
-        TextView action1View
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_action1);
-        action1View.setText("");
-
-        TextView action2View
-                = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_action2);
-        action2View.setText("");
-
-        //Actionbar content
-        ((AppCompatActivity) this.getActivity()).getSupportActionBar()
-                .setTitle(getResources().getString(R.string.term_item));
-
-        /** camera button and picture **/
-        ImageButton fab = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppUtils.showSelectionDialog(
-                        getActivity(),
-                        null,
-                        R.array.image_action_choices,
-                        new PictureActionHandler(getActivity()));
-            }
-        });
-
-        /** camera button and picture end **/
-
-        //populate type and status key-values, if not done already
-        if (typeOptionMap == null) {
-            typeOptionMap = new HashMap<>();
-            List<String> typeOptionList = Arrays.asList(getResources().getStringArray(R.array.array_type_options));
-            List<String> typeEnumList = Arrays.asList(getResources().getStringArray(R.array.array_type_enums));
-            for (int i = 0; i < typeEnumList.size(); i++) {
-                typeOptionMap.put(
-                        typeEnumList.get(i), typeOptionList.get(i)
-                );
-            }
-        }
-
-        // handle Item insert/update
-        // first get all UI views
-
-        /** spinners **/
-        Spinner typeSpinner = view.findViewById(R.id.spinner_type);
-        ArrayAdapter<String> dataAdapter =
-                new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, new ArrayList<>(typeOptionMap.values()));
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeSpinner.setAdapter(dataAdapter);
-        typeSpinner.setSelection(AppUtils.getSelectionIndex(typeOptionMap.keySet(), item.getType()));
-        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (item != null)
-                    item.setType((String) typeOptionMap.keySet().toArray()[position]);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-        /** spinners end **/
-
-        /** date time pickers **/
-
-        ImageView btnDatePicker = view.findViewById(R.id.editview_select_date_button);
-        ImageView btnTimePicker = view.findViewById(R.id.editview_select_time_button);
-        final EditText mDeadline = view.findViewById(R.id.edit_text_deadline);
-
-        if (btnDatePicker != null) {
-            btnDatePicker.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    // Get Current Date
-                    final Calendar c = Calendar.getInstance();
-                    int mYear = c.get(Calendar.YEAR);
-                    int mMonth = c.get(Calendar.MONTH);
-                    int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                            new DatePickerDialog.OnDateSetListener() {
-
-                                @Override
-                                public void onDateSet(DatePicker view, int year,
-                                                      int monthOfYear, int dayOfMonth) {
-
-                                    mDeadline.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-
-                                }
-                            }, mYear, mMonth, mDay);
-
-                    datePickerDialog.show();
-                }
-            });
-            btnTimePicker.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Get Current Time
-                    final Calendar c = Calendar.getInstance();
-                    int mHour = c.get(Calendar.HOUR_OF_DAY);
-                    int mMinute = c.get(Calendar.MINUTE);
-
-                    // Launch Time Picker Dialog
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
-                            new TimePickerDialog.OnTimeSetListener() {
-
-                                @Override
-                                public void onTimeSet(TimePicker view, int hourOfDay,
-                                                      int minute) {
-
-                                    mDeadline.setText(mDeadline.getText().toString() + " " + hourOfDay + ":" + minute);
-                                }
-                            }, mHour, mMinute, true);
-                    timePickerDialog.show();
-                }
-            });
-        }
-
-        /** date time pickers end **/
-
-        /** checkbox **/
-
-        CheckBox isDefCheckBox = view.findViewById(R.id.is_default_checkbox);
-
-        if (isDefCheckBox!=null) {
-            isDefCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView,
-                                             boolean isChecked) {
-                    item.setDefault(isChecked);
-                }
-            });
-        }
-
-        /** checkbox end **/
-
-        if (this.item.getId() != null && !this.item.getId().isEmpty()) {
-
-            // update item
-            EditText mName = view.findViewById(R.id.edit_text_name);
-            EditText mNotes = view.findViewById(R.id.text_edit_notes_edit);
-
-            EditText mWeight = view.findViewById(R.id.edit_text_weight);
-            if (mWeight!= null && item.getWeight() != null)
-                mWeight.setText(String.valueOf(item.getWeight()));
-
-            EditText mEnergy = view.findViewById(R.id.edit_text_energy);
-            EditText mProtein = view.findViewById(R.id.edit_text_protein);
-            if (mEnergy!= null && item.getEnergy() != null)
-                mEnergy.setText(String.valueOf(item.getEnergy()));
-            if (mProtein != null && item.getProtein() != null)
-                mProtein.setText(String.valueOf(item.getProtein()));
-
-            mName.setText(item.getName());
-            mNotes.setText(item.getNotes());
-
-            if (mDeadline!=null) mDeadline.setText(item.getDeadline());
-            isDefCheckBox.setChecked(item.isDefault());
-
-            if (item.getPic() != null && !item.getPic().isEmpty()) {
-                ImageView hdrImage = getActivity().findViewById(android.R.id.content).findViewById(R.id.view_header_picture);
-                hdrImage.setImageBitmap(AppUtils.decodeToBitmap(item.getPic()));
-            }
-        }
-
     }
 
     // handle image capture from camera

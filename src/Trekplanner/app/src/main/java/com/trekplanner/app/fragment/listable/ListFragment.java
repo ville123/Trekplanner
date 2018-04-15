@@ -7,12 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
-import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.TrekItem;
 
 /**
@@ -32,6 +29,7 @@ public abstract class ListFragment extends Fragment implements View.OnClickListe
         void onModifyCountButtonClicked(TrekItem trekItem);
         void onDeleteButtonClicked(Object o);
         void saveButtonClicked(Object o);
+        void saveToItemsClicked(TrekItem trekItem);
     }
 
     @Override

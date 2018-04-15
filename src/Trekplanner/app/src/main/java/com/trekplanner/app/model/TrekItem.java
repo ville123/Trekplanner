@@ -1,10 +1,12 @@
 package com.trekplanner.app.model;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by Shakur on 24.3.2018.
  */
 
-public class TrekItem  {
+public class TrekItem {
 
     private String id;
     private String itemId;
@@ -14,7 +16,9 @@ public class TrekItem  {
     private String notes;
     private Double totalWeight;
     private String status;
-    private boolean wasUsed;
+    private Boolean wasUsed;
+    private Boolean isPrivate;
+    private Boolean isCommon;
 
     public void setId(String id) {
         this.id = id;
@@ -76,7 +80,7 @@ public class TrekItem  {
         return status;
     }
 
-    public boolean getWasUsed(){
+    public Boolean getWasUsed(){
         return wasUsed;
     }
 
@@ -87,4 +91,21 @@ public class TrekItem  {
     public void setItem(Item item) {
         this.item = item;
     }
+
+    public Boolean getIsPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(Boolean aPrivate) {
+        this.isPrivate = aPrivate;
+    }
+
+    public Boolean getIsCommon() {
+        return isCommon;
+    }
+
+    public void setCommon(Boolean common) {
+        isCommon = common;
+    }
+
 }

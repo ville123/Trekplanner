@@ -44,6 +44,21 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
     }
 
     @Override
+    protected void prepareListViewData() {
+        Log.d("TREK_ItemListFrag", "Preparing ItemListView data with item rowid " + this.rowId);
+
+        this.adapter = new ItemAdapter(this.getActivity(), this);
+
+        // itemlist contains items from db
+        if (this.sortOrder == AppUtils.SORT_ORDER_BY_NAME) {
+            adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_NAME));
+        } else {
+            adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_TYPE));
+        }
+        listView.setAdapter(adapter);
+    }
+
+    @Override
     protected int getLayout() {
         return R.layout.listview_list_layout;
     }
@@ -62,7 +77,7 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
         hdrImage.setImageBitmap(null);
 
         // hide camerabutton
-        ImageButton camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
+        ImageView camBtn = this.getActivity().findViewById(android.R.id.content).findViewById(R.id.header_camera_button);
         camBtn.setVisibility(View.INVISIBLE);
 
         //Actionbar content
@@ -108,21 +123,6 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
                 action1View.setTypeface(null, Typeface.NORMAL);
             }
         });
-    }
-
-    @Override
-    protected void prepareListViewData() {
-        Log.d("TREK_ItemListFrag", "Preparing ItemListView data with item rowid " + this.rowId);
-
-        this.adapter = new ItemAdapter(this.getActivity(), this);
-
-        // itemlist contains items from db
-        if (this.sortOrder == AppUtils.SORT_ORDER_BY_NAME) {
-            adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_NAME));
-        } else {
-            adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_TYPE));
-        }
-        listView.setAdapter(adapter);
     }
 
     // floating button clicked, this case its to add new Item
@@ -192,6 +192,12 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
     public void saveButtonClicked(Object o) {
         db.saveItem((Item) o);
         AppUtils.showOkMessage(getView(), R.string.phrase_save_success);
+    }
+
+    @Override
+    public void saveToItemsClicked(TrekItem trekItem) {
+        // no such button in item
+        // TODO: move from interface to somewhere else
     }
 
     //Refreshes item list during search

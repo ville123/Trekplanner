@@ -44,6 +44,7 @@
     <string name="term_wintertrip">Talviretki</string>
     <string name="term_start_date">Alkupäivä</string>
     <string name="term_end_date">Loppupäivä</string>
+    <string name="term_save">OK</string>
 
     <!--settings -->
     <string name="term_settings">Asetukset</string>
@@ -70,17 +71,21 @@
     <string name="phrase_welcome">Tervetuloa!</string>
     <string name="phrase_delete_success">Poisto onnistui</string>
     <string name="phrase_confirm_delete">Oletko varma että haluat poistaa kohteen</string>
-    <string name="phrase_notification">Varovaisuutta!</string>
+    <string name="phrase_notification">Huomio!</string>
     <string name="phrase_sort_by_itemtype">(a..z) Tyyppi</string>
     <string name="phrase_sort_by_name">(a..z) Nimi</string>
     <string name="phrase_select">Valitse</string>
     <string name="phrase_doublevalue_hint">0.000</string>
-    <string name="phrase_datetimevalue_hint">esim. 2018-06-04 13:08</string>
+    <string name="phrase_datetimevalue_hint">pp.kk.vvvv hh:mm</string>
+    <string name="phrase_coordinatevalue_hint">61°10,83\'N, 24°33,48\'E</string>
     <string name="phrase_select_date">Valitse päivä</string>
     <string name="phrase_select_time">Valitse aika</string>
     <string name="phrase_select_filesystem">Valitse kohde</string>
     <string name="phrase_name_required">Nimi pakollinen</string>
     <string name="phrase_import_trektemplate">Tuo retkipohja...</string>
+    <string name="phase_select_trekitems">Valitse varusteita retkelle</string>
+    <string name="phrase_you_want_to_leave">Haluatko poistua?</string>
+    <string name="phrase_create_new_item">Luo uusi varuste</string>
 
     <string name="enum_itemstatus1">item_status_1</string>
     <string name="enum_itemstatus2">item_status_2</string>
@@ -132,5 +137,7 @@
     <string name="fs_harddrive">Puhelin</string>
     <string name="fs_onedrive">OneDrive</string>
     <string name="fs_gdrive">GDrive</string>
+    <string name="term_add_to_items">Lisää varustelistalle</string>
+    <string name="phase_trekitem_saved_to_items">Varuste lisättiin varustelistalle</string>
 
 </resources>
