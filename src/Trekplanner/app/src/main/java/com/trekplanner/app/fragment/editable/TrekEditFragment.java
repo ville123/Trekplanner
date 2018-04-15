@@ -28,6 +28,7 @@ import android.widget.TimePicker;
 
 import com.trekplanner.app.R;
 import com.trekplanner.app.db.DbHelper;
+import com.trekplanner.app.model.Item;
 import com.trekplanner.app.model.Trek;
 import com.trekplanner.app.utils.AppUtils;
 
@@ -46,6 +47,8 @@ import java.util.Map;
 public class TrekEditFragment extends EditFragment {
 
     private Trek trek;
+    private Item item;      // lisäsin tämän
+    private DbHelper db;    // ja tämän
     private static Map<String,String> levelOptionMap;
 
     public static TrekEditFragment getNewInstance(DbHelper db, Trek trek) {
@@ -221,6 +224,22 @@ public class TrekEditFragment extends EditFragment {
                     // User clicked OK button
                     Log.d("TAG: ", "PAINETTIIN OK-NAPPIA");
                     // Kopioidaan TrekItem-kantaan ne Item-taulun rivit, joissa default = 1
+
+                    //Testi: luetaan ja tulostetaan logcatiin Trek-taulusta kaikki Itemit joiden default on true
+                    List<Item> items = new ArrayList<>();
+                    items = db.getItemListByKeyword("DEFAULT");
+
+                    //db.getItemListByKeyword("DEFAULT");
+
+                    for (int i = 0; i<items.size(); i++)
+                        Log.d("ITEMLIST: ", item.getName(i));
+//                    Log.d("ITEMLIST: ", items.toString());
+//                    while (!(item.getId().isEmpty())) {
+//                        if (item.isDefault()) {
+//                            Log.d("DEFAULT ITEM: ", item.getName().toString());
+//                        }
+//                    }
+
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
