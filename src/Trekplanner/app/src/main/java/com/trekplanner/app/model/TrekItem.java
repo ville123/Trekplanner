@@ -14,7 +14,6 @@ public class TrekItem {
     private String trekId;
     private int count;
     private String notes;
-    private Double totalWeight;
     private String status;
     private Boolean wasUsed;
     private Boolean isPrivate;
@@ -38,10 +37,6 @@ public class TrekItem {
 
     public void setNotes(String notes){
         this.notes = notes;
-    }
-
-    public void setTotalWeight(double totalWeight){
-        this.totalWeight = totalWeight;
     }
 
     public void setStatus(String status){
@@ -70,10 +65,6 @@ public class TrekItem {
 
     public String getNotes(){
         return notes;
-    }
-
-    public Double getTotalWeight(){
-        return totalWeight;
     }
 
     public String getStatus(){

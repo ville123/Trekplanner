@@ -215,6 +215,9 @@ public class TrekEditFragment extends EditFragment {
             endCoordsField.setText(trek.getEndCoords());
             startField.setText(trek.getStart());
             endField.setText(trek.getEnd());
+
+            TextView weightTextView = view.findViewById(R.id.trek_total_weight);
+            weightTextView.setText(String.valueOf(trek.getTotalWeight()));
         }
 
         // get the treks pic for header background

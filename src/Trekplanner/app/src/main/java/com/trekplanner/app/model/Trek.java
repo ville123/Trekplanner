@@ -20,6 +20,7 @@ public class Trek {
     private String level;
     private String lessonsLearned;
     private String pic;
+    private Double totalWeight;
     private List<Item> items;
 
     public String getId() {
@@ -117,5 +118,13 @@ public class Trek {
 
     public void setPic(String pic) {
         this.pic = pic;
+    }
+
+    public void setTotalWeight(double totalWeight){
+        this.totalWeight = totalWeight;
+    }
+
+    public Double getTotalWeight(){
+        return totalWeight;
     }
 }

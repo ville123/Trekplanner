@@ -103,6 +103,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_TREK_PIC = "pic";
 
+    public static final String COLUMN_TREK_TOTALWEIGHT = "totalweight";
+
     /**
      * TREKITEM TABLE
      */
@@ -117,8 +119,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_TREKITEM_COUNT= "count";
 
     public static final String COLUMN_TREKITEM_NOTES = "notes";
-
-    public static final String COLUMN_TREKITEM_TOTALWEIGHT = "totalweight";
 
     public static final String COLUMN_TREKITEM_STATUS = "status";
 
@@ -176,7 +176,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 + COLUMN_TREK_LENGTH + " REAL, "
                 + COLUMN_TREK_LEVEL + " TEXT NOT NULL, "
                 + COLUMN_TREK_PIC + " BLOB, "
-                + COLUMN_TREK_LESSONS + " TEXT );";
+                + COLUMN_TREK_LESSONS + " TEXT, "
+                + COLUMN_TREK_TOTALWEIGHT + " REAL );";
 
         String SQL_CREATE_TREKITEM_TABLE = "CREATE TABLE  IF NOT EXISTS " + TREKITEM_TABLE_NAME + " ("
                 + COLUMN_TREKITEM_ID + " TEXT PRIMARY KEY, "
@@ -184,7 +185,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 + COLUMN_TREKITEM_TREK_ID + " TEXT NOT NULL, "
                 + COLUMN_TREKITEM_COUNT + " INTEGER NOT NULL, "
                 + COLUMN_TREKITEM_NOTES + " BLOB, "
-                + COLUMN_TREKITEM_TOTALWEIGHT + " REAL, "
                 + COLUMN_TREKITEM_STATUS + " TEXT NOT NULL, "
                 + COLUMN_TREKITEM_PRIVATE + " INTEGER NOT NULL, "
                 + COLUMN_TREKITEM_COMMON + " INTEGER NOT NULL, "
@@ -299,6 +299,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public String saveTrek(Trek trek) {
 
         SQLiteDatabase db = getWritableDatabase();
+        trek.setTotalWeight(getItemsTotalWeight());
         boolean update = false;
         if (trek.getId() == null || trek.getId().isEmpty()) {
             trek.setId(AppUtils.generateUUID());
@@ -318,6 +319,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TREK_LEVEL, trek.getLevel());
         values.put(COLUMN_TREK_LESSONS, trek.getLessonsLearned());
         values.put(COLUMN_TREK_PIC, trek.getPic());
+        values.put(COLUMN_TREK_TOTALWEIGHT, trek.getTotalWeight());
 
         if(update){
             db.update(TREK_TABLE_NAME, values, COLUMN_TREK_ID + " = '" + trek.getId() + "'", null);
@@ -451,7 +453,6 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TREKITEM_TREK_ID, titem.getTrekId());
         values.put(COLUMN_TREKITEM_COUNT, titem.getCount());
         values.put(COLUMN_TREKITEM_NOTES, titem.getNotes());
-        values.put(COLUMN_TREKITEM_TOTALWEIGHT, titem.getTotalWeight());
         values.put(COLUMN_TREKITEM_STATUS, titem.getStatus());
         values.put(COLUMN_TREKITEM_WASUSED, (titem.getWasUsed()?1:0));
         values.put(COLUMN_TREKITEM_PRIVATE, (titem.getIsPrivate()?1:0));
@@ -570,6 +571,7 @@ public class DbHelper extends SQLiteOpenHelper {
             trek.setLevel(cursor.getString(cursor.getColumnIndex(COLUMN_TREK_LEVEL)));
             trek.setLessonsLearned(cursor.getString(cursor.getColumnIndex(COLUMN_TREK_LESSONS)));
             trek.setPic(cursor.getString(cursor.getColumnIndex(COLUMN_TREK_PIC)));
+            trek.setTotalWeight(cursor.getDouble(cursor.getColumnIndex(COLUMN_TREK_TOTALWEIGHT)));
 
             treks.add(trek);
             cursor.moveToNext();
@@ -595,7 +597,6 @@ public class DbHelper extends SQLiteOpenHelper {
             trekItem.setCount(cursor.getInt(cursor.getColumnIndex(COLUMN_TREKITEM_COUNT)));
             trekItem.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_TREKITEM_NOTES)));
             trekItem.setStatus(cursor.getString(cursor.getColumnIndex(COLUMN_TREKITEM_STATUS)));
-            trekItem.setTotalWeight(cursor.getDouble(cursor.getColumnIndex(COLUMN_TREKITEM_TOTALWEIGHT)));
 
             int used = cursor.getInt(cursor.getColumnIndex(COLUMN_TREKITEM_WASUSED));
             trekItem.setWasUsed(used == 1?true:false);

@@ -64,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/spinnerTrekLevel"
                         android:spinnerMode="dropdown"
-                        sstyle="@style/field_row_style">
+                        style="@style/field_row_style">
                     </Spinner>
                 </LinearLayout>
             </LinearLayout>
@@ -182,6 +182,37 @@
                     style="@style/icon_style_small"
                     android:src="@drawable/map"
                     android:text="@string/phrase_select_time" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/term_total_weight"
+                        style="@style/label_row_style"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50">
+                    <TextView
+                        android:id="@+id/trek_total_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/label_row_style"/>
+                </LinearLayout>
             </LinearLayout>
 
             <TextView

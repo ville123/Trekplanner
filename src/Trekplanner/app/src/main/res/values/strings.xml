@@ -45,6 +45,7 @@
     <string name="term_start_date">Alkupäivä</string>
     <string name="term_end_date">Loppupäivä</string>
     <string name="term_save">OK</string>
+    <string name="term_total_weight">Kokonaispaino</string>
 
     <!--settings -->
     <string name="term_settings">Asetukset</string>
