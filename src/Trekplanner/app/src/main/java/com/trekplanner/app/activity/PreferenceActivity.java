@@ -72,10 +72,12 @@ public class PreferenceActivity extends android.preference.PreferenceActivity im
     private void updateSummaries(Preference pref) {
         if (pref instanceof EditTextPreference) {
             EditTextPreference etp = (EditTextPreference) pref;
-            pref.setSummary(pref.getSummary().toString().replaceAll(":.*", ": " + etp.getText()));
+            if (etp!=null)
+                pref.setSummary(pref.getSummary().toString().replaceAll(":.*", ": " + etp.getText()));
         } else if (pref instanceof ListPreference) {
             ListPreference lstPref = (ListPreference) pref;
-            pref.setSummary(pref.getSummary().toString().replaceAll(":.*", ": " + lstPref.getEntry().toString()));
+            if (lstPref != null && lstPref.getEntry() != null)
+                pref.setSummary(pref.getSummary().toString().replaceAll(":.*", ": " + lstPref.getEntry().toString()));
         }
     }
 
