@@ -140,7 +140,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == AppUtils.REQUEST_IMAGE_CAPTURE) {
+        /**Without this 'grantResults.length > 0' the app crashes on my phone I don't know why?
+         * CODE CAN BE REMOVED HUST PUT FOR TESTING PURPOSE
+         */
+        if (grantResults.length > 0 && requestCode == AppUtils.REQUEST_IMAGE_CAPTURE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // grant ok
             }
@@ -192,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_loaddefaults) {
             db.resetDefaults();
+            ((ItemListFragment)this.itemListFragment).refreshAllItemList();
             return true;
         } else if (id == R.id.action_export) {
             // TODO: export items and treks to a json/csv/xml file

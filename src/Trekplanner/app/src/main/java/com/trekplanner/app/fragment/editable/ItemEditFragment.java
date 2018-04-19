@@ -236,6 +236,7 @@ public class ItemEditFragment extends EditFragment {
             } else {
                 // save normal item to items
                 db.saveItem(this.item);
+                getActivity().getSupportFragmentManager().popBackStack();
             }
 
             AppUtils.showOkMessage(view, R.string.phrase_save_success);

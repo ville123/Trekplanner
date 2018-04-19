@@ -755,12 +755,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
         double weight = 0;
 
-        String selectQuery =  "SELECT SUM(" +
-                COLUMN_ITEM_WEIGHT + ")" +
+        String selectQuery = "SELECT " +
+                " SUM(" + "weight * " + COLUMN_TREKITEM_COUNT + ")" +
                 " AS " + "Totalweight" +
                 " FROM " + ITEM_TABLE_NAME +
-                " WHERE " + COLUMN_ITEM_WEIGHT +
-                " > " + 0.0 +  ";";
+                " INNER JOIN " + TREKITEM_TABLE_NAME +
+                " ON " + ITEM_TABLE_NAME + "." + COLUMN_ITEM_ID + " = " +
+                TREKITEM_TABLE_NAME + "." + COLUMN_TREKITEM_ITEM_ID;
 
 
         Cursor cursor = db.rawQuery(selectQuery, null);

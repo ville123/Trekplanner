@@ -205,4 +205,10 @@ public class ItemListFragment extends ListFragment implements ListFragment.ListV
         adapter.setListRows(db.getItemListByKeyword(query));
         adapter.notifyDataSetChanged();
     }
+
+    //Refreshes item list When loading defaults
+    public void refreshAllItemList(){
+        adapter.setListRows(db.getItems(null, AppUtils.SORT_ORDER_BY_TYPE));
+        adapter.notifyDataSetChanged();
+    }
 }

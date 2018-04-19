@@ -109,6 +109,7 @@ public class TrekEditFragment extends EditFragment {
         } else {
             db.saveTrek(this.trek);
             AppUtils.showOkMessage(view, R.string.phrase_save_success);
+            getActivity().getSupportFragmentManager().popBackStack();
         }
     }
 
